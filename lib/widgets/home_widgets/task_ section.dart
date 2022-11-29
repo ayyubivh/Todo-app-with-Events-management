@@ -32,7 +32,7 @@ class Task_section extends StatelessWidget {
                   width: 20,
                 ),
                 texts(
-                    mystring: 'Your tasks',
+                    mystring: 'Today tasks',
                     myfontsize: 22,
                     mycolor: Colors.white,
                     fontweight: FontWeight.w500),

@@ -36,13 +36,26 @@ class Screen_dashboard extends StatelessWidget {
                   SizedBox(
                     height: 50.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: texts(
-                        mystring: 'Dashboard',
-                        myfontsize: 25,
-                        mycolor: Colors.white,
-                        fontweight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: texts(
+                            mystring: 'Dashboard',
+                            myfontsize: 25,
+                            mycolor: Colors.white,
+                            fontweight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Icon(
+                          Icons.filter_alt_outlined,
+                          size: 25.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                   Expanded(child: Home_tasksection()),
                 ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:todo_app/screens/screen_add.dart';
-import 'package:todo_app/screens/screen_add_event.dart';
+
 import 'package:todo_app/screens/screen_calender.dart';
 import 'package:todo_app/screens/screen_dashboard.dart';
+import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
+
+import '../add_task/add_taskform.dart';
 
 class Home_bottomsection extends StatelessWidget {
   //*****************floatbutn*****************8 */
@@ -12,7 +14,7 @@ class Home_bottomsection extends StatelessWidget {
       curve: Curves.bounceInOut,
       visible: true,
       spaceBetweenChildren: 3,
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 27, 30, 71),
       icon: Icons.add,
       activeIcon: Icons.close,
       overlayOpacity: 0,
@@ -22,20 +24,18 @@ class Home_bottomsection extends StatelessWidget {
             //  labelBackgroundColor: Colors.black,
             label: 'task',
             child: Icon(Icons.edit),
-            backgroundColor: Colors.black,
+            backgroundColor: Color.fromARGB(232, 78, 75, 222),
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (ctx1) => const screen_addtask()));
+              _showaddtaskForm(context, null, null);
             }),
         SpeedDialChild(
             foregroundColor: Colors.white,
             // labelBackgroundColor: Colors.black,
             label: 'event',
             child: Icon(Icons.event),
-            backgroundColor: Colors.black,
+            backgroundColor: Color.fromARGB(232, 78, 75, 222),
             onTap: (() {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx1) => const screen_addevent()));
+              _showeventForm(context, null, null);
             }))
       ],
     );
@@ -57,8 +57,8 @@ class Home_bottomsection extends StatelessWidget {
               ),
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(232, 13, 57, 119),
-                  Color.fromARGB(222, 4, 12, 67),
+                  Color.fromRGBO(100, 98, 222, 20),
+                  Color.fromARGB(232, 78, 75, 222),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -99,4 +99,44 @@ class Home_bottomsection extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showaddtaskForm(BuildContext context, var itemkey, var index) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    isDismissible: false,
+    isScrollControlled: true,
+    context: context,
+    builder: (_) => Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0),
+          topRight: Radius.circular(25.0),
+        ),
+      ),
+      height: MediaQuery.of(context).size.height * 0.70,
+      child: add_taskform(),
+    ),
+  );
+}
+
+void _showeventForm(BuildContext context, var itemkey, var index) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    isDismissible: false,
+    isScrollControlled: true,
+    context: context,
+    builder: (_) => Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0),
+          topRight: Radius.circular(25.0),
+        ),
+      ),
+      height: MediaQuery.of(context).size.height * 0.74,
+      child: add_eventform(),
+    ),
+  );
 }

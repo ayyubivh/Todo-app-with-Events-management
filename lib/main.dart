@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:todo_app/models/data_model.dart';
+
 import 'package:todo_app/screens/screen_splash.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(TodoModelAdapter().typeId)) {
+    Hive.registerAdapter(TodoModelAdapter());
+  }
   runApp(const MyApp());
 }
 

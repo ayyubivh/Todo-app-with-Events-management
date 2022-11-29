@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/screen_eventedit.dart';
 
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
+import 'package:todo_app/widgets/events_edit/events_edit.dart';
 
 class Eventdtls extends StatelessWidget {
-  const Eventdtls({super.key});
-
+  Eventdtls({
+    super.key,
+    required this.passvalue,
+  });
+  var passvalue;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,15 +17,15 @@ class Eventdtls extends StatelessWidget {
           height: 40.0,
         ),
         texts(
-            mystring: 'Your Events',
-            myfontsize: 35,
+            mystring: 'Your Event',
+            myfontsize: 30.0,
             mycolor: Colors.white,
             fontweight: FontWeight.bold),
         SizedBox(
           height: 20.0,
         ),
         texts(
-            mystring: '19-02-2002',
+            mystring: '${passvalue.date}',
             myfontsize: 28.0,
             mycolor: Colors.white,
             fontweight: FontWeight.w400),
@@ -31,7 +34,11 @@ class Eventdtls extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14), color: Colors.grey),
+              image: DecorationImage(
+                  image: AssetImage('Asset/images/event.jpg'),
+                  fit: BoxFit.fill),
+              borderRadius: BorderRadius.circular(14.0),
+              color: Colors.grey),
           width: 278,
           height: 346,
         ),
@@ -43,7 +50,7 @@ class Eventdtls extends StatelessWidget {
               height: 30,
             ),
             texts(
-                mystring: 'Sundown',
+                mystring: '${passvalue.title}',
                 myfontsize: 38,
                 mycolor: Colors.white,
                 fontweight: FontWeight.w600),
@@ -51,7 +58,7 @@ class Eventdtls extends StatelessWidget {
               height: 16,
             ),
             texts(
-                mystring: 'Goa @Baga Beach',
+                mystring: '${passvalue.description}',
                 myfontsize: 28.0,
                 mycolor: Colors.white,
                 fontweight: FontWeight.w500),
@@ -68,8 +75,10 @@ class Eventdtls extends StatelessWidget {
               child: FloatingActionButton(
                 backgroundColor: Colors.black,
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx1) => const screen_eventedit()));
+                  _showedieventtaskForm(
+                    context,
+                    passvalue: passvalue,
+                  );
                 },
                 child: Icon(
                   Icons.edit_calendar_outlined,
@@ -83,4 +92,24 @@ class Eventdtls extends StatelessWidget {
       ],
     );
   }
+}
+
+void _showedieventtaskForm(BuildContext context, {required passvalue}) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    isDismissible: false,
+    isScrollControlled: true,
+    context: context,
+    builder: (_) => Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0),
+          topRight: Radius.circular(25.0),
+        ),
+      ),
+      height: MediaQuery.of(context).size.height * 0.73,
+      child: events_edit(passvalue: passvalue),
+    ),
+  );
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:todo_app/screens/screen_edit.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
-class details_screen extends StatelessWidget {
-  const details_screen({super.key});
+import '../edit_task/edit_taskform.dart';
 
+class details_screen extends StatelessWidget {
+  details_screen({super.key, required this.passvalue});
+  var passvalue;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,9 +19,9 @@ class details_screen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: EdgeInsets.all(18.0),
               child: texts(
-                  mystring: '16/07/2022',
+                  mystring: '${passvalue.date}',
                   myfontsize: 24,
                   mycolor: Colors.white,
                   fontweight: FontWeight.bold),
@@ -39,15 +40,22 @@ class details_screen extends StatelessWidget {
           height: 83,
           width: 350.0,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22), color: Colors.black),
-          child: Padding(
-            padding: const EdgeInsets.all(23),
-            child: texts(
-                mystring: 'Running',
-                myfontsize: 25,
-                mycolor: Colors.white,
-                fontweight: FontWeight.w500),
+            borderRadius: BorderRadius.circular(22),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(232, 67, 123, 202),
+                Color.fromRGBO(100, 98, 222, 20),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
+          child: Padding(
+              padding: const EdgeInsets.all(23),
+              child: Text(
+                '${passvalue.title}',
+                style: TextStyle(color: Colors.white, fontSize: 24.0),
+              )),
         ),
         SizedBox(
           height: 60,
@@ -56,31 +64,42 @@ class details_screen extends StatelessWidget {
           height: 453,
           width: 350,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22), color: Colors.black),
+            borderRadius: BorderRadius.circular(22),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(232, 67, 123, 202),
+                Color.fromRGBO(100, 98, 222, 20),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(23),
-                child: texts(
-                    mystring: 'you want to complete your task',
-                    myfontsize: 25,
-                    mycolor: Colors.white,
-                    fontweight: FontWeight.w500),
-              ),
+              Padding(
+                  padding: EdgeInsets.all(23),
+                  child: Text(
+                    '${passvalue.description}',
+                    style: TextStyle(color: Colors.white, fontSize: 22.0),
+                  )),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.edit_note_rounded,
-                    size: 52,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx1) => const screen_edit()));
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.edit_note_rounded,
+                        size: 52,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _showeditaddtaskForm(context, passvalue: passvalue);
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -89,4 +108,23 @@ class details_screen extends StatelessWidget {
       ],
     );
   }
+}
+
+void _showeditaddtaskForm(BuildContext context, {required passvalue}) {
+  showModalBottomSheet(
+    backgroundColor: Colors.white,
+    isDismissible: false,
+    isScrollControlled: true,
+    context: context,
+    builder: (_) => Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0),
+          topRight: Radius.circular(25.0),
+        ),
+      ),
+      height: MediaQuery.of(context).size.height * 0.70,
+      child: edit_taskform(passvalue: passvalue),
+    ),
+  );
 }

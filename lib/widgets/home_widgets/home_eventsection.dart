@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/screens/screen_details.dart';
+import 'package:todo_app/screens/screen_event_dtls.dart';
 
 import '../../models/data_model.dart';
 
-class Home_tasksection extends StatefulWidget {
-  const Home_tasksection({super.key});
+class Home_eventsection extends StatefulWidget {
+  const Home_eventsection({super.key});
 
   @override
-  State<Home_tasksection> createState() => _Home_tasksectionState();
+  State<Home_eventsection> createState() => _Home_eventsection();
 }
 
-class _Home_tasksectionState extends State<Home_tasksection> {
+class _Home_eventsection extends State<Home_eventsection> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: todolistnotifier,
-      builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
+      valueListenable: todolisteventnotifier,
+      builder: (BuildContext ctx, List<TodoEvent> todoevent, Widget? child) {
         return ListView.builder(
           // shrinkWrap: true,
           // physics: NeverScrollableScrollPhysics(),
-          itemCount: todolist.length,
+          itemCount: todoevent.length,
           itemBuilder: (context, index) {
-            final data = todolist[index];
+            final dataevent = todoevent[index];
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
@@ -66,11 +66,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                       motion: StretchMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: ((context) {
-                            if (data.id != null) {
-                              deleteAllTodotask(data.id!);
-                            }
-                          }),
+                          onPressed: ((context) {}),
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
@@ -83,14 +79,15 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                       child: ListTile(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  Screen_details(passvalue: data)));
+                              builder: (context) => Screen_eventsdtls(
+                                    passvalue: dataevent,
+                                  )));
                         },
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              data.title,
+                              dataevent.title,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22.0,
@@ -112,7 +109,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
                                   child: Text(
-                                    data.date.toString(),
+                                    dataevent.date.toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 16.0),
                                   ),

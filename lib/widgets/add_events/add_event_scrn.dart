@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/screen_details.dart';
+import 'package:todo_app/functions/db_functions.dart';
+import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/screens/screen_event_dtls.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
-import 'package:todo_app/widgets/event_details/event_dtls.dart';
 
 class add_eventform extends StatefulWidget {
   add_eventform({super.key});
@@ -35,10 +35,10 @@ class _add_eventformState extends State<add_eventform> {
     String hintname,
   ) {
     return SizedBox(
-      height: 60,
+      height: 60.0,
       width: 342,
       child: TextFormField(
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: TextStyle(color: Colors.black, fontSize: 20),
         textAlignVertical: TextAlignVertical.bottom,
         controller: mycontroller,
         decoration: InputDecoration(
@@ -49,7 +49,10 @@ class _add_eventformState extends State<add_eventform> {
           contentPadding: EdgeInsets.all(18),
           fillColor: Color.fromARGB(255, 105, 158, 184),
           hintText: hintname,
-          hintStyle: const TextStyle(color: Colors.white, fontSize: 16.0),
+          hintStyle: const TextStyle(
+              color: Color.fromARGB(255, 241, 243, 244),
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold),
         ),
         textAlign: TextAlign.center,
       ),
@@ -165,93 +168,90 @@ class _add_eventformState extends State<add_eventform> {
     return Column(
       children: [
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         texts(
             mystring: 'Add Event',
             myfontsize: 36,
-            mycolor: Colors.white,
+            mycolor: Colors.blue,
             fontweight: FontWeight.w500),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(22)),
-          height: 560,
-          width: 360,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20.0,
+        Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(11)),
+              height: 85,
+              width: 335,
+              child: Icon(
+                Icons.camera_enhance,
+                size: 30.0,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(11)),
-                height: 85,
-                width: 335,
-                child: Icon(
-                  Icons.camera_enhance,
-                  size: 30.0,
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: textform(_titleController, 'Title'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(11),
+              child: textform(_disciptionController, 'Discription'),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [dates(), times()],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Color.fromARGB(233, 35, 160, 195),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: textform(_titleController, 'Title'),
+              child: flatbtn(
+                  onpressaction: () {
+                    _onAddtodoeventClicked();
+                    Navigator.pop(context);
+                  },
+                  mycolor: Colors.white,
+                  mystring: 'Add todo'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Color.fromARGB(233, 35, 160, 195), width: 2),
+                borderRadius: BorderRadius.circular(11),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(11),
-                child: textform(_disciptionController, 'Discription'),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [dates(), times()],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Color.fromARGB(233, 35, 160, 195),
-                ),
-                child: flatbtn(
-                    onpressaction: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (ctx1) => const Screen_eventsdtls())),
-                    mycolor: Colors.white,
-                    mystring: 'Add todo'),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Color.fromARGB(233, 35, 160, 195), width: 2),
-                  borderRadius: BorderRadius.circular(11),
-                ),
-                child: flatbtn(
-                    onpressaction: () {
-                      Navigator.pop(context);
-                    },
-                    mycolor: Color.fromARGB(233, 35, 160, 195),
-                    mystring: 'Cancel'),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+              child: flatbtn(
+                  onpressaction: () {
+                    Navigator.pop(context);
+                  },
+                  mycolor: Color.fromARGB(233, 35, 160, 195),
+                  mystring: 'Cancel'),
+            ),
+          ],
         ),
       ],
     );
+  }
+
+  Future<void> _onAddtodoeventClicked() async {
+    final _title = _titleController.text.trim();
+    final _discription = _disciptionController.text.trim();
+    final _date = date;
+    if (_title.isEmpty || _discription.isEmpty) {
+      return;
+    }
+    final _todoevent =
+        TodoEvent(title: _title, description: _discription, date: _date);
+    addevent(_todoevent);
   }
 }

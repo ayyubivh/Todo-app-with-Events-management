@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/screen_details.dart';
+import 'package:todo_app/screens/screen_home.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 class edit_taskform extends StatefulWidget {
-  edit_taskform({super.key});
+  edit_taskform({super.key, required this.passvalue});
+  var passvalue;
 
   @override
   State<edit_taskform> createState() => _edit_taskformState();
@@ -36,7 +37,7 @@ class _edit_taskformState extends State<edit_taskform> {
       height: 60,
       width: 342,
       child: TextFormField(
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: TextStyle(color: Colors.black, fontSize: 20),
         textAlignVertical: TextAlignVertical.bottom,
         controller: mycontroller,
         decoration: InputDecoration(
@@ -47,7 +48,10 @@ class _edit_taskformState extends State<edit_taskform> {
           contentPadding: EdgeInsets.all(18),
           fillColor: Color.fromARGB(255, 105, 158, 184),
           hintText: hintname,
-          hintStyle: const TextStyle(color: Colors.white, fontSize: 16.0),
+          hintStyle: const TextStyle(
+              color: Color.fromARGB(255, 241, 243, 244),
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold),
         ),
         textAlign: TextAlign.center,
       ),
@@ -163,77 +167,68 @@ class _edit_taskformState extends State<edit_taskform> {
     return Column(
       children: [
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         texts(
-            mystring: 'Add Task',
+            mystring: 'Edit Task',
             myfontsize: 36,
-            mycolor: Colors.white,
+            mycolor: Colors.blue,
             fontweight: FontWeight.w500),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(22)),
-          height: 560,
-          width: 360,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: textform(_titleController, widget.passvalue.title),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(11),
+              child:
+                  textform(_disciptionController, widget.passvalue.description),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [dates(), times()],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Color.fromARGB(233, 35, 160, 195),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: textform(_titleController, 'Title'),
+              child: flatbtn(
+                  onpressaction: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (ctx1) => Screen_home())),
+                  mycolor: Colors.white,
+                  mystring: 'Add todo'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Color.fromARGB(233, 35, 160, 195), width: 2),
+                borderRadius: BorderRadius.circular(11),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(11),
-                child: textform(_disciptionController, 'Discription'),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [dates(), times()],
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Color.fromARGB(233, 35, 160, 195),
-                ),
-                child: flatbtn(
-                    onpressaction: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (ctx1) => const Screen_details())),
-                    mycolor: Colors.white,
-                    mystring: 'Add todo'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Color.fromARGB(233, 35, 160, 195), width: 2),
-                  borderRadius: BorderRadius.circular(11),
-                ),
-                child: flatbtn(
-                    onpressaction: () {
-                      Navigator.pop(context);
-                    },
-                    mycolor: Color.fromARGB(233, 35, 160, 195),
-                    mystring: 'Cancel'),
-              ),
-            ],
-          ),
+              child: flatbtn(
+                  onpressaction: () {
+                    Navigator.pop(context);
+                  },
+                  mycolor: Color.fromARGB(233, 35, 160, 195),
+                  mystring: 'Cancel'),
+            ),
+          ],
         ),
       ],
     );
