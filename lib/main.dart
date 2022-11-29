@@ -10,6 +10,10 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(TodoModelAdapter().typeId)) {
     Hive.registerAdapter(TodoModelAdapter());
   }
+
+  if (!Hive.isAdapterRegistered(TodoEventAdapter().typeId)) {
+    Hive.registerAdapter(TodoEventAdapter());
+  }
   runApp(const MyApp());
 }
 
@@ -24,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Screen_splash(),
     );

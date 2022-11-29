@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
@@ -35,8 +37,7 @@ class Eventdtls extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('Asset/images/event.jpg'),
-                  fit: BoxFit.fill),
+                  image: FileImage(File(passvalue.image)), fit: BoxFit.fill),
               borderRadius: BorderRadius.circular(14.0),
               color: Colors.grey),
           width: 278,

@@ -135,7 +135,7 @@ void _showeventForm(BuildContext context, var itemkey, var index) {
           topRight: Radius.circular(25.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.74,
+      height: MediaQuery.of(context).size.height * 0.90,
       child: add_eventform(),
     ),
   );

@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
-import 'package:todo_app/screens/screen_event_dtls.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 class add_eventform extends StatefulWidget {
@@ -16,8 +18,13 @@ class _add_eventformState extends State<add_eventform> {
 
   final _disciptionController = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker();
+
+  String? imagepath;
+
   DateTime date = DateTime(2022, 12, 24);
   TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
+
   void _showDatePicker() async {
     DateTime? newDate = await showDatePicker(
       context: context,
@@ -162,34 +169,51 @@ class _add_eventformState extends State<add_eventform> {
     );
   }
 
+//position
+  Widget position() {
+    return Positioned(
+      bottom: 20.0,
+      right: 20.0,
+      child: InkWell(
+        onTap: () {
+          takePhoto();
+        },
+        child: const Icon(
+          Icons.camera_alt,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+//circle Avatar
+  Widget circleavtar() {
+    return CircleAvatar(
+      backgroundImage: imagepath == null ? null : FileImage(File(imagepath!)),
+      radius: 80.0,
+    );
+  }
+
 //********************************************************* */
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
-        texts(
+        const texts(
             mystring: 'Add Event',
             myfontsize: 36,
             mycolor: Colors.blue,
             fontweight: FontWeight.w500),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(11)),
-              height: 85,
-              width: 335,
-              child: Icon(
-                Icons.camera_enhance,
-                size: 30.0,
-              ),
-            ),
+            circleavtar(),
+            position(),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: textform(_titleController, 'Title'),
@@ -250,8 +274,22 @@ class _add_eventformState extends State<add_eventform> {
     if (_title.isEmpty || _discription.isEmpty) {
       return;
     }
-    final _todoevent =
-        TodoEvent(title: _title, description: _discription, date: _date);
+    final _todoevent = TodoEvent(
+        title: _title,
+        description: _discription,
+        date: _date,
+        image: imagepath!);
     addevent(_todoevent);
+  }
+
+  Future<void> takePhoto() async {
+    // try {
+    final PickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (PickedFile != null) {
+      setState(() {
+        imagepath = PickedFile.path;
+      });
+    }
   }
 }

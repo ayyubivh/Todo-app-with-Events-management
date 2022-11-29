@@ -19,7 +19,7 @@ class _Screen_searchState extends State<Screen_search> {
             color: Color.fromARGB(255, 29, 28, 68),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10),
             child: textform(),
           ),
         ),
@@ -32,12 +32,8 @@ class _Screen_searchState extends State<Screen_search> {
       style: TextStyle(color: Colors.white, fontSize: 20.0),
       autofocus: true,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            // borderSide: BorderSide(width: 3, color: Colors.greenAccent),
-            borderRadius: BorderRadius.circular(8.0)),
         focusColor: Colors.white,
-        hintText: 'search',
+        hintText: 'search', hintStyle: TextStyle(color: Colors.white),
         filled: true,
         fillColor: Color.fromARGB(255, 67, 123, 202),
         contentPadding: const EdgeInsets.all(22.0),

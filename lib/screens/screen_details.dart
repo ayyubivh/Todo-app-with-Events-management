@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/widgets/add_details/details_screen.dart';
 
 class Screen_details extends StatelessWidget {
-  Screen_details({super.key, required this.passvalue});
+  Screen_details({
+    super.key,
+    required this.passvalue,
+  });
   var passvalue;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

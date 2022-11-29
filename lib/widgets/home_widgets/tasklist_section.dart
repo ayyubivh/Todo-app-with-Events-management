@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_details.dart';
 
@@ -20,8 +22,6 @@ class _Home_tasksectionState extends State<Home_tasksection> {
       valueListenable: todolistnotifier,
       builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
         return ListView.builder(
-          // shrinkWrap: true,
-          // physics: NeverScrollableScrollPhysics(),
           itemCount: todolist.length,
           itemBuilder: (context, index) {
             final data = todolist[index];
@@ -29,17 +29,17 @@ class _Home_tasksectionState extends State<Home_tasksection> {
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 color: Colors.transparent,
-                shadowColor: Colors.black,
-                elevation: 5,
+                shadowColor: Color.fromARGB(255, 1, 8, 11),
+                elevation: 8,
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(8),
+                      Radius.circular(5),
                     ),
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromRGBO(100, 98, 222, 20),
-                        Color.fromARGB(232, 78, 75, 222),
+                        Color.fromARGB(146, 51, 48, 114),
+                        Color.fromARGB(133, 83, 79, 165),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -67,9 +67,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                       children: [
                         SlidableAction(
                           onPressed: ((context) {
-                            if (data.id != null) {
-                              deleteAllTodotask(data.id!);
-                            }
+                            deleteAllTodotask(index);
                           }),
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
@@ -83,8 +81,9 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                       child: ListTile(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  Screen_details(passvalue: data)));
+                              builder: (context) => Screen_details(
+                                    passvalue: data,
+                                  )));
                         },
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,13 +95,13 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w400),
                             ),
-                            Icon(
-                              Icons.notifications_active,
-                              color: Color.fromARGB(227, 219, 21, 7),
-                              size: 26,
-                            ),
                           ],
                         ),
+                        trailing: Icon(Icons.lightbulb_circle_outlined,
+                            size: 30,
+                            color: data.priority ?? false
+                                ? Colors.red
+                                : Colors.yellow),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [

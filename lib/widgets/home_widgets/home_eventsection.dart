@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -29,24 +31,21 @@ class _Home_eventsection extends State<Home_eventsection> {
               padding: const EdgeInsets.all(8.0),
               child: Card(
                 color: Colors.transparent,
-                shadowColor: Colors.black,
+                shadowColor: Color.fromARGB(255, 1, 8, 11),
                 elevation: 5,
                 child: Container(
                   decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8),
-                    ),
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromRGBO(100, 98, 222, 20),
-                        Color.fromARGB(232, 78, 75, 222),
+                        Color.fromARGB(146, 51, 48, 114),
+                        Color.fromARGB(133, 83, 79, 165),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
                   ),
                   width: 324,
-                  height: 80,
+                  height: 90,
                   child: Slidable(
                     // closeOnScroll: false,
                     startActionPane: ActionPane(
@@ -66,7 +65,9 @@ class _Home_eventsection extends State<Home_eventsection> {
                       motion: StretchMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: ((context) {}),
+                          onPressed: ((context) {
+                            deleteAllTodoevent(index);
+                          }),
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
@@ -74,50 +75,53 @@ class _Home_eventsection extends State<Home_eventsection> {
                         ),
                       ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Screen_eventsdtls(
-                                    passvalue: dataevent,
-                                  )));
-                        },
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              dataevent.title,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Icon(
-                              Icons.notifications_active,
-                              color: Color.fromARGB(227, 219, 21, 7),
-                              size: 26,
-                            ),
-                          ],
-                        ),
-                        subtitle: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(),
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                    dataevent.date.toString(),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Screen_eventsdtls(
+                                  passvalue: dataevent,
+                                )));
+                      },
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                //  mainAxisAlignment: MainAxisAlignment.,
+                                children: [
+                                  Text(
+                                    dataevent.title,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 16.0),
+                                        color: Colors.white,
+                                        fontSize: 22.0,
+                                        fontWeight: FontWeight.w400),
                                   ),
+                                  SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      dataevent.date.toString(),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 110,
+                                height: 85.0,
+                                child: Image.file(
+                                  File(dataevent.image),
+                                  fit: BoxFit.fitWidth,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),

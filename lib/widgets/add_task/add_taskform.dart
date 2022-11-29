@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class add_taskform extends StatefulWidget {
   add_taskform({super.key});
@@ -14,8 +15,9 @@ class _add_taskformState extends State<add_taskform> {
   final _titleController = TextEditingController();
 
   final _disciptionController = TextEditingController();
+  var _togglecontroller;
+  DateTime date = DateTime.now();
 
-  DateTime date = DateTime(2022, 12, 24);
   TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
   void _showDatePicker() async {
     DateTime? newDate = await showDatePicker(
@@ -85,7 +87,7 @@ class _add_taskformState extends State<add_taskform> {
                   _showDatePicker();
                 },
                 child: Text(
-                  '${date.year}/${date.month}/${date.day}',
+                  '${date.toLocal()}'.split(' ')[0],
                   semanticsLabel: date.toString(),
                   style: const TextStyle(fontSize: 20, color: Colors.white),
                 )),
@@ -161,20 +163,36 @@ class _add_taskformState extends State<add_taskform> {
     );
   }
 
+//toggleswitch
+  Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
+    return Center(
+      child: Switch(
+        value: isSwitched,
+        onChanged: (newvalue) {
+          onChangeMethod(newvalue);
+        },
+        inactiveThumbColor: Colors.amber,
+        activeTrackColor: Colors.red,
+        activeColor: Colors.red,
+      ),
+    );
+  }
+
 //********************************************************* */
   @override
   Widget build(BuildContext context) {
+    //   final String _formatdate = DateFormat.yMMMd().format(date);
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
-        texts(
+        const texts(
             mystring: 'Add Task',
             myfontsize: 36,
             mycolor: Colors.blue,
             fontweight: FontWeight.w500),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Column(
@@ -183,27 +201,27 @@ class _add_taskformState extends State<add_taskform> {
               padding: const EdgeInsets.all(12.0),
               child: textform(_titleController, 'Title'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
               padding: const EdgeInsets.all(11),
               child: textform(_disciptionController, 'Discription'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Color.fromARGB(233, 35, 160, 195),
+                color: const Color.fromARGB(233, 35, 160, 195),
               ),
               child: flatbtn(
                   onpressaction: () {
@@ -213,7 +231,11 @@ class _add_taskformState extends State<add_taskform> {
                   mycolor: Colors.white,
                   mystring: 'Add todo'),
             ),
-            SizedBox(
+            const SizedBox(
+              height: 20,
+            ),
+            prioritybutton(myPriority, onchangeFunction),
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -226,7 +248,7 @@ class _add_taskformState extends State<add_taskform> {
                   onpressaction: () {
                     Navigator.pop(context);
                   },
-                  mycolor: Color.fromARGB(233, 35, 160, 195),
+                  mycolor: const Color.fromARGB(233, 35, 160, 195),
                   mystring: 'Cancel'),
             ),
           ],
@@ -239,11 +261,22 @@ class _add_taskformState extends State<add_taskform> {
     final _title = _titleController.text.trim();
     final _discription = _disciptionController.text.trim();
     final _date = date;
+
     if (_title.isEmpty || _discription.isEmpty) {
       return;
     }
-    final _todo =
-        TodoModel(title: _title, description: _discription, date: _date);
+    final _todo = TodoModel(
+        title: _title,
+        description: _discription,
+        date: _date,
+        priority: myPriority);
     addtask(_todo);
+  }
+
+  bool myPriority = false;
+  onchangeFunction(bool newvalue) {
+    setState(() {
+      myPriority = newvalue;
+    });
   }
 }
