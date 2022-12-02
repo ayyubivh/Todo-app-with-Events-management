@@ -5,9 +5,11 @@ class Screen_details extends StatelessWidget {
   Screen_details({
     super.key,
     required this.passvalue,
+    required this.index,
+    //   required int passindex,
   });
   var passvalue;
-
+  var index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class Screen_details extends StatelessWidget {
                 end: Alignment.topLeft,
               ),
             ),
-            child: details_screen(passvalue: passvalue),
+            child: details_screen(passvalue: passvalue, index: index),
           ),
         ],
       )),

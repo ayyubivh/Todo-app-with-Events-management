@@ -13,7 +13,7 @@ class Task_section extends StatelessWidget {
             texts(
                 mystring: "Hello Sam",
                 myfontsize: 28.0,
-                mycolor: Colors.white,
+                mycolor: Color.fromARGB(255, 48, 6, 93),
                 fontweight: FontWeight.bold),
             SizedBox(
               height: 5,
@@ -21,7 +21,7 @@ class Task_section extends StatelessWidget {
             texts(
                 mystring: 'How is your life balance this week',
                 myfontsize: 18,
-                mycolor: Colors.white54,
+                mycolor: Color.fromARGB(207, 76, 6, 90),
                 fontweight: FontWeight.w700),
             SizedBox(
               height: 90,
@@ -32,9 +32,9 @@ class Task_section extends StatelessWidget {
                   width: 20,
                 ),
                 texts(
-                    mystring: 'Today tasks',
+                    mystring: "Today's tasks",
                     myfontsize: 22,
-                    mycolor: Colors.white,
+                    mycolor: Color.fromARGB(255, 65, 7, 112),
                     fontweight: FontWeight.w500),
               ],
             )

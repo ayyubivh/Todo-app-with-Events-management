@@ -13,17 +13,17 @@ class TodoModel {
   final String description;
 
   @HiveField(3)
-  final DateTime date;
+  DateTime date;
 
   @HiveField(4)
   final bool? priority;
 
   TodoModel({
-    this.priority,
+    this.id,
     required this.title,
+    this.priority,
     required this.description,
     required this.date,
-    this.id,
   });
 }
 
@@ -40,11 +40,20 @@ class TodoEvent {
 
   @HiveField(3)
   final DateTime date;
+
   @HiveField(4)
   final String image;
 
+  @HiveField(5)
+  final bool? priority;
+
+  @HiveField(6)
+  final String location;
+
   TodoEvent(
       {required this.title,
+      this.priority,
+      required this.location,
       required this.description,
       required this.date,
       this.id,

@@ -5,8 +5,9 @@ import 'package:todo_app/widgets/common_widgets/common_text.dart';
 import '../edit_task/edit_taskform.dart';
 
 class details_screen extends StatelessWidget {
-  details_screen({super.key, required this.passvalue});
+  details_screen({super.key, required this.passvalue, required this.index});
   var passvalue;
+  int index;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +97,8 @@ class details_screen extends StatelessWidget {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        _showeditaddtaskForm(context, passvalue: passvalue);
+                        _showeditaddtaskForm(context,
+                            passvalue: passvalue, index: index);
                       },
                     ),
                   ],
@@ -110,7 +112,8 @@ class details_screen extends StatelessWidget {
   }
 }
 
-void _showeditaddtaskForm(BuildContext context, {required passvalue}) {
+void _showeditaddtaskForm(BuildContext context,
+    {required passvalue, required index}) {
   showModalBottomSheet(
     backgroundColor: Colors.white,
     isDismissible: false,
@@ -124,7 +127,10 @@ void _showeditaddtaskForm(BuildContext context, {required passvalue}) {
         ),
       ),
       height: MediaQuery.of(context).size.height * 0.70,
-      child: edit_taskform(passvalue: passvalue),
+      child: edit_taskform(
+        passvalue: passvalue,
+        index: index,
+      ),
     ),
   );
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class add_taskform extends StatefulWidget {
   add_taskform({super.key});
@@ -13,12 +13,16 @@ class add_taskform extends StatefulWidget {
 
 class _add_taskformState extends State<add_taskform> {
   final _titleController = TextEditingController();
-
   final _disciptionController = TextEditingController();
   var _togglecontroller;
   DateTime date = DateTime.now();
 
+  // var dateTime = DateTime.parse("dateTimeString");
+  String formatdate(DateTime date) =>
+      DateFormat("yyyy-MMM-dd").format(DateTime.now());
+
   TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
+
   void _showDatePicker() async {
     DateTime? newDate = await showDatePicker(
       context: context,
@@ -38,24 +42,28 @@ class _add_taskformState extends State<add_taskform> {
     return SizedBox(
       height: 60,
       width: 342,
-      child: TextFormField(
-        style: TextStyle(color: Colors.black, fontSize: 20),
-        textAlignVertical: TextAlignVertical.bottom,
-        controller: mycontroller,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(11),
-              borderSide: BorderSide.none),
-          filled: true,
-          contentPadding: EdgeInsets.all(18),
-          fillColor: Color.fromARGB(255, 105, 158, 184),
-          hintText: hintname,
-          hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 241, 243, 244),
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold),
-        ),
-        textAlign: TextAlign.center,
+      child: Column(
+        children: [
+          TextFormField(
+            style: TextStyle(color: Colors.black, fontSize: 20),
+            textAlignVertical: TextAlignVertical.bottom,
+            controller: mycontroller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(11),
+                  borderSide: BorderSide.none),
+              filled: true,
+              contentPadding: EdgeInsets.all(18),
+              fillColor: Color.fromARGB(224, 105, 158, 184),
+              hintText: hintname,
+              hintStyle: const TextStyle(
+                  color: Color.fromARGB(255, 241, 243, 244),
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -87,8 +95,9 @@ class _add_taskformState extends State<add_taskform> {
                   _showDatePicker();
                 },
                 child: Text(
-                  '${date.toLocal()}'.split(' ')[0],
-                  semanticsLabel: date.toString(),
+                  DateFormat("yyyy MMMdd").format(date),
+                  // '${date.toLocal()}'.split(' ')[0],
+                  //   semanticsLabel: date.toString(),
                   style: const TextStyle(fontSize: 20, color: Colors.white),
                 )),
           ],
@@ -163,7 +172,7 @@ class _add_taskformState extends State<add_taskform> {
     );
   }
 
-//toggleswitch
+//**************************priority********************************************** */
   Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
     return Center(
       child: Switch(
@@ -195,63 +204,67 @@ class _add_taskformState extends State<add_taskform> {
         const SizedBox(
           height: 20,
         ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: textform(_titleController, 'Title'),
+        Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: textform(
+              _titleController,
+              'Title',
             ),
-            const SizedBox(
-              height: 5,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(11),
+            child: textform(
+              _disciptionController,
+              'Discription',
             ),
-            Padding(
-              padding: const EdgeInsets.all(11),
-              child: textform(_disciptionController, 'Discription'),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [dates(), times()],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color.fromARGB(233, 35, 160, 195),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [dates(), times()],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: const Color.fromARGB(233, 35, 160, 195),
-              ),
-              child: flatbtn(
-                  onpressaction: () {
-                    _onAddtodoButtonClicked();
-                    Navigator.pop(context);
-                  },
-                  mycolor: Colors.white,
-                  mystring: 'Add todo'),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            prioritybutton(myPriority, onchangeFunction),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromARGB(233, 35, 160, 195), width: 2),
-                borderRadius: BorderRadius.circular(11),
-              ),
-              child: flatbtn(
-                  onpressaction: () {
-                    Navigator.pop(context);
-                  },
-                  mycolor: const Color.fromARGB(233, 35, 160, 195),
-                  mystring: 'Cancel'),
-            ),
-          ],
+            child: flatbtn(
+                onpressaction: () {
+                  _onAddtodoButtonClicked();
+                  Navigator.pop(context);
+                },
+                mycolor: Colors.white,
+                mystring: 'Add todo'),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          prioritybutton(myPriority, onchangeFunction),
+        ]),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border:
+                Border.all(color: Color.fromARGB(233, 35, 160, 195), width: 2),
+            borderRadius: BorderRadius.circular(11),
+          ),
+          child: flatbtn(
+              onpressaction: () {
+                Navigator.pop(context);
+              },
+              mycolor: const Color.fromARGB(233, 35, 160, 195),
+              mystring: 'Cancel'),
         ),
       ],
     );
@@ -266,10 +279,12 @@ class _add_taskformState extends State<add_taskform> {
       return;
     }
     final _todo = TodoModel(
-        title: _title,
-        description: _discription,
-        date: _date,
-        priority: myPriority);
+      title: _title,
+      description: _discription,
+      date: _date,
+      priority: myPriority,
+      id: null,
+    );
     addtask(_todo);
   }
 

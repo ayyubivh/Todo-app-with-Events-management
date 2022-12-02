@@ -174,15 +174,16 @@ class _add_eventformState extends State<add_eventform> {
 //position
   Widget position() {
     return Positioned(
-      bottom: 20.0,
-      right: 20.0,
+      bottom: 20,
+      right: 20,
       child: InkWell(
         onTap: () {
           takePhoto();
         },
         child: const Icon(
-          Icons.camera_alt,
-          color: Colors.black,
+          Icons.photo_camera_back_outlined,
+          color: Colors.white,
+          size: 30,
         ),
       ),
     );
@@ -203,26 +204,17 @@ class _add_eventformState extends State<add_eventform> {
     );
   }
 
-//circle Avatar
-  // Widget image() {
-  //   return Container(
-  //     decoration: (BoxDecoration(
-  //         color: Colors.grey,
-  //         image: DecorationImage(
-  //           image: if(imag) FileImage(File(imagepath!)),
-  //         ))),
-  //   );
-  // }
-
   Widget circleavtar() {
-    return Container(
-      height: 60,
-      width: 120,
-      child: CircleAvatar(
-        backgroundColor: Colors.blueGrey,
-        backgroundImage: imagepath == null ? null : FileImage(File(imagepath!)),
-        radius: 80.0,
-      ),
+    return Stack(
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.blueGrey,
+          backgroundImage:
+              imagepath == null ? null : FileImage(File(imagepath!)),
+          radius: 80.0,
+        ),
+        position()
+      ],
     );
   }
 
@@ -245,7 +237,6 @@ class _add_eventformState extends State<add_eventform> {
         Column(
           children: [
             circleavtar(),
-            position(),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: textform(_titleController, 'Title'),

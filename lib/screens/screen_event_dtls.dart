@@ -18,11 +18,11 @@ class Screen_eventsdtls extends StatelessWidget {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(232, 67, 123, 202),
-                  Color.fromRGBO(100, 98, 222, 20),
+                  Color.fromARGB(146, 51, 48, 114),
+                  Color.fromARGB(133, 83, 79, 165),
                 ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
               ),
             ),
             height: MediaQuery.of(context).size.height,

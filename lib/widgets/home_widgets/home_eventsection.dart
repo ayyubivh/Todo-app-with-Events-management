@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_event_dtls.dart';
 
@@ -35,13 +36,16 @@ class _Home_eventsection extends State<Home_eventsection> {
                 elevation: 5,
                 child: Container(
                   decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromARGB(146, 51, 48, 114),
                         Color.fromARGB(133, 83, 79, 165),
                       ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
                     ),
                   ),
                   width: 324,
@@ -83,14 +87,11 @@ class _Home_eventsection extends State<Home_eventsection> {
                                 )));
                       },
                       title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                //  mainAxisAlignment: MainAxisAlignment.,
                                 children: [
                                   Text(
                                     dataevent.title,
@@ -104,8 +105,10 @@ class _Home_eventsection extends State<Home_eventsection> {
                                   ),
                                   Container(
                                     child: Text(
-                                      dataevent.date.toString(),
-                                      style: TextStyle(
+                                      DateFormat("MMM, dd yyy ")
+                                          .format(dataevent.date),
+                                      //  data.date.toString(),
+                                      style: const TextStyle(
                                           color: Colors.white, fontSize: 16.0),
                                     ),
                                   ),
@@ -122,6 +125,20 @@ class _Home_eventsection extends State<Home_eventsection> {
                             ],
                           ),
                         ],
+                      ),
+                      trailing: Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: dataevent.priority ?? false
+                            ? const Icon(
+                                Icons.hourglass_full_outlined,
+                                size: 30,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.hourglass_bottom,
+                                size: 30,
+                                color: Colors.yellow,
+                              ),
                       ),
                     ),
                   ),

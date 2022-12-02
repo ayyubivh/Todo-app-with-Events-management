@@ -7,8 +7,8 @@ import '../models/data_model.dart';
 ValueNotifier<List<TodoModel>> todolistnotifier = ValueNotifier([]);
 
 Future<void> addtask(TodoModel value) async {
-  final todoeventDB = await Hive.openBox<TodoModel>('todo_task_db');
-  final _id = await todoeventDB.add(value);
+  final todotaskDB = await Hive.openBox<TodoModel>('todo_task_db');
+  final _id = await todotaskDB.add(value);
   value.id = _id;
   todolistnotifier.value.add(value);
   todolistnotifier.notifyListeners();
@@ -32,8 +32,8 @@ Future<void> deleteAllTodotask(int id) async {
 ValueNotifier<List<TodoEvent>> todolisteventnotifier = ValueNotifier([]);
 
 Future<void> addevent(TodoEvent value) async {
-  final todotasktDB = await Hive.openBox<TodoEvent>('todo_Event_db');
-  final _id = await todotasktDB.add(value);
+  final todoeventDB = await Hive.openBox<TodoEvent>('todo_Event_db');
+  final _id = await todoeventDB.add(value);
   value.id = _id;
   todolisteventnotifier.value.add(value);
   todolisteventnotifier.notifyListeners();

@@ -21,7 +21,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       title: fields[1] as String,
       description: fields[2] as String,
       date: fields[3] as DateTime,
-      id: fields[0] as int?,
+      id: fields[0] as int,
     );
   }
 
@@ -64,6 +64,8 @@ class TodoEventAdapter extends TypeAdapter<TodoEvent> {
     };
     return TodoEvent(
       title: fields[1] as String,
+      priority: fields[5] as bool?,
+      location: fields[6] as String,
       description: fields[2] as String,
       date: fields[3] as DateTime,
       id: fields[0] as int?,
@@ -74,7 +76,7 @@ class TodoEventAdapter extends TypeAdapter<TodoEvent> {
   @override
   void write(BinaryWriter writer, TodoEvent obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -84,7 +86,11 @@ class TodoEventAdapter extends TypeAdapter<TodoEvent> {
       ..writeByte(3)
       ..write(obj.date)
       ..writeByte(4)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(5)
+      ..write(obj.priority)
+      ..writeByte(6)
+      ..write(obj.location);
   }
 
   @override

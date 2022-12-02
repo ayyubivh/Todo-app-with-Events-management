@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_details.dart';
@@ -41,8 +41,8 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                         Color.fromARGB(146, 51, 48, 114),
                         Color.fromARGB(133, 83, 79, 165),
                       ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
                     ),
                   ),
                   width: 324,
@@ -83,6 +83,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => Screen_details(
                                     passvalue: data,
+                                    index: index,
                                   )));
                         },
                         title: Row(
@@ -97,11 +98,17 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                             ),
                           ],
                         ),
-                        trailing: Icon(Icons.lightbulb_circle_outlined,
-                            size: 30,
-                            color: data.priority ?? false
-                                ? Colors.red
-                                : Colors.yellow),
+                        trailing: data.priority ?? false
+                            ? const Icon(
+                                Icons.hourglass_full_outlined,
+                                size: 30,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.hourglass_bottom,
+                                size: 30,
+                                color: Colors.yellow,
+                              ),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -111,8 +118,10 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
                                   child: Text(
-                                    data.date.toString(),
-                                    style: TextStyle(
+                                    DateFormat("MMM, dd yyy ")
+                                        .format(data.date),
+                                    //  data.date.toString(),
+                                    style: const TextStyle(
                                         color: Colors.white, fontSize: 16.0),
                                   ),
                                 ),

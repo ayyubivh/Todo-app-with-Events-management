@@ -10,55 +10,54 @@ class Screen_dashboard extends StatelessWidget {
     return Scaffold(
       body: ListView(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(232, 26, 71, 148),
-                  Color.fromARGB(232, 21, 79, 161),
-                  Color.fromARGB(222, 4, 12, 67),
-                  Color.fromARGB(218, 6, 61, 138),
-                  Color.fromARGB(218, 5, 65, 148)
-                ],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
+          Card(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(146, 51, 48, 114),
+                    Color.fromARGB(133, 83, 79, 165),
+                  ],
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: texts(
-                            mystring: 'Dashboard',
-                            myfontsize: 25,
-                            mycolor: Colors.white,
-                            fontweight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Icon(
-                          Icons.filter_alt_outlined,
-                          size: 25.0,
-                          color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 50.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(14.0),
+                          child: texts(
+                              mystring: 'Dashboard',
+                              myfontsize: 25,
+                              mycolor: Colors.white,
+                              fontweight: FontWeight.bold),
                         ),
-                      ),
-                    ],
-                  ),
-                  Expanded(child: Home_tasksection()),
-                ],
+                        Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Icon(
+                            Icons.filter_alt_outlined,
+                            size: 25.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(child: Home_tasksection()),
+                  ],
+                ),
               ),
             ),
           ),

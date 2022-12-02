@@ -57,8 +57,8 @@ class Home_bottomsection extends StatelessWidget {
               ),
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(100, 98, 222, 20),
-                  Color.fromARGB(232, 78, 75, 222),
+                  Color.fromARGB(255, 87, 53, 143),
+                  Color.fromARGB(255, 87, 53, 143),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -115,7 +115,7 @@ void _showaddtaskForm(BuildContext context, var itemkey, var index) {
           topRight: Radius.circular(25.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.70,
+      height: MediaQuery.of(context).size.height * 0.80,
       child: add_taskform(),
     ),
   );
@@ -129,13 +129,13 @@ void _showeventForm(BuildContext context, var itemkey, var index) {
     context: context,
     builder: (_) => Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25.0),
           topRight: Radius.circular(25.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.90,
+      height: MediaQuery.of(context).size.height * 0.95,
       child: add_eventform(),
     ),
   );

@@ -15,10 +15,13 @@ class Screen_home extends StatelessWidget {
       decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Color.fromARGB(254, 30, 29, 69),
-          Color.fromARGB(234, 30, 29, 69),
+          Color.fromARGB(146, 51, 48, 114),
+          Color.fromARGB(133, 79, 73, 195),
+          Color.fromARGB(146, 51, 48, 114),
+          Color.fromARGB(165, 83, 79, 165),
         ],
-        begin: Alignment.topRight,
+        stops: [0.1, 0.4, 0.7, 0.9],
+        begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       )),
       child: Column(
@@ -39,11 +42,11 @@ class Screen_home extends StatelessWidget {
       decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Color.fromARGB(254, 30, 29, 69),
-          Color.fromARGB(234, 30, 29, 69),
+          Color.fromARGB(146, 51, 48, 114),
+          Color.fromARGB(133, 83, 79, 165),
         ],
-        begin: Alignment.topRight,
-        end: Alignment.bottomCenter,
+        begin: Alignment.bottomRight,
+        end: Alignment.topLeft,
       )),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,9 +55,9 @@ class Screen_home extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 15),
             child: texts(
-                mystring: ' Today events',
+                mystring: " Today's events",
                 myfontsize: 23,
-                mycolor: Colors.white,
+                mycolor: Color.fromARGB(255, 65, 7, 112),
                 fontweight: FontWeight.bold),
           ),
           const Expanded(
@@ -98,12 +101,12 @@ class Screen_home extends StatelessWidget {
                 size: 30,
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx1) => const Screen_search()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => Screen_search()));
               },
             )
           ],
-          backgroundColor: Color.fromARGB(255, 39, 42, 88),
+          backgroundColor: Color.fromARGB(255, 87, 53, 143),
         ),
         body: TabBarView(
           children: [
