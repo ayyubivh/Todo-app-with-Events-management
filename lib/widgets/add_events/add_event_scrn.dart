@@ -16,6 +16,8 @@ class add_eventform extends StatefulWidget {
 class _add_eventformState extends State<add_eventform> {
   final _titleController = TextEditingController();
 
+  final _locationController = TextEditingController();
+
   final _disciptionController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
@@ -84,7 +86,7 @@ class _add_eventformState extends State<add_eventform> {
             Icon(
               Icons.calendar_month_outlined,
               size: 26.0,
-              color: Colors.white70,
+              color: Colors.white,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -186,11 +188,41 @@ class _add_eventformState extends State<add_eventform> {
     );
   }
 
+//**************************priority button********************************************** */
+  Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
+    return Center(
+      child: Switch(
+        value: isSwitched,
+        onChanged: (newvalue) {
+          onChangeMethod(newvalue);
+        },
+        inactiveThumbColor: Colors.amber,
+        activeTrackColor: Colors.red,
+        activeColor: Colors.red,
+      ),
+    );
+  }
+
 //circle Avatar
+  // Widget image() {
+  //   return Container(
+  //     decoration: (BoxDecoration(
+  //         color: Colors.grey,
+  //         image: DecorationImage(
+  //           image: if(imag) FileImage(File(imagepath!)),
+  //         ))),
+  //   );
+  // }
+
   Widget circleavtar() {
-    return CircleAvatar(
-      backgroundImage: imagepath == null ? null : FileImage(File(imagepath!)),
-      radius: 80.0,
+    return Container(
+      height: 60,
+      width: 120,
+      child: CircleAvatar(
+        backgroundColor: Colors.blueGrey,
+        backgroundImage: imagepath == null ? null : FileImage(File(imagepath!)),
+        radius: 80.0,
+      ),
     );
   }
 
@@ -200,7 +232,7 @@ class _add_eventformState extends State<add_eventform> {
     return Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 15,
         ),
         const texts(
             mystring: 'Add Event',
@@ -208,7 +240,7 @@ class _add_eventformState extends State<add_eventform> {
             mycolor: Colors.blue,
             fontweight: FontWeight.w500),
         const SizedBox(
-          height: 20,
+          height: 15,
         ),
         Column(
           children: [
@@ -225,13 +257,18 @@ class _add_eventformState extends State<add_eventform> {
             SizedBox(
               height: 10,
             ),
+            textform(_locationController, 'Location'),
+            SizedBox(
+              height: 15,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
+            prioritybutton(myPriority, onchangeFunction),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
@@ -271,6 +308,7 @@ class _add_eventformState extends State<add_eventform> {
     final _title = _titleController.text.trim();
     final _discription = _disciptionController.text.trim();
     final _date = date;
+    final _location = _locationController.text.trim();
     if (_title.isEmpty || _discription.isEmpty) {
       return;
     }
@@ -278,7 +316,9 @@ class _add_eventformState extends State<add_eventform> {
         title: _title,
         description: _discription,
         date: _date,
-        image: imagepath!);
+        image: imagepath!,
+        location: _location,
+        priority: myPriority);
     addevent(_todoevent);
   }
 
@@ -291,5 +331,12 @@ class _add_eventformState extends State<add_eventform> {
         imagepath = PickedFile.path;
       });
     }
+  }
+
+  bool myPriority = false;
+  onchangeFunction(bool newvalue) {
+    setState(() {
+      myPriority = newvalue;
+    });
   }
 }
