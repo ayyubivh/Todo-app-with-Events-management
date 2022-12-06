@@ -34,6 +34,8 @@ dependencies:
     sdk: flutter
   flutter_slidable: ^2.0.0
   flutter_speed_dial: ^6.2.0
+  full_screen_image_null_safe: ^2.0.0
+  google_fonts: ^3.0.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   image_picker: ^0.8.6
@@ -53,6 +55,17 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+  # fonts:
+  #   - family: Raleway
+  #     fonts:
+  #       - asset: fonts/Raleway-Regular.ttf
+  #       - asset: fonts/Raleway-Italic.ttf
+  #         style: italic
+  #   - family: RobotoMono
+  #     fonts:
+  #       - asset: fonts/RobotoMono-Regular.ttf
+  #       - asset: fonts/RobotoMono-Bold.ttf
+  #         weight: 700
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

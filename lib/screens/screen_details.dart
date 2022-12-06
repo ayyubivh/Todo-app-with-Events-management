@@ -5,11 +5,11 @@ class Screen_details extends StatelessWidget {
   Screen_details({
     super.key,
     required this.passvalue,
-    required this.index,
+    required this.passindex,
     //   required int passindex,
   });
   var passvalue;
-  var index;
+  var passindex;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +22,14 @@ class Screen_details extends StatelessWidget {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 29, 28, 68),
-                  Color.fromARGB(255, 29, 28, 68),
+                  Color.fromARGB(146, 51, 48, 114),
+                  Color.fromARGB(165, 83, 79, 165),
                 ],
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
               ),
             ),
-            child: details_screen(passvalue: passvalue, index: index),
+            child: details_screen(passvalue: passvalue, passindex: passindex),
           ),
         ],
       )),

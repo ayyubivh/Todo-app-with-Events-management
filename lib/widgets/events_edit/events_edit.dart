@@ -1,21 +1,35 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:todo_app/functions/db_functions.dart';
+import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
-class events_edit extends StatefulWidget {
-  events_edit({super.key, required this.passvalue});
+import '../../screens/screen_home.dart';
+
+class edit_eventform extends StatefulWidget {
+  edit_eventform({super.key, required this.passvalue, required this.passindex});
   var passvalue;
+  var passindex;
   @override
-  State<events_edit> createState() => _events_editState();
+  State<edit_eventform> createState() => _edit_eventformState();
 }
 
-class _events_editState extends State<events_edit> {
-  final _titleController = TextEditingController();
-
-  final _disciptionController = TextEditingController();
-
+class _edit_eventformState extends State<edit_eventform> {
+  TextEditingController? _titleController;
+  TextEditingController? _disciptionController;
+  TextEditingController? _locationcontroller;
   DateTime date = DateTime(2022, 12, 24);
+  String? path;
+  final ImagePicker _picker = ImagePicker();
+
+  String? imagepath;
+
+  // DateTime date = DateTime(2022, 12, 24);
   TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
+
   void _showDatePicker() async {
     DateTime? newDate = await showDatePicker(
       context: context,
@@ -27,13 +41,37 @@ class _events_editState extends State<events_edit> {
     setState(() => date = newDate);
   }
 
+  @override
+  void initState() {
+    _titleController = TextEditingController(text: widget.passvalue.title);
+
+    _disciptionController =
+        TextEditingController(text: widget.passvalue.description);
+    _locationcontroller =
+        TextEditingController(text: widget.passvalue.location);
+    path = widget.passvalue.image;
+    DateTime date = DateTime(2022, 12, 24);
+    TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
+    void _showDatePicker() async {
+      DateTime? newDate = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2025),
+      );
+      if (newDate == null) return;
+      setState(() => date = newDate);
+    }
+
+    super.initState();
+  }
+
   //******************widgets******************** */
   Widget textform(
-    TextEditingController mycontroller,
-    String hintname,
+    TextEditingController? mycontroller,
   ) {
     return SizedBox(
-      height: 60,
+      height: 60.0,
       width: 342,
       child: TextFormField(
         style: TextStyle(color: Colors.black, fontSize: 20),
@@ -46,7 +84,6 @@ class _events_editState extends State<events_edit> {
           filled: true,
           contentPadding: EdgeInsets.all(18),
           fillColor: Color.fromARGB(255, 105, 158, 184),
-          hintText: hintname,
           hintStyle: const TextStyle(
               color: Color.fromARGB(255, 241, 243, 244),
               fontSize: 18.0,
@@ -75,7 +112,7 @@ class _events_editState extends State<events_edit> {
             Icon(
               Icons.calendar_month_outlined,
               size: 26.0,
-              color: Colors.white70,
+              color: Colors.white,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -160,65 +197,110 @@ class _events_editState extends State<events_edit> {
     );
   }
 
+//position
+  Widget position() {
+    return Positioned(
+      bottom: 20,
+      right: 20,
+      child: InkWell(
+        onTap: () {
+          takePhoto();
+        },
+        child: const Icon(
+          Icons.photo_camera_back_outlined,
+          color: Colors.white,
+          size: 30,
+        ),
+      ),
+    );
+  }
+
+//**************************priority button********************************************** */
+  Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
+    return Center(
+      child: Switch(
+        value: isSwitched,
+        onChanged: (newvalue) {
+          onChangeMethod(newvalue);
+        },
+        inactiveThumbColor: Colors.amber,
+        activeTrackColor: Colors.red,
+        activeColor: Colors.red,
+      ),
+    );
+  }
+
+  Widget circleavtar() {
+    return Stack(
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.blueGrey,
+          backgroundImage: FileImage(File(widget.passvalue.image)),
+          radius: 80.0,
+        ),
+        position()
+      ],
+    );
+  }
+
 //********************************************************* */
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 20,
+        const SizedBox(
+          height: 15,
         ),
-        texts(
-            mystring: 'Add Event',
-            myfontsize: 36,
-            mycolor: Colors.blue,
+        const texts(
+            mystring: 'Edit event',
+            myfontsize: 32.0,
+            mycolor: Color.fromARGB(233, 15, 103, 127),
             fontweight: FontWeight.w500),
-        SizedBox(
-          height: 20,
+        const SizedBox(
+          height: 15,
         ),
         Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(11)),
-              height: 85,
-              width: 335,
-              child: Icon(
-                Icons.camera_enhance,
-                size: 30.0,
-              ),
-            ),
+            circleavtar(),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: textform(_titleController, widget.passvalue.title),
-            ),
-            SizedBox(
-              height: 5,
+              child: textform(_titleController),
             ),
             Padding(
               padding: const EdgeInsets.all(11),
-              child:
-                  textform(_disciptionController, widget.passvalue.description),
+              child: textform(_disciptionController),
             ),
             SizedBox(
               height: 10,
+            ),
+            textform(_locationcontroller),
+            SizedBox(
+              height: 15,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
+            prioritybutton(myPriority, onchangeFunction),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: Color.fromARGB(233, 35, 160, 195),
               ),
               child: flatbtn(
-                  onpressaction: () => Navigator.of(context).pop(),
+                  onpressaction: () {
+                    _onEdittodoeventClicked(widget.passindex);
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (ctx) => const Screen_home()),
+                        (route) => false);
+                    Navigator.pop(context);
+                  },
                   mycolor: Colors.white,
-                  mystring: 'Add todo'),
+                  mystring: 'Save '),
             ),
             SizedBox(
               height: 20,
@@ -240,5 +322,46 @@ class _events_editState extends State<events_edit> {
         ),
       ],
     );
+  }
+
+  Future<void> _onEdittodoeventClicked(int index) async {
+    final _title = _titleController!.text.trim();
+    final _discription = _disciptionController!.text.trim();
+    final _date = date;
+    final _location = _locationcontroller!.text.trim();
+    if (_title.isEmpty || _discription.isEmpty) {
+      return;
+    }
+    final _todoevent = TodoEvent(
+        title: _title,
+        description: _discription,
+        date: _date,
+        image: imagepath!,
+        location: _location,
+        priority: myPriority);
+    addevent(_todoevent);
+    final todoeventkdb = await Hive.openBox<TodoEvent>('todo_event_db');
+    todoeventkdb.putAt(index, _todoevent);
+    getAllTodotask();
+  }
+
+  Future<void> takePhoto() async {
+    // try {
+    final PickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (PickedFile == null) {
+      return;
+    } else {
+      setState(() {
+        this.path = PickedFile.path;
+      });
+    }
+  }
+
+  bool myPriority = false;
+  onchangeFunction(bool newvalue) {
+    setState(() {
+      myPriority = newvalue;
+    });
   }
 }

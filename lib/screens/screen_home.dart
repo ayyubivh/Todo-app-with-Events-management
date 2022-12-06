@@ -2,27 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_search.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
-import 'package:todo_app/widgets/home_widgets/home_bottomsection.dart';
-import 'package:todo_app/widgets/home_widgets/home_eventsection.dart';
+import 'package:todo_app/widgets/home_widgets/task_bottom_section.dart';
+import 'package:todo_app/widgets/home_widgets/home_eventlist.dart';
 import 'package:todo_app/widgets/home_widgets/task_%20section.dart';
-import 'package:todo_app/widgets/home_widgets/tasklist_section.dart';
+import 'package:todo_app/widgets/home_widgets/home_tasklist_section.dart';
+
+import '../widgets/home_widgets/event_bottom_section.dart';
 
 class Screen_home extends StatelessWidget {
   const Screen_home({super.key});
 //***************************Tabbarvier add***************************************** */
-  Widget tasksection() {
+  Widget tasksectiontab() {
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
           Color.fromARGB(146, 51, 48, 114),
-          Color.fromARGB(133, 79, 73, 195),
-          Color.fromARGB(146, 51, 48, 114),
-          Color.fromARGB(165, 83, 79, 165),
+          Color.fromARGB(133, 83, 79, 165),
         ],
-        stops: [0.1, 0.4, 0.7, 0.9],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
+        begin: Alignment.bottomRight,
+        end: Alignment.topLeft,
       )),
       child: Column(
         children: [
@@ -30,15 +29,16 @@ class Screen_home extends StatelessWidget {
           const Expanded(
             child: Home_tasksection(),
           ),
-          Home_bottomsection()
+          task_bottomsection()
         ],
       ),
     );
   }
 
 //***************************Tabbarvier event***************************************** */
-  Widget eventsection() {
+  Widget eventsectiontab() {
     return Container(
+      //  color: Colors.white,
       decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
@@ -56,14 +56,14 @@ class Screen_home extends StatelessWidget {
             padding: EdgeInsets.only(left: 15),
             child: texts(
                 mystring: " Today's events",
-                myfontsize: 23,
-                mycolor: Color.fromARGB(255, 65, 7, 112),
-                fontweight: FontWeight.bold),
+                myfontsize: 20,
+                mycolor: Color.fromARGB(255, 48, 6, 93),
+                fontweight: FontWeight.w900),
           ),
           const Expanded(
             child: Home_eventsection(),
           ),
-          Home_bottomsection()
+          event_bottomsection()
         ],
       ),
     );
@@ -81,16 +81,14 @@ class Screen_home extends StatelessWidget {
           bottom: const TabBar(
             tabs: [
               Tab(
-                child: Text(
-                  'Task',
-                  style: TextStyle(fontSize: 21),
-                ),
+                child: Text('Task',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               Tab(
-                child: Text(
-                  'Event',
-                  style: TextStyle(fontSize: 21),
-                ),
+                child: Text('Event',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -106,12 +104,12 @@ class Screen_home extends StatelessWidget {
               },
             )
           ],
-          backgroundColor: Color.fromARGB(255, 87, 53, 143),
+          backgroundColor: Color(0xff483b7c),
         ),
         body: TabBarView(
           children: [
-            tasksection(),
-            eventsection(),
+            tasksectiontab(),
+            eventsectiontab(),
           ],
         ),
       ),

@@ -22,6 +22,9 @@ class _Home_tasksectionState extends State<Home_tasksection> {
       valueListenable: todolistnotifier,
       builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
         return ListView.builder(
+          // shrinkWrap: true,
+          // primary: false,
+          scrollDirection: Axis.vertical,
           itemCount: todolist.length,
           itemBuilder: (context, index) {
             final data = todolist[index];
@@ -83,7 +86,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => Screen_details(
                                     passvalue: data,
-                                    index: index,
+                                    passindex: index,
                                   )));
                         },
                         title: Row(
@@ -94,19 +97,19 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22.0,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
                         trailing: data.priority ?? false
                             ? const Icon(
                                 Icons.hourglass_full_outlined,
-                                size: 30,
+                                size: 35,
                                 color: Colors.red,
                               )
                             : const Icon(
                                 Icons.hourglass_bottom,
-                                size: 30,
+                                size: 35,
                                 color: Colors.yellow,
                               ),
                         subtitle: Row(
@@ -114,16 +117,15 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(),
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                    DateFormat("MMM, dd yyy ")
-                                        .format(data.date),
-                                    //  data.date.toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 16.0),
-                                  ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Text(
+                                  DateFormat("MMM, dd yyy ").format(data.date),
+                                  //  data.date.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w800),
                                 ),
                               ),
                             ),

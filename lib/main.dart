@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:todo_app/models/data_model.dart';
 
@@ -28,7 +29,8 @@ class _MyAppState extends State<MyApp> {
   @override
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(fontFamily: GoogleFonts.openSans().fontFamily),
       debugShowCheckedModeBanner: false,
       home: Screen_splash(),
     );

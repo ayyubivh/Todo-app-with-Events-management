@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../edit_task/edit_taskform.dart';
 
 class details_screen extends StatelessWidget {
-  details_screen({super.key, required this.passvalue, required this.index});
+  details_screen({super.key, required this.passvalue, required this.passindex});
   var passvalue;
-  int index;
+  var passindex;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,20 +19,23 @@ class details_screen extends StatelessWidget {
           height: 50.0,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.all(18.0),
-              child: texts(
-                  mystring: '${passvalue.date}',
-                  myfontsize: 24,
-                  mycolor: Colors.white,
-                  fontweight: FontWeight.bold),
-            ),
             Icon(
               Icons.calendar_month_outlined,
-              size: 30,
-              color: Colors.white,
+              size: 26.0,
+              color: Color.fromARGB(255, 48, 6, 93),
+            ),
+            SizedBox(
+              width: 12,
+            ),
+            Text(
+              DateFormat("dd/MM/yyy ").format(passvalue.date),
+              //  data.date.toString(),
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 48, 6, 93),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -42,10 +47,12 @@ class details_screen extends StatelessWidget {
           width: 350.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
-                Color.fromARGB(232, 67, 123, 202),
-                Color.fromRGBO(100, 98, 222, 20),
+                Color.fromARGB(146, 51, 48, 114),
+                Color.fromARGB(146, 51, 48, 114),
+                Color.fromARGB(146, 51, 48, 114),
+                Color.fromARGB(146, 51, 48, 114),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -55,7 +62,12 @@ class details_screen extends StatelessWidget {
               padding: const EdgeInsets.all(23),
               child: Text(
                 '${passvalue.title}',
-                style: TextStyle(color: Colors.white, fontSize: 24.0),
+                style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.0,
+                  ),
+                ),
               )),
         ),
         SizedBox(
@@ -66,10 +78,12 @@ class details_screen extends StatelessWidget {
           width: 350,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
-                Color.fromARGB(232, 67, 123, 202),
-                Color.fromRGBO(100, 98, 222, 20),
+                Color.fromARGB(146, 51, 48, 114),
+                Color.fromARGB(146, 51, 48, 114),
+                Color.fromARGB(146, 51, 48, 114),
+                Color.fromARGB(146, 51, 48, 114),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -98,7 +112,7 @@ class details_screen extends StatelessWidget {
                       ),
                       onPressed: () {
                         _showeditaddtaskForm(context,
-                            passvalue: passvalue, index: index);
+                            passvalue: passvalue, passindex: passindex);
                       },
                     ),
                   ],
@@ -113,7 +127,7 @@ class details_screen extends StatelessWidget {
 }
 
 void _showeditaddtaskForm(BuildContext context,
-    {required passvalue, required index}) {
+    {required passvalue, required passindex}) {
   showModalBottomSheet(
     backgroundColor: Colors.white,
     isDismissible: false,
@@ -129,7 +143,7 @@ void _showeditaddtaskForm(BuildContext context,
       height: MediaQuery.of(context).size.height * 0.70,
       child: edit_taskform(
         passvalue: passvalue,
-        index: index,
+        passindex: passindex,
       ),
     ),
   );

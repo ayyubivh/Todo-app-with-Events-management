@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/functions/db_functions.dart';
+import 'package:todo_app/screens/screen_home.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../../models/data_model.dart';
@@ -9,10 +10,10 @@ class edit_taskform extends StatefulWidget {
   edit_taskform({
     super.key,
     required this.passvalue,
-    required this.index,
+    required this.passindex,
   });
   var passvalue;
-  int index;
+  var passindex;
 
   @override
   State<edit_taskform> createState() => _edit_taskformState();
@@ -58,8 +59,6 @@ class _edit_taskformState extends State<edit_taskform> {
     super.initState();
   }
 
-  void dispose() {}
-  //******************widgets******************** */
   Widget textform(
     TextEditingController? _mycontroller,
     // String hintname,
@@ -216,8 +215,8 @@ class _edit_taskformState extends State<edit_taskform> {
         ),
         texts(
             mystring: 'Edit Task',
-            myfontsize: 36,
-            mycolor: Colors.blue,
+            myfontsize: 32,
+            mycolor: Color.fromARGB(233, 15, 103, 127),
             fontweight: FontWeight.w500),
         SizedBox(
           height: 20,
@@ -255,11 +254,14 @@ class _edit_taskformState extends State<edit_taskform> {
               ),
               child: flatbtn(
                   onpressaction: () {
-                    editOnButtonclicked(widget.index);
-                    Navigator.pop(context);
+                    editOnButtonclicked(widget.passindex);
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (ctx) => const Screen_home()),
+                        (route) => false);
                   },
                   mycolor: Colors.white,
-                  mystring: 'Add todo'),
+                  mystring: 'Save'),
             ),
             SizedBox(
               height: 20,
@@ -267,14 +269,14 @@ class _edit_taskformState extends State<edit_taskform> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color.fromARGB(233, 35, 160, 195), width: 2),
+                    color: Color.fromARGB(233, 22, 110, 135), width: 2),
                 borderRadius: BorderRadius.circular(11),
               ),
               child: flatbtn(
                   onpressaction: () {
                     Navigator.pop(context);
                   },
-                  mycolor: Color.fromARGB(233, 35, 160, 195),
+                  mycolor: Color.fromARGB(255, 134, 11, 11),
                   mystring: 'Cancel'),
             ),
           ],

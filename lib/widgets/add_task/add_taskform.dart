@@ -40,8 +40,8 @@ class _add_taskformState extends State<add_taskform> {
     String hintname,
   ) {
     return SizedBox(
-      height: 60,
-      width: 342,
+      height: 64,
+      width: 346.0,
       child: Column(
         children: [
           TextFormField(

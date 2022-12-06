@@ -211,7 +211,7 @@ class _add_eventformState extends State<add_eventform> {
           backgroundColor: Colors.blueGrey,
           backgroundImage:
               imagepath == null ? null : FileImage(File(imagepath!)),
-          radius: 80.0,
+          radius: 70.0,
         ),
         position()
       ],
@@ -228,29 +228,29 @@ class _add_eventformState extends State<add_eventform> {
         ),
         const texts(
             mystring: 'Add Event',
-            myfontsize: 36,
-            mycolor: Colors.blue,
-            fontweight: FontWeight.w500),
+            myfontsize: 32,
+            mycolor: Color.fromARGB(255, 11, 90, 155),
+            fontweight: FontWeight.bold),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         Column(
           children: [
             circleavtar(),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: textform(_titleController, 'Title'),
+            SizedBox(
+              height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(11),
-              child: textform(_disciptionController, 'Discription'),
+            textform(_titleController, 'Title'),
+            SizedBox(
+              height: 10,
             ),
+            textform(_disciptionController, 'Discription'),
             SizedBox(
               height: 10,
             ),
             textform(_locationController, 'Location'),
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -271,10 +271,10 @@ class _add_eventformState extends State<add_eventform> {
                     Navigator.pop(context);
                   },
                   mycolor: Colors.white,
-                  mystring: 'Add todo'),
+                  mystring: 'Add Event'),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               decoration: BoxDecoration(
