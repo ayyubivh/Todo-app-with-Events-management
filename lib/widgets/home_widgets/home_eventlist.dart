@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
@@ -72,6 +73,13 @@ class _Home_eventsection extends State<Home_eventsection> {
                           SlidableAction(
                             onPressed: ((context) {
                               deleteAllTodoevent(index);
+                              Fluttertoast.showToast(
+                                msg: "deleted !!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                backgroundColor: Colors.red,
+                                fontSize: 17,
+                                gravity: ToastGravity.BOTTOM,
+                              );
                             }),
                             backgroundColor: Colors.red,
                             foregroundColor: Colors.white,

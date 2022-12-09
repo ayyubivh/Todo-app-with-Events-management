@@ -83,12 +83,12 @@ class Screen_home extends StatelessWidget {
               Tab(
                 child: Text('Task',
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
               ),
               Tab(
                 child: Text('Event',
                     style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
               ),
             ],
           ),

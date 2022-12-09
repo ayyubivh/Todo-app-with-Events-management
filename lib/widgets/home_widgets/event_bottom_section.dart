@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:todo_app/screens/eventCalender_screen.dart';
 
 import 'package:todo_app/screens/screen_calender.dart';
 import 'package:todo_app/screens/screen_dashboard.dart';
@@ -9,13 +10,39 @@ import '../add_task/add_taskform.dart';
 
 class event_bottomsection extends StatelessWidget {
   Widget floatbtn(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        _showeventForm(context, null, null);
-      },
-      child: Icon(Icons.add),
-      backgroundColor: Color.fromARGB(232, 45, 14, 98),
+    return
+        // floatingActionButton:
+        Container(
+      height: 55,
+      width: 55,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Ink(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 2.0),
+            color: Color(0xff483b7c),
+            shape: BoxShape.circle,
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(500.0),
+            onTap: () {
+              _showeventForm(context, null, null);
+            },
+            child: Icon(
+              Icons.add, color: Colors.white,
+              //size: 50,
+            ),
+          ),
+        ),
+      ),
     );
+    // return FloatingActionButton(
+    //   onPressed: () {
+    //     _showeventForm(context, null, null);
+    //   },
+    //   child: Icon(Icons.add),
+    //   backgroundColor: Color(0xff483b7c),
+    // );
   }
 
   // Widget floatingbutton() {
@@ -79,7 +106,7 @@ class event_bottomsection extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx1) => Screen_calender()));
+                        builder: (ctx1) => EventScreen_calender()));
                   },
                   icon: const Icon(
                     Icons.calendar_month,
@@ -88,7 +115,7 @@ class event_bottomsection extends StatelessWidget {
                   )),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 28.0),
+                  padding: const EdgeInsets.only(bottom: 34.0),
                   child: floatbtn(context),
                 ),
                 heightFactor: 0.6,

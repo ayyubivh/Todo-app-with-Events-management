@@ -138,14 +138,14 @@ class _edit_eventformState extends State<edit_eventform> {
       height: 79,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(11),
-          color: Color.fromARGB(232, 20, 139, 199)),
+          color: const Color.fromARGB(232, 20, 139, 199)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Icon(
+          const Icon(
             Icons.watch_later_outlined,
             size: 26,
             color: Colors.white,
@@ -235,7 +235,9 @@ class _edit_eventformState extends State<edit_eventform> {
       children: [
         CircleAvatar(
           backgroundColor: Colors.blueGrey,
-          backgroundImage: FileImage(File(widget.passvalue.image)),
+          backgroundImage: path == null
+              ? FileImage(File(widget.passvalue.image))
+              : FileImage(File(path!)),
           radius: 80.0,
         ),
         position()
@@ -270,25 +272,25 @@ class _edit_eventformState extends State<edit_eventform> {
               padding: const EdgeInsets.all(11),
               child: textform(_disciptionController),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             textform(_locationcontroller),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             prioritybutton(myPriority, onchangeFunction),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Color.fromARGB(233, 35, 160, 195),
+                color: const Color.fromARGB(233, 35, 160, 195),
               ),
               child: flatbtn(
                   onpressaction: () {
@@ -302,20 +304,20 @@ class _edit_eventformState extends State<edit_eventform> {
                   mycolor: Colors.white,
                   mystring: 'Save '),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color.fromARGB(233, 35, 160, 195), width: 2),
+                    color: const Color.fromARGB(233, 35, 160, 195), width: 2),
                 borderRadius: BorderRadius.circular(11),
               ),
               child: flatbtn(
                   onpressaction: () {
                     Navigator.pop(context);
                   },
-                  mycolor: Color.fromARGB(233, 35, 160, 195),
+                  mycolor: const Color.fromARGB(233, 35, 160, 195),
                   mystring: 'Cancel'),
             ),
           ],
@@ -329,7 +331,7 @@ class _edit_eventformState extends State<edit_eventform> {
     final _discription = _disciptionController!.text.trim();
     final _date = date;
     final _location = _locationcontroller!.text.trim();
-    if (_title.isEmpty || _discription.isEmpty) {
+    if (_title.isEmpty || _discription.isEmpty || _location.isEmpty) {
       return;
     }
     final _todoevent = TodoEvent(
@@ -339,21 +341,19 @@ class _edit_eventformState extends State<edit_eventform> {
         image: imagepath!,
         location: _location,
         priority: myPriority);
-    addevent(_todoevent);
-    final todoeventkdb = await Hive.openBox<TodoEvent>('todo_event_db');
-    todoeventkdb.putAt(index, _todoevent);
-    getAllTodotask();
+    //  addevent(_todoevent);
+    final todoeventdb = await Hive.openBox<TodoEvent>('todo_event_db');
+    todoeventdb.putAt(index, _todoevent);
+    getAllTodoEvent();
   }
 
   Future<void> takePhoto() async {
     // try {
     final PickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (PickedFile == null) {
-      return;
-    } else {
+    if (PickedFile != null) {
       setState(() {
-        this.path = PickedFile.path;
+        path = PickedFile.path;
       });
     }
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import 'package:todo_app/functions/db_functions.dart';
@@ -49,7 +50,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                     ),
                   ),
                   width: 324,
-                  height: 80,
+                  height: 85.0,
                   child: Slidable(
                     // closeOnScroll: false,
                     startActionPane: ActionPane(
@@ -71,6 +72,13 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                         SlidableAction(
                           onPressed: ((context) {
                             deleteAllTodotask(index);
+                            Fluttertoast.showToast(
+                              msg: 'deleted !!',
+                              toastLength: Toast.LENGTH_SHORT,
+                              backgroundColor: Colors.red,
+                              fontSize: 17,
+                              gravity: ToastGravity.BOTTOM,
+                            );
                           }),
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
@@ -94,7 +102,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                           children: [
                             Text(
                               data.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w500),
@@ -120,7 +128,8 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 15.0),
                                 child: Text(
-                                  DateFormat("MMM, dd yyy ").format(data.date),
+                                  DateFormat("MMM, dd yyy hh:mm a")
+                                      .format(data.date),
                                   //  data.date.toString(),
                                   style: const TextStyle(
                                       color: Colors.white,

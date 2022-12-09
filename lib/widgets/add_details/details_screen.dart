@@ -7,7 +7,11 @@ import 'package:todo_app/widgets/common_widgets/common_text.dart';
 import '../edit_task/edit_taskform.dart';
 
 class details_screen extends StatelessWidget {
-  details_screen({super.key, required this.passvalue, required this.passindex});
+  details_screen({
+    super.key,
+    required this.passvalue,
+    required this.passindex,
+  });
   var passvalue;
   var passindex;
   @override

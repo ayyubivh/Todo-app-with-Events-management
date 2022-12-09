@@ -9,28 +9,31 @@ import '../add_task/add_taskform.dart';
 
 class task_bottomsection extends StatelessWidget {
   Widget floatbtn(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        _showaddtaskForm(context, null, null);
-      },
-      child: Icon(Icons.add),
-      backgroundColor: Color(0xff483b7c),
+    return Container(
+      height: 55,
+      width: 55,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Ink(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 2.0),
+            color: Color(0xff483b7c),
+            shape: BoxShape.circle,
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(500.0),
+            onTap: () {
+              _showaddtaskForm(context, null, null);
+            },
+            child: Icon(
+              Icons.add, color: Colors.white,
+              //size: 50,
+            ),
+          ),
+        ),
+      ),
     );
   }
-
-  // Widget floatingbutton() {
-  //   return FloatingActionButton(onPressed: () {
-  //     Navigator.of(context).pushNamed(ScreenaddTransaction.routeName);
-  //     if (selectedIndexNotifier.value == 0) {
-  //     } else {
-  //       showCategoryAddPopup(context);
-  //       // final _sample = CategoryModel(
-  //       //     id: DateTime.now().microsecondsSinceEpoch.toString(),
-  //       //     name: 'Travel',
-  //       //     type: CategoryType.expense);
-  //     }
-  //   });
-  // }
 
   task_bottomsection({super.key});
 
@@ -88,7 +91,7 @@ class task_bottomsection extends StatelessWidget {
                   )),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 28.0),
+                  padding: const EdgeInsets.only(bottom: 34.0),
                   child: floatbtn(context),
                 ),
                 heightFactor: 0.6,

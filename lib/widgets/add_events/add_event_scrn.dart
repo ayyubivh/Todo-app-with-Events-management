@@ -300,7 +300,7 @@ class _add_eventformState extends State<add_eventform> {
     final _discription = _disciptionController.text.trim();
     final _date = date;
     final _location = _locationController.text.trim();
-    if (_title.isEmpty || _discription.isEmpty) {
+    if (_title.isEmpty || _discription.isEmpty || _location.isEmpty) {
       return;
     }
     final _todoevent = TodoEvent(

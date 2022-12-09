@@ -22,7 +22,7 @@ class edit_taskform extends StatefulWidget {
 class _edit_taskformState extends State<edit_taskform> {
   TextEditingController? _titleController;
   TextEditingController? _disciptionController;
-  DateTime date = DateTime(2022, 12, 24);
+  DateTime date = DateTime.now();
 
   TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
   void _showDatePicker() async {
@@ -114,7 +114,7 @@ class _edit_taskformState extends State<edit_taskform> {
                   _showDatePicker();
                 },
                 child: Text(
-                  '${date.year}/${date.month}/${date.day}',
+                  '${widget.passvalue.date.day}/${widget.passvalue.date.month}/${widget.passvalue.date.year}',
                   semanticsLabel: date.toString(),
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 )),
