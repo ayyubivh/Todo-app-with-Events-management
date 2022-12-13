@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
-import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/screens/screen_details.dart';
-
+import '../../functions/db_functions.dart';
 import '../../models/data_model.dart';
+import '../../screens/screen_details.dart';
 
-class Home_tasksection extends StatefulWidget {
-  const Home_tasksection({super.key});
+class TasakPending extends StatelessWidget {
+  const TasakPending({super.key});
 
-  @override
-  State<Home_tasksection> createState() => _Home_tasksectionState();
-}
-
-class _Home_tasksectionState extends State<Home_tasksection> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -29,27 +24,17 @@ class _Home_tasksectionState extends State<Home_tasksection> {
           // shrinkWrap: true,
           // primary: false,
           scrollDirection: Axis.vertical,
-          itemCount: todolist.where((TodoModel) {
-            return DateTime.parse(TodoModel.date.toString()).day ==
-                    DateTime.now().day &&
-                DateTime.parse(TodoModel.date.toString()).month ==
-                    DateTime.now().month &&
-                DateTime.parse(TodoModel.date.toString()).year ==
-                    DateTime.now().year;
-          }).length,
+          itemCount: todolist
+              .where((element) => element.date.isBefore(DateTime.now()))
+              .length,
           itemBuilder: (context, index) {
             //   List<TodoModel> sortedlist = [];
             //  sortedlist = todolist;
             // todolist
             //     .sort(((TodoModel a, TodoModel b) => a.date.compareTo(b.date)));
-            final data = todolist.where((TodoModel) {
-              return DateTime.parse(TodoModel.date.toString()).day ==
-                      DateTime.now().day &&
-                  DateTime.parse(TodoModel.date.toString()).month ==
-                      DateTime.now().month &&
-                  DateTime.parse(TodoModel.date.toString()).year ==
-                      DateTime.now().year;
-            }).toList()[index];
+            final data = todolist
+                .where((element) => element.date.isBefore(DateTime.now()))
+                .toList()[index];
             //final data = todolist[index];
             return Padding(
               padding: const EdgeInsets.all(13.0),

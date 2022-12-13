@@ -26,7 +26,7 @@ class _Screen_searchState extends State<Screen_search> {
   final _searchcontroller = TextEditingController();
   bool selected = false;
 
-  DateTimeRange? _selectedDateTime;
+  DateTimeRange? newDate;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _Screen_searchState extends State<Screen_search> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: const Color(0xff483b7c),
+            backgroundColor: Colors.blue[700],
             elevation: 0,
             centerTitle: true,
             title: Padding(
@@ -106,13 +106,18 @@ class _Screen_searchState extends State<Screen_search> {
         case 'date':
           todomodellistdisplay = todomodelist
               .where((element) =>
-                  element.date == true &&
-                  element.title.toLowerCase().contains(value.toLowerCase()))
+                  element.date.isAfter(DateTime(newDate.start.year,
+                      newDate.start.month, newDate.start.day)) &&
+                  element.date.isBefore(DateTime(newDate.end.year,
+                      newDate.end.month, newDate.end.day + 1)))
               .toList();
+
           todoEventlistdisplay = todoEventlist
               .where((element) =>
-                  element.priority == false &&
-                  element.title.toLowerCase().contains(value.toLowerCase()))
+                  element.date.isAfter(DateTime(newDate.start.year,
+                      newDate.start.month, newDate.start.day)) &&
+                  element.date.isBefore(DateTime(newDate.end.year,
+                      newDate.end.month, newDate.end.day + 1)))
               .toList();
           break;
         default:
@@ -144,31 +149,38 @@ class _Screen_searchState extends State<Screen_search> {
 
 //************************************* */
   Widget textform() {
-    return TextFormField(
-      controller: _searchcontroller,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-      ),
-      autofocus: true,
-      cursorColor: Colors.white,
-      cursorHeight: 20,
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-        hintText: 'search',
-        hintStyle: TextStyle(
-            color: Color.fromARGB(240, 204, 197, 224), fontSize: 20.0),
-        //   contentPadding: const EdgeInsets.all(5),
-        prefixIcon: Icon(
-          Icons.search,
-          color: Color.fromARGB(240, 204, 197, 224),
+    return SizedBox(
+      height: 44,
+      width: 346.0,
+      child: TextFormField(
+        controller: _searchcontroller,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
         ),
-        //    prefixIcon: Icon(Icons.search)
+        autofocus: true,
+        cursorColor: Colors.white,
+        cursorHeight: 20,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(13),
+            borderSide: BorderSide.none,
+          ),
+          filled: true, fillColor: Colors.blue[500],
+          hintText: 'search',
+          hintStyle: const TextStyle(color: Colors.white, fontSize: 18),
+          contentPadding: const EdgeInsets.all(5),
+          prefixIcon: const Icon(
+            Icons.search,
+            color: Colors.white,
+          ),
+          //    prefixIcon: Icon(Icons.search)
+        ),
+        onChanged: (value) {
+          _searchtodotask(value, newDate);
+          //     _searchtodoevent(value);
+        },
       ),
-      onChanged: (value) {
-        _searchtodotask(value, null);
-        //     _searchtodoevent(value);
-      },
     );
   }
 
@@ -422,17 +434,17 @@ class _Screen_searchState extends State<Screen_search> {
     );
   }
 
-  priorityLowFilter(value) {
-    setState(() {
-      if (value) {
-        todomodellistdisplay =
-            todomodelist.where((element) => element.priority == false).toList();
-        todoEventlistdisplay = todoEventlist
-            .where((element) => element.priority == false)
-            .toList();
-      }
-    });
-  }
+  // priorityLowFilter(value) {
+  //   setState(() {
+  //     if (value) {
+  //       todomodellistdisplay =
+  //           todomodelist.where((element) => element.priority == false).toList();
+  //       todoEventlistdisplay = todoEventlist
+  //           .where((element) => element.priority == false)
+  //           .toList();
+  //     }
+  //   });
+  // }
 
 //datepickerchip
   Widget datepickerChips() {
@@ -443,13 +455,14 @@ class _Screen_searchState extends State<Screen_search> {
         labelStyle: TextStyle(color: Colors.white),
         elevation: 5,
         label: Text(' Date picker '),
-        selected: (filter == '') ? true : false,
+        selected: (filter == 'date') ? true : false,
         onSelected: (bool value) {
           setState(() {
             if (value) {
-              pickDate(context);
               filter = 'date';
-              _searchtodotask(_searchcontroller.text, null);
+              pickDate();
+
+              // _searchtodotask(_searchcontroller.text, null);
             } else {
               filter = 'no';
               _searchtodotask(_searchcontroller.text, null);
@@ -460,29 +473,19 @@ class _Screen_searchState extends State<Screen_search> {
     );
   }
 
-  void pickDate(BuildContext context) {
-    DateTimeRange? _selectedDateTime;
-    final initialDate = DateTime.now();
-    final newDate = showDateRangePicker(
+  DateTimeRange? date1 =
+      DateTimeRange(start: DateTime.now(), end: DateTime.now());
+  Future pickDate() async {
+    // DateTimeRange? _selectedDateTime;
+    // final initialDate = DateTime.now();
+    newDate = await showDateRangePicker(
         context: context,
-        firstDate: DateTime(2022, 1),
-        lastDate: DateTime(2030, 1),
-        currentDate: DateTime.now(),
+        initialDateRange: date1,
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2030),
         saveText: 'Done');
-    if (newDate == null) {
-      return;
-    }
-  }
 
-  // priorityDateFilter(value) {
-  //   setState(() {
-  //     if (value) {
-  //       todomodellistdisplay =
-  //           todomodelist.where((element) => element.date).toList();
-  //       todoEventlistdisplay = todoEventlist
-  //           .where((element) => element.priority == false)
-  //           .toList();
-  //     }
-  //   });
-  // }
+    if (newDate == null) return;
+    _searchtodotask(_searchcontroller.text, newDate);
+  }
 }

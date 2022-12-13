@@ -16,8 +16,8 @@ class task_bottomsection extends StatelessWidget {
         type: MaterialType.transparency,
         child: Ink(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 2.0),
-            color: Color(0xff483b7c),
+            border: Border.all(color: Colors.white54, width: 2.0),
+            color: Colors.blue[600],
             shape: BoxShape.circle,
           ),
           child: InkWell(
@@ -86,7 +86,7 @@ class task_bottomsection extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.calendar_month,
-                    size: 33,
+                    size: 31,
                     color: Colors.white,
                   )),
               Center(
@@ -99,7 +99,7 @@ class task_bottomsection extends StatelessWidget {
               IconButton(
                 icon: const Icon(
                   Icons.person,
-                  size: 33,
+                  size: 31,
                   color: Colors.white,
                 ),
                 onPressed: () {
@@ -122,14 +122,14 @@ void _showaddtaskForm(BuildContext context, var itemkey, var index) {
     isScrollControlled: true,
     context: context,
     builder: (_) => Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.0),
-          topRight: Radius.circular(25.0),
+          topLeft: Radius.circular(35.0),
+          topRight: Radius.circular(35.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.80,
+      height: MediaQuery.of(context).size.height * 0.70,
       child: add_taskform(),
     ),
   );
@@ -145,8 +145,8 @@ void _showeventForm(BuildContext context, var itemkey, var index) {
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.0),
-          topRight: Radius.circular(25.0),
+          topLeft: Radius.circular(35.0),
+          topRight: Radius.circular(35.0),
         ),
       ),
       height: MediaQuery.of(context).size.height * 0.95,
@@ -159,7 +159,7 @@ class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = new Paint()
-      ..color = Color(0xff483b7c)
+      ..color = Colors.blue.shade600
       ..style = PaintingStyle.fill;
 
     Path path = Path();

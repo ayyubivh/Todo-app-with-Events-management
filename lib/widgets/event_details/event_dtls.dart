@@ -11,7 +11,7 @@ class Eventdtls extends StatelessWidget {
   Eventdtls({
     super.key,
     required this.passvalue,
-    required passindex,
+    required this.passindex,
   });
   var passindex;
   var passvalue;
@@ -30,7 +30,7 @@ class Eventdtls extends StatelessWidget {
                 child: GestureDetector(
                   child: FullScreenWidget(
                     child: Container(
-                      height: 410.0,
+                      height: 350,
                       width: double.infinity,
                       decoration: BoxDecoration(
                           image: DecorationImage(
@@ -38,9 +38,9 @@ class Eventdtls extends StatelessWidget {
                                 File(passvalue.image),
                               ),
                               fit: BoxFit.cover),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.elliptical(40, 40),
-                            bottomRight: Radius.elliptical(50, 40),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(40),
+                            bottomRight: Radius.circular(40),
                           )),
                     ),
                   ),
@@ -58,7 +58,7 @@ class Eventdtls extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 310,
+              top: 290,
               //bottom: 10,
               left: 30,
               child: Column(
@@ -72,107 +72,178 @@ class Eventdtls extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.calendar_month_rounded,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          DateFormat("dd  MMM,  yyy ").format(passvalue.date),
-                          //  data.date.toString(),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 16.0),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Icon(
+                    //       Icons.calendar_month_rounded,
+                    //       color: Colors.white,
+                    //     ),
+                    //     SizedBox(
+                    //       width: 10,
+                    //     ),
+                    //     Text(
+                    //       DateFormat("dd  MMM,  yyy ").format(passvalue.date),
+                    //       //  data.date.toString(),
+                    //       style: const TextStyle(
+                    //           color: Colors.white, fontSize: 16.0),
+                    //     ),
+                    //   ],
+                    // ),
                   ]),
             ),
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 18.0, top: 38.0),
+          padding: const EdgeInsets.only(left: 18.0, top: 18.0),
           child: Row(
-            children: const [
-              Icon(
-                Icons.location_on,
-                color: Color.fromARGB(233, 36, 9, 82),
-              ),
-              texts(
-                  mystring: 'Location',
-                  myfontsize: 21,
-                  mycolor: Color.fromARGB(213, 60, 5, 73),
-                  fontweight: FontWeight.bold),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 39.0,
-          ),
-          child: texts(
-              mystring: passvalue.location,
-              myfontsize: 23,
-              mycolor: Color.fromARGB(255, 36, 9, 82),
-              fontweight: FontWeight.w700),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 28.0, top: 38.0),
-          child: Row(
-            children: const [
-              Icon(
-                Icons.padding_outlined,
-                color: Color.fromARGB(255, 36, 9, 82),
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.blue[100],
+                    borderRadius: BorderRadius.circular(8)),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Icon(
+                    Icons.location_on,
+                    color: Colors.blue[600],
+                  ),
+                ),
               ),
               SizedBox(
-                width: 3,
+                width: 10,
               ),
               texts(
-                  mystring: 'About ',
-                  myfontsize: 20.0,
-                  mycolor: Color.fromARGB(213, 60, 5, 73),
-                  fontweight: FontWeight.w800),
+                  mystring: passvalue.location,
+                  myfontsize: 18,
+                  mycolor: Colors.blue.shade700,
+                  fontweight: FontWeight.bold),
+              SizedBox(
+                width: 195,
+              ),
+              passvalue.priority ?? false
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.red[100],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: const Icon(
+                          Icons.hourglass_full_outlined,
+                          size: 25,
+                          color: Colors.red,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                          color: Colors.yellow[100],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: const Icon(
+                          Icons.hourglass_bottom,
+                          size: 25,
+                          color: Colors.yellow,
+                        ),
+                      ),
+                    ),
             ],
           ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //     left: 30.0,
+        //   ),
+        //   child: Container(
+        //     height: 38,
+        //     width: 240,
+        //     decoration: BoxDecoration(
+        //         color: Colors.white, borderRadius: BorderRadius.circular(16.0)),
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(5.0),
+        //       child: texts(
+        //           mystring: passvalue.location,
+        //           myfontsize: 19,
+        //           mycolor: Colors.black54,
+        //           fontweight: FontWeight.bold),
+        //     ),
+        //   ),
+        // ),
+        SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 20,
+            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //       color: Colors.blue[100],
+            //       borderRadius: BorderRadius.circular(8)),
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(3.0),
+            //     child: Icon(
+            //       Icons.notes_sharp,
+            //       color: Colors.blue[600],
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              width: 8,
+            ),
+            texts(
+                mystring: 'About           ',
+                myfontsize: 18,
+                mycolor: Colors.black,
+                fontweight: FontWeight.bold),
+          ],
         ),
         SizedBox(
           height: 5,
         ),
         Padding(
           padding: const EdgeInsets.only(
-            left: 52,
+            left: 19,
           ),
-          child: texts(
-              mystring: passvalue.description,
-              myfontsize: 21.0,
-              mycolor: Color.fromARGB(255, 36, 9, 82),
-              fontweight: FontWeight.w600),
-        ),
-        SizedBox(
-          height: 110,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: (() {
-                _showedieventtaskForm(context,
-                    passvalue: passvalue, passindex: passindex);
-              }),
-              backgroundColor: Colors.deepPurple,
-              child: Icon(Icons.edit),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(22),
             ),
-            SizedBox(
-              width: 40,
-            )
-          ],
-        )
+            height: 250,
+            width: 350,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    texts(
+                        mystring: passvalue.description,
+                        myfontsize: 16,
+                        mycolor: Colors.black54,
+                        fontweight: FontWeight.w600),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FloatingActionButton(
+                          onPressed: (() {
+                            _showedieventtaskForm(context,
+                                passvalue: passvalue, passindex: passindex);
+                          }),
+                          backgroundColor: Colors.blue[650],
+                          child: Icon(Icons.edit),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

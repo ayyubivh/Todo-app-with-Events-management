@@ -9,7 +9,7 @@ ValueNotifier<List<TodoModel>> todolistnotifier = ValueNotifier([]);
 Future<void> addtask(TodoModel value) async {
   final todotaskDB = await Hive.openBox<TodoModel>('todo_task_db');
   final _id = await todotaskDB.add(value);
-  value.id = _id;
+  // value.id = _id;
   todolistnotifier.value.add(value);
   todolistnotifier.notifyListeners();
 }
@@ -17,24 +17,49 @@ Future<void> addtask(TodoModel value) async {
 Future<void> getAllTodotask() async {
   final todotaskDB = await Hive.openBox<TodoModel>('todo_task_db');
   todolistnotifier.value.clear();
-
   todolistnotifier.value.addAll(todotaskDB.values);
   todolistnotifier.notifyListeners();
 }
 
-Future<void> deleteAllTodotask(int id) async {
+// Future<void> refresh() async {
+//   final _tasklist = await getAllTodotask();
+// }
+
+Future<void> deleteAllTodotask(String index) async {
   final todotaskDB = await Hive.openBox<TodoModel>('todo_task_db');
-  await todotaskDB.deleteAt(id);
+  final Map<dynamic, TodoModel> taskMap = todotaskDB.toMap();
+  dynamic desiredKey;
+  taskMap.forEach((key, value) {
+    if (value.id == index) {
+      desiredKey = key;
+    }
+  });
+  await todotaskDB.delete(desiredKey);
   getAllTodotask();
 }
 
-//********************************AddEvent Functions*********************************************************** */
+editTask(index, context, TodoModel value) async {
+  final taskDB = await Hive.openBox<TodoModel>('todo_task_db');
+  final Map<dynamic, TodoModel> taskMap = taskDB.toMap();
+  dynamic desiredKey;
+  taskMap.forEach((key, value) {
+    if (value.id == index) {
+      desiredKey = key;
+    }
+  });
+  taskDB.put(desiredKey, value);
+  getAllTodotask();
+  // Navigator.of(context).pop();
+}
+//*********************************compeleted Taskd************************************************************/
+
+//********************************AddEvent Functions***********************************************************/
 ValueNotifier<List<TodoEvent>> todolisteventnotifier = ValueNotifier([]);
 
 Future<void> addevent(TodoEvent value) async {
   final todoeventDB = await Hive.openBox<TodoEvent>('todo_Event_db');
   final _id = await todoeventDB.add(value);
-  value.id = _id;
+//  value.id = _id;
   todolisteventnotifier.value.add(value);
   todolisteventnotifier.notifyListeners();
 }
@@ -47,8 +72,16 @@ Future<void> getAllTodoEvent() async {
   todolisteventnotifier.notifyListeners();
 }
 
-Future<void> deleteAllTodoevent(int id) async {
+Future<void> deleteAllTodoevent(String index) async {
   final todoEventDB = await Hive.openBox<TodoEvent>('todo_Event_db');
-  await todoEventDB.deleteAt(id);
+  final Map<dynamic, TodoEvent> taskMap = todoEventDB.toMap();
+  dynamic desiredKey;
+  taskMap.forEach((key, value) {
+    if (value.id == index) {
+      desiredKey = key;
+    }
+  });
+  //await todotaskDB.delete(desiredKey);
+  await todoEventDB.delete(desiredKey);
   getAllTodoEvent();
 }

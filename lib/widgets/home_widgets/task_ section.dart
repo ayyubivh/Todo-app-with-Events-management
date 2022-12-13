@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 class Task_section extends StatelessWidget {
@@ -10,34 +11,29 @@ class Task_section extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10.0),
         child: Column(
           children: [
-            const texts(
-                mystring: "Hello Sam",
-                myfontsize: 24,
-                mycolor: Color.fromARGB(255, 48, 6, 93),
-                fontweight: FontWeight.bold),
-            const SizedBox(
-              height: 5,
+            Container(
+              height: 90,
+              width: 350,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Colors.blue.shade200, Colors.blue.shade600]),
+                  borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'How was your life Going?',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.poppins().fontFamily),
+                  )
+                ],
+              ),
             ),
-            const texts(
-                mystring: 'How is your life balance this week',
-                myfontsize: 15,
-                mycolor: Color.fromARGB(238, 76, 6, 90),
-                fontweight: FontWeight.w700),
-            const SizedBox(
-              height: 50,
-            ),
-            Row(
-              children: const [
-                SizedBox(
-                  width: 20,
-                ),
-                texts(
-                    mystring: "Today's tasks",
-                    myfontsize: 20,
-                    mycolor: Color.fromARGB(255, 48, 6, 93),
-                    fontweight: FontWeight.w900),
-              ],
-            )
           ],
         ));
   }

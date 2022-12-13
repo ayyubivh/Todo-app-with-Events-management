@@ -3,25 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-
-import 'package:todo_app/functions/db_functions.dart';
+import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/screens/screen_details.dart';
 
-import '../../models/data_model.dart';
+import '../../functions/db_functions.dart';
 
-class Home_tasksection extends StatefulWidget {
-  const Home_tasksection({super.key});
+class EventPending extends StatelessWidget {
+  const EventPending({super.key});
 
-  @override
-  State<Home_tasksection> createState() => _Home_tasksectionState();
-}
-
-class _Home_tasksectionState extends State<Home_tasksection> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: todolistnotifier,
-      builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
+      valueListenable: todolisteventnotifier,
+      builder:
+          (BuildContext ctx, List<TodoEvent> todoevEventlist, Widget? child) {
         //  List<int> keys = todolist.keys.cast<int>.toList();
         List<int> keys;
 //keys=todolist.keys.cast<int>().where((Key)=>todolist.get(Key).completed).to
@@ -29,27 +24,17 @@ class _Home_tasksectionState extends State<Home_tasksection> {
           // shrinkWrap: true,
           // primary: false,
           scrollDirection: Axis.vertical,
-          itemCount: todolist.where((TodoModel) {
-            return DateTime.parse(TodoModel.date.toString()).day ==
-                    DateTime.now().day &&
-                DateTime.parse(TodoModel.date.toString()).month ==
-                    DateTime.now().month &&
-                DateTime.parse(TodoModel.date.toString()).year ==
-                    DateTime.now().year;
-          }).length,
+          itemCount: todoevEventlist
+              .where((element) => element.date.isBefore(DateTime.now()))
+              .length,
           itemBuilder: (context, index) {
             //   List<TodoModel> sortedlist = [];
             //  sortedlist = todolist;
             // todolist
             //     .sort(((TodoModel a, TodoModel b) => a.date.compareTo(b.date)));
-            final data = todolist.where((TodoModel) {
-              return DateTime.parse(TodoModel.date.toString()).day ==
-                      DateTime.now().day &&
-                  DateTime.parse(TodoModel.date.toString()).month ==
-                      DateTime.now().month &&
-                  DateTime.parse(TodoModel.date.toString()).year ==
-                      DateTime.now().year;
-            }).toList()[index];
+            final data = todoevEventlist
+                .where((element) => element.date.isBefore(DateTime.now()))
+                .toList()[index];
             //final data = todolist[index];
             return Padding(
               padding: const EdgeInsets.all(13.0),
@@ -80,7 +65,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                     children: [
                       SlidableAction(
                         onPressed: ((context) {
-                          deleteAllTodotask(data.id);
+                          deleteAllTodoevent(data.id);
                           Fluttertoast.showToast(
                             msg: 'deleted !!',
                             toastLength: Toast.LENGTH_SHORT,

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_home.dart';
+import 'package:todo_app/widgets/add_task/add_taskform.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../../models/data_model.dart';
+import '../../util/tasktextform.dart';
 
 class edit_taskform extends StatefulWidget {
   edit_taskform({
@@ -22,19 +24,7 @@ class edit_taskform extends StatefulWidget {
 class _edit_taskformState extends State<edit_taskform> {
   TextEditingController? _titleController;
   TextEditingController? _disciptionController;
-  DateTime date = DateTime.now();
-
-  TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
-  void _showDatePicker() async {
-    DateTime? newDate = await showDatePicker(
-      context: context,
-      initialDate: date,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-    );
-    if (newDate == null) return;
-    setState(() => date = newDate);
-  }
+  DateTime dateTime = DateTime.now();
 
   @override
   void initState() {
@@ -42,129 +32,84 @@ class _edit_taskformState extends State<edit_taskform> {
 
     _disciptionController =
         TextEditingController(text: widget.passvalue.description);
-
-    DateTime date = DateTime(2022, 12, 24);
-    TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
-    void _showDatePicker() async {
-      DateTime? newDate = await showDatePicker(
-        context: context,
-        initialDate: date,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2025),
-      );
-      if (newDate == null) return;
-      setState(() => date = newDate);
-    }
-
+    dateTime = widget.passvalue.date;
+    myPriority = widget.passvalue.priority;
     super.initState();
-  }
-
-  Widget textform(
-    TextEditingController? _mycontroller,
-    // String hintname,
-  ) {
-    return SizedBox(
-      height: 60,
-      width: 342,
-      child: TextField(
-        style: TextStyle(color: Colors.black, fontSize: 20),
-        textAlignVertical: TextAlignVertical.bottom,
-        controller: _mycontroller,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(11),
-              borderSide: BorderSide.none),
-          filled: true,
-          contentPadding: EdgeInsets.all(18),
-          fillColor: Color.fromARGB(255, 105, 158, 184),
-          hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 241, 243, 244),
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold),
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
   }
 
 //***********************Date***************************/
   Widget dates() {
-    return Container(
-      width: 143,
-      height: 79,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(11),
-          color: Color.fromARGB(232, 20, 139, 199)),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Icon(
-              Icons.calendar_month_outlined,
-              size: 26.0,
-              color: Colors.white70,
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent, elevation: 0),
-                onPressed: () {
-                  _showDatePicker();
-                },
-                child: Text(
-                  '${widget.passvalue.date.day}/${widget.passvalue.date.month}/${widget.passvalue.date.year}',
-                  semanticsLabel: date.toString(),
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )),
-          ],
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey[200],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              padding: EdgeInsets.all(19)),
+          onPressed: () async {
+            final date = await pickDate();
+            if (date == null) return;
+
+            final newDateTime = DateTime(date.year, date.month, date.day,
+                dateTime.hour, dateTime.minute);
+            setState(() {
+              dateTime = newDateTime;
+            });
+          },
+          child: Text(
+            '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
+            style: TextStyle(
+                color: Colors.blue[700],
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
+          )),
+    );
+  }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+      context: context,
+      initialDate: dateTime,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2500));
+
+//*********************Time*********************** */
+  Widget times() {
+    final hours = dateTime.hour.toString().padLeft(2, '0');
+    final minutes = dateTime.minute.toString().padLeft(2, '0');
+
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey[200],
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            padding: EdgeInsets.all(19)),
+        onPressed: () async {
+          final time = await pickTime();
+          if (time == null) return;
+
+          final newDateTime = DateTime(dateTime.year, dateTime.month,
+              dateTime.day, time.hour, time.minute);
+          setState(() {
+            dateTime = newDateTime;
+          });
+        },
+        child: Text(
+          '       $hours:$minutes        ',
+          style: TextStyle(
+              color: Colors.blue[700],
+              fontWeight: FontWeight.bold,
+              fontSize: 18),
         ),
       ),
     );
   }
 
-//*********************Time*********************** */
-  Widget times() {
-    return Container(
-      width: 143,
-      height: 79,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(11),
-          color: Color.fromARGB(232, 20, 139, 199)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            height: 5,
-          ),
-          Icon(
-            Icons.watch_later_outlined,
-            size: 26,
-            color: Colors.white,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent, elevation: 0),
-            onPressed: () async {
-              TimeOfDay? newtime = await showTimePicker(
-                context: context,
-                initialTime: time,
-              );
-              if (newtime == null) return;
-              setState(() {
-                time = newtime;
-              });
-            },
-            child: Text(
-              '${time.hour}:${time.minute}',
-              style: TextStyle(fontSize: 22),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Future<TimeOfDay?> pickTime() => showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
 
 //************************flatbutton************************* */
   Widget flatbtn(
@@ -184,7 +129,7 @@ class _edit_taskformState extends State<edit_taskform> {
           child: texts(
             mystring: mystring,
             myfontsize: 22,
-            fontweight: FontWeight.w500,
+            fontweight: FontWeight.bold,
             mycolor: mycolor,
           )),
     );
@@ -192,16 +137,27 @@ class _edit_taskformState extends State<edit_taskform> {
 
 //**************************priority********************************************** */
   Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
-    return Center(
-      child: Switch(
-        value: isSwitched,
-        onChanged: (newvalue) {
-          onChangeMethod(newvalue);
-        },
-        inactiveThumbColor: Colors.amber,
-        activeTrackColor: Colors.red,
-        activeColor: Colors.red,
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        texts(
+            mystring: 'Prioirity ?',
+            myfontsize: 18,
+            mycolor: Colors.black,
+            fontweight: FontWeight.bold),
+        SizedBox(
+          width: 5,
+        ),
+        Switch(
+          value: isSwitched,
+          onChanged: (newvalue) {
+            onChangeMethod(newvalue);
+          },
+          inactiveThumbColor: Colors.amber,
+          activeTrackColor: Colors.red,
+          activeColor: Colors.red,
+        ),
+      ],
     );
   }
 
@@ -213,71 +169,55 @@ class _edit_taskformState extends State<edit_taskform> {
         const SizedBox(
           height: 20,
         ),
-        texts(
+        const texts(
             mystring: 'Edit Task',
-            myfontsize: 32,
-            mycolor: Color.fromARGB(233, 15, 103, 127),
-            fontweight: FontWeight.w500),
-        SizedBox(
-          height: 20,
+            myfontsize: 27,
+            mycolor: Colors.black,
+            fontweight: FontWeight.bold),
+        const SizedBox(
+          height: 10,
         ),
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: textform(_titleController),
-            ),
-            SizedBox(
+                padding: const EdgeInsets.all(12.0),
+                child:
+                    tasktextform(mycontroller: _titleController, hintname: '')),
+            const SizedBox(
               height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.all(11),
-              child: textform(
-                _disciptionController,
-              ),
-            ),
-            SizedBox(
-              height: 10,
+                padding: const EdgeInsets.all(11),
+                child: tasktextform(
+                    mycontroller: _disciptionController, hintname: '')),
+            const SizedBox(
+              height: 8,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
             prioritybutton(myPriority, onchangeFunction),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Color.fromARGB(233, 35, 160, 195),
+                color: Color(0xff4a90fa),
               ),
               child: flatbtn(
                   onpressaction: () {
                     editOnButtonclicked(widget.passindex);
                     Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (ctx) => const Screen_home()),
+                        MaterialPageRoute(builder: (ctx) => Screen_home()),
                         (route) => false);
                   },
                   mycolor: Colors.white,
                   mystring: 'Save'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromARGB(233, 22, 110, 135), width: 2),
-                borderRadius: BorderRadius.circular(11),
-              ),
-              child: flatbtn(
-                  onpressaction: () {
-                    Navigator.pop(context);
-                  },
-                  mycolor: Color.fromARGB(255, 134, 11, 11),
-                  mystring: 'Cancel'),
             ),
           ],
         ),
@@ -288,19 +228,21 @@ class _edit_taskformState extends State<edit_taskform> {
   Future<void> editOnButtonclicked(int index) async {
     final _title = _titleController!.text.trim();
     final _discription = _disciptionController!.text.trim();
-    final _date = date;
+    final _date = dateTime;
 
     if (_title.isEmpty || _discription.isEmpty) {
       return;
     }
     final _todo = TodoModel(
-      title: _title,
-      description: _discription,
-      date: _date,
-      priority: myPriority,
-    );
-    final todotaskdb = await Hive.openBox<TodoModel>('todo_task_db');
-    todotaskdb.putAt(index, _todo);
+        title: _title,
+        description: _discription,
+        date: _date,
+        priority: myPriority,
+        complete: false,
+        id: DateTime.now().toString());
+    editTask(widget.passvalue.id, context, _todo);
+    // final todotaskdb = await Hive.openBox<TodoModel>('todo_task_db');
+    // todotaskdb.putAt(index, _todo);
     getAllTodotask();
   }
 

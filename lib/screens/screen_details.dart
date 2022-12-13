@@ -13,25 +13,13 @@ class Screen_details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
-          child: ListView(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(146, 51, 48, 114),
-                  Color.fromARGB(165, 83, 79, 165),
-                ],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-              ),
-            ),
-            child: details_screen(passvalue: passvalue, passindex: passindex),
-          ),
-        ],
+          child: Container(
+        color: Colors.grey[200],
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: details_screen(passvalue: passvalue, passindex: passindex),
       )),
     );
   }

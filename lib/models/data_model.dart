@@ -4,7 +4,7 @@ part 'data_model.g.dart';
 @HiveType(typeId: 1)
 class TodoModel {
   @HiveField(0)
-  int? id;
+  final String id;
 
   @HiveField(1)
   final String title;
@@ -18,19 +18,21 @@ class TodoModel {
   @HiveField(4)
   final bool? priority;
 
-  TodoModel({
-    this.id,
-    required this.title,
-    this.priority,
-    required this.description,
-    required this.date,
-  });
+  @HiveField(5)
+  final bool? complete;
+  TodoModel(
+      {required this.id,
+      required this.title,
+      this.priority,
+      required this.description,
+      required this.date,
+      required this.complete});
 }
 
 @HiveType(typeId: 2)
 class TodoEvent {
   @HiveField(0)
-  int? id;
+  String id;
 
   @HiveField(1)
   final String title;
@@ -56,6 +58,6 @@ class TodoEvent {
       required this.location,
       required this.description,
       required this.date,
-      this.id,
+      required this.id,
       required this.image});
 }

@@ -5,6 +5,7 @@ import 'package:todo_app/screens/eventCalender_screen.dart';
 import 'package:todo_app/screens/screen_calender.dart';
 import 'package:todo_app/screens/screen_dashboard.dart';
 import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
+import 'package:todo_app/widgets/dasboardScreen.dart/evntDashboard.dart';
 
 import '../add_task/add_taskform.dart';
 
@@ -19,8 +20,8 @@ class event_bottomsection extends StatelessWidget {
         type: MaterialType.transparency,
         child: Ink(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 2.0),
-            color: Color(0xff483b7c),
+            border: Border.all(color: Colors.white54, width: 2.0),
+            color: Colors.blue[600],
             shape: BoxShape.circle,
           ),
           child: InkWell(
@@ -127,8 +128,8 @@ class event_bottomsection extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (ctx1) => Screen_dashboard()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (ctx1) => EventDashboardLists()));
                 },
               )
             ],
@@ -173,7 +174,7 @@ void _showeventForm(BuildContext context, var itemkey, var index) {
           topRight: Radius.circular(25.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.95,
+      height: MediaQuery.of(context).size.height * 0.88,
       child: add_eventform(),
     ),
   );
@@ -183,7 +184,7 @@ class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = new Paint()
-      ..color = Color(0xff483b7c)
+      ..color = Colors.blue.shade600
       ..style = PaintingStyle.fill;
 
     Path path = Path();

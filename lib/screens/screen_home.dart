@@ -14,17 +14,12 @@ class Screen_home extends StatelessWidget {
 //***************************Tabbarvier add***************************************** */
   Widget tasksectiontab() {
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        colors: [
-          Color.fromARGB(146, 51, 48, 114),
-          Color.fromARGB(133, 83, 79, 165),
-        ],
-        begin: Alignment.bottomRight,
-        end: Alignment.topLeft,
-      )),
+      color: Colors.grey[200],
       child: Column(
         children: [
+          SizedBox(
+            height: 40,
+          ),
           const Task_section(),
           const Expanded(
             child: Home_tasksection(),
@@ -39,15 +34,7 @@ class Screen_home extends StatelessWidget {
   Widget eventsectiontab() {
     return Container(
       //  color: Colors.white,
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        colors: [
-          Color.fromARGB(146, 51, 48, 114),
-          Color.fromARGB(133, 83, 79, 165),
-        ],
-        begin: Alignment.bottomRight,
-        end: Alignment.topLeft,
-      )),
+      color: Colors.grey[200],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -104,7 +91,7 @@ class Screen_home extends StatelessWidget {
               },
             )
           ],
-          backgroundColor: Color(0xff483b7c),
+          backgroundColor: Color(0xFF4a90fa),
         ),
         body: TabBarView(
           children: [

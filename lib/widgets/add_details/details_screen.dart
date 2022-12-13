@@ -17,81 +17,97 @@ class details_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      //crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 50.0,
+          height: 30.0,
+        ),
+        Container(
+          height: 73,
+          width: 350.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(22),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(23),
+            child: Text(
+              '${passvalue.title}',
+              style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 38,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(
+              width: 30,
+            ),
             Icon(
-              Icons.calendar_month_outlined,
-              size: 26.0,
-              color: Color.fromARGB(255, 48, 6, 93),
+              Icons.calendar_today_outlined,
+              size: 22.0,
+              color: Colors.black,
             ),
             SizedBox(
               width: 12,
             ),
             Text(
-              DateFormat("dd/MM/yyy ").format(passvalue.date),
+              DateFormat("MMM, dd yyy hh:mm a").format(passvalue.date),
               //  data.date.toString(),
               style: const TextStyle(
-                  color: Color.fromARGB(255, 48, 6, 93),
-                  fontSize: 24.0,
+                  color: Colors.black,
+                  fontSize: 18.0,
                   fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              width: 60,
+            ),
+            passvalue.priority ?? false
+                ? Container(
+                    decoration: BoxDecoration(
+                        color: Colors.red[100],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: const Icon(
+                        Icons.hourglass_full_outlined,
+                        size: 35,
+                        color: Colors.red,
+                      ),
+                    ),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                        color: Colors.yellow[100],
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: const Icon(
+                        Icons.hourglass_bottom,
+                        size: 35,
+                        color: Colors.yellow,
+                      ),
+                    ),
+                  ),
           ],
         ),
         SizedBox(
-          height: 20.0,
-        ),
-        Container(
-          height: 83,
-          width: 350.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22),
-            gradient: const LinearGradient(
-              colors: [
-                Color.fromARGB(146, 51, 48, 114),
-                Color.fromARGB(146, 51, 48, 114),
-                Color.fromARGB(146, 51, 48, 114),
-                Color.fromARGB(146, 51, 48, 114),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Padding(
-              padding: const EdgeInsets.all(23),
-              child: Text(
-                '${passvalue.title}',
-                style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24.0,
-                  ),
-                ),
-              )),
-        ),
-        SizedBox(
-          height: 60,
+          height: 20,
         ),
         Container(
           height: 453,
           width: 350,
           decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(22),
-            gradient: const LinearGradient(
-              colors: [
-                Color.fromARGB(146, 51, 48, 114),
-                Color.fromARGB(146, 51, 48, 114),
-                Color.fromARGB(146, 51, 48, 114),
-                Color.fromARGB(146, 51, 48, 114),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,23 +117,35 @@ class details_screen extends StatelessWidget {
                   padding: EdgeInsets.all(23),
                   child: Text(
                     '${passvalue.description}',
-                    style: TextStyle(color: Colors.white, fontSize: 22.0),
+                    style: TextStyle(color: Colors.black, fontSize: 22.0),
                   )),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.edit_note_rounded,
-                        size: 52,
-                        color: Colors.white,
+                    Container(
+                      width: 320,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      onPressed: () {
-                        _showeditaddtaskForm(context,
-                            passvalue: passvalue, passindex: passindex);
-                      },
+                      child: ElevatedButton(
+                          onPressed: () {
+                            _showeditaddtaskForm(context,
+                                passvalue: passvalue, passindex: passindex);
+                          },
+                          child: Text(
+                            'Edit',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue[600],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)))),
                     ),
                   ],
                 ),
@@ -133,15 +161,16 @@ class details_screen extends StatelessWidget {
 void _showeditaddtaskForm(BuildContext context,
     {required passvalue, required passindex}) {
   showModalBottomSheet(
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.transparent,
     isDismissible: false,
     isScrollControlled: true,
     context: context,
     builder: (_) => Container(
       decoration: const BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.0),
-          topRight: Radius.circular(25.0),
+          topLeft: Radius.circular(35.0),
+          topRight: Radius.circular(35.0),
         ),
       ),
       height: MediaQuery.of(context).size.height * 0.70,

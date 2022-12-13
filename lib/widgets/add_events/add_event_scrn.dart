@@ -6,6 +6,8 @@ import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
+import '../../util/event_textform.dart';
+
 class add_eventform extends StatefulWidget {
   add_eventform({super.key});
 
@@ -24,128 +26,74 @@ class _add_eventformState extends State<add_eventform> {
 
   String? imagepath;
 
-  DateTime date = DateTime(2022, 12, 24);
-  TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
-
-  void _showDatePicker() async {
-    DateTime? newDate = await showDatePicker(
-      context: context,
-      initialDate: date,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-    );
-    if (newDate == null) return;
-    setState(() => date = newDate);
-  }
-
-  //******************widgets******************** */
-  Widget textform(
-    TextEditingController mycontroller,
-    String hintname,
-  ) {
-    return SizedBox(
-      height: 60.0,
-      width: 342,
-      child: TextFormField(
-        style: TextStyle(color: Colors.black, fontSize: 20),
-        textAlignVertical: TextAlignVertical.bottom,
-        controller: mycontroller,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(11),
-              borderSide: BorderSide.none),
-          filled: true,
-          contentPadding: EdgeInsets.all(18),
-          fillColor: Color.fromARGB(255, 105, 158, 184),
-          hintText: hintname,
-          hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 241, 243, 244),
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold),
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
+  DateTime dateTime = DateTime.now();
 
 //***********************Date***************************/
   Widget dates() {
-    return Container(
-      width: 143,
-      height: 79,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(11),
-          color: Color.fromARGB(232, 20, 139, 199)),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Icon(
-              Icons.calendar_month_outlined,
-              size: 26.0,
-              color: Colors.white,
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent, elevation: 0),
-                onPressed: () {
-                  _showDatePicker();
-                },
-                child: Text(
-                  '${date.year}/${date.month}/${date.day}',
-                  semanticsLabel: date.toString(),
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )),
-          ],
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              padding: EdgeInsets.all(25)),
+          onPressed: () async {
+            final date = await pickDate();
+            if (date == null) return;
+
+            final newDateTime = DateTime(date.year, date.month, date.day,
+                dateTime.hour, dateTime.minute);
+            setState(() {
+              dateTime = newDateTime;
+            });
+          },
+          child: Text(
+            '${dateTime.year}/${dateTime.month}/${dateTime.day}',
+            style: TextStyle(color: Colors.black),
+          )),
+    );
+  }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+      context: context,
+      initialDate: dateTime,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2500));
+//*********************Time*********************** */
+  Widget times() {
+    final hours = dateTime.hour.toString().padLeft(2, '0');
+    final minutes = dateTime.minute.toString().padLeft(2, '0');
+
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            padding: EdgeInsets.all(25)),
+        onPressed: () async {
+          final time = await pickTime();
+          if (time == null) return;
+
+          final newDateTime = DateTime(dateTime.year, dateTime.month,
+              dateTime.day, time.hour, time.minute);
+          setState(() {
+            dateTime = newDateTime;
+          });
+        },
+        child: Text(
+          '$hours:$minutes',
+          style: TextStyle(color: Colors.black),
         ),
       ),
     );
   }
 
-//*********************Time*********************** */
-  Widget times() {
-    return Container(
-      width: 143,
-      height: 79,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(11),
-          color: Color.fromARGB(232, 20, 139, 199)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            height: 5,
-          ),
-          Icon(
-            Icons.watch_later_outlined,
-            size: 26,
-            color: Colors.white,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent, elevation: 0),
-            onPressed: () async {
-              TimeOfDay? newtime = await showTimePicker(
-                context: context,
-                initialTime: time,
-              );
-              if (newtime == null) return;
-              setState(() {
-                time = newtime;
-              });
-            },
-            child: Text(
-              '${time.hour}:${time.minute}',
-              style: TextStyle(fontSize: 22),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Future<TimeOfDay?> pickTime() => showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
 
 //************************flatbutton************************* */
   Widget flatbtn(
@@ -174,15 +122,15 @@ class _add_eventformState extends State<add_eventform> {
 //position
   Widget position() {
     return Positioned(
-      bottom: 20,
-      right: 20,
+      bottom: 1,
+      right: 50,
       child: InkWell(
         onTap: () {
           takePhoto();
         },
         child: const Icon(
-          Icons.photo_camera_back_outlined,
-          color: Colors.white,
+          Icons.camera_alt_outlined,
+          color: Colors.black54,
           size: 30,
         ),
       ),
@@ -191,24 +139,36 @@ class _add_eventformState extends State<add_eventform> {
 
 //**************************priority button********************************************** */
   Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
-    return Center(
-      child: Switch(
-        value: isSwitched,
-        onChanged: (newvalue) {
-          onChangeMethod(newvalue);
-        },
-        inactiveThumbColor: Colors.amber,
-        activeTrackColor: Colors.red,
-        activeColor: Colors.red,
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        texts(
+            mystring: 'Prioirity ?',
+            myfontsize: 16,
+            mycolor: Colors.black,
+            fontweight: FontWeight.w600),
+        SizedBox(
+          width: 5,
+        ),
+        Switch(
+          value: isSwitched,
+          onChanged: (newvalue) {
+            onChangeMethod(newvalue);
+          },
+          inactiveThumbColor: Colors.amber,
+          activeTrackColor: Colors.red,
+          activeColor: Colors.red,
+        ),
+      ],
     );
   }
 
+//*********************add photo************* */
   Widget circleavtar() {
     return Stack(
       children: [
         CircleAvatar(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.grey[400],
           backgroundImage:
               imagepath == null ? null : FileImage(File(imagepath!)),
           radius: 70.0,
@@ -224,12 +184,12 @@ class _add_eventformState extends State<add_eventform> {
     return Column(
       children: [
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         const texts(
             mystring: 'Add Event',
             myfontsize: 32,
-            mycolor: Color.fromARGB(255, 11, 90, 155),
+            mycolor: Colors.black,
             fontweight: FontWeight.bold),
         const SizedBox(
           height: 10,
@@ -237,33 +197,35 @@ class _add_eventformState extends State<add_eventform> {
         Column(
           children: [
             circleavtar(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            textform(_titleController, 'Title'),
-            SizedBox(
+            eventTextform(mycontroller: _titleController, hintname: 'Title'),
+            const SizedBox(
               height: 10,
             ),
-            textform(_disciptionController, 'Discription'),
-            SizedBox(
+            eventTextform(
+                mycontroller: _disciptionController, hintname: 'Discription'),
+            const SizedBox(
               height: 10,
             ),
-            textform(_locationController, 'Location'),
-            SizedBox(
+            eventTextform(
+                mycontroller: _locationController, hintname: 'Location'),
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             prioritybutton(myPriority, onchangeFunction),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Color.fromARGB(233, 35, 160, 195),
+                color: const Color(0xff4a90fa),
               ),
               child: flatbtn(
                   onpressaction: () {
@@ -273,21 +235,8 @@ class _add_eventformState extends State<add_eventform> {
                   mycolor: Colors.white,
                   mystring: 'Add Event'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color.fromARGB(233, 35, 160, 195), width: 2),
-                borderRadius: BorderRadius.circular(11),
-              ),
-              child: flatbtn(
-                  onpressaction: () {
-                    Navigator.pop(context);
-                  },
-                  mycolor: Color.fromARGB(233, 35, 160, 195),
-                  mystring: 'Cancel'),
             ),
           ],
         ),
@@ -298,7 +247,7 @@ class _add_eventformState extends State<add_eventform> {
   Future<void> _onAddtodoeventClicked() async {
     final _title = _titleController.text.trim();
     final _discription = _disciptionController.text.trim();
-    final _date = date;
+    final _date = dateTime;
     final _location = _locationController.text.trim();
     if (_title.isEmpty || _discription.isEmpty || _location.isEmpty) {
       return;
@@ -309,7 +258,8 @@ class _add_eventformState extends State<add_eventform> {
         date: _date,
         image: imagepath!,
         location: _location,
-        priority: myPriority);
+        priority: myPriority,
+        id: DateTime.now().toString());
     addevent(_todoevent);
   }
 
