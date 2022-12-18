@@ -85,3 +85,17 @@ Future<void> deleteAllTodoevent(String index) async {
   await todoEventDB.delete(desiredKey);
   getAllTodoEvent();
 }
+
+editevent(index, context, TodoEvent value) async {
+  final todoDB = await Hive.openBox<TodoEvent>('todo_Event_db');
+  final Map<dynamic, TodoEvent> taskMap = todoDB.toMap();
+  dynamic desiredKey;
+  taskMap.forEach((key, value) {
+    if (value.id == index) {
+      desiredKey = key;
+    }
+  });
+  todoDB.put(desiredKey, value);
+  getAllTodoEvent();
+  // Navigator.of(context).pop();
+}

@@ -20,8 +20,13 @@ class TodoModel {
 
   @HiveField(5)
   final bool? complete;
+
+  @HiveField(6)
+  final bool isdone;
+
   TodoModel(
       {required this.id,
+      required this.isdone,
       required this.title,
       this.priority,
       required this.description,
@@ -32,7 +37,7 @@ class TodoModel {
 @HiveType(typeId: 2)
 class TodoEvent {
   @HiveField(0)
-  String id;
+  final String id;
 
   @HiveField(1)
   final String title;
@@ -52,12 +57,17 @@ class TodoEvent {
   @HiveField(6)
   final String location;
 
-  TodoEvent(
-      {required this.title,
-      this.priority,
-      required this.location,
-      required this.description,
-      required this.date,
-      required this.id,
-      required this.image});
+  @HiveField(7)
+  final bool isdone;
+
+  TodoEvent({
+    required this.title,
+    required this.isdone,
+    this.priority,
+    required this.location,
+    required this.description,
+    required this.date,
+    required this.id,
+    required this.image,
+  });
 }

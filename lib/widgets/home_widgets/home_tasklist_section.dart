@@ -6,8 +6,14 @@ import 'package:intl/intl.dart';
 
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_details.dart';
+import 'package:todo_app/widgets/noftification/notification.dart';
 
 import '../../models/data_model.dart';
+
+DateTime notifytime = DateTime.now();
+
+List<TodoModel> upcomingtask = [];
+TodoModel? notifydata;
 
 class Home_tasksection extends StatefulWidget {
   const Home_tasksection({super.key});
@@ -19,15 +25,11 @@ class Home_tasksection extends StatefulWidget {
 class _Home_tasksectionState extends State<Home_tasksection> {
   @override
   Widget build(BuildContext context) {
+    checkTimeNotification();
     return ValueListenableBuilder(
       valueListenable: todolistnotifier,
       builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
-        //  List<int> keys = todolist.keys.cast<int>.toList();
-        List<int> keys;
-//keys=todolist.keys.cast<int>().where((Key)=>todolist.get(Key).completed).to
         return ListView.builder(
-          // shrinkWrap: true,
-          // primary: false,
           scrollDirection: Axis.vertical,
           itemCount: todolist.where((TodoModel) {
             return DateTime.parse(TodoModel.date.toString()).day ==
@@ -35,24 +37,32 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                 DateTime.parse(TodoModel.date.toString()).month ==
                     DateTime.now().month &&
                 DateTime.parse(TodoModel.date.toString()).year ==
-                    DateTime.now().year;
+                    DateTime.now().year &&
+                TodoModel.isdone == false;
           }).length,
           itemBuilder: (context, index) {
-            //   List<TodoModel> sortedlist = [];
-            //  sortedlist = todolist;
-            // todolist
-            //     .sort(((TodoModel a, TodoModel b) => a.date.compareTo(b.date)));
             final data = todolist.where((TodoModel) {
               return DateTime.parse(TodoModel.date.toString()).day ==
                       DateTime.now().day &&
                   DateTime.parse(TodoModel.date.toString()).month ==
                       DateTime.now().month &&
                   DateTime.parse(TodoModel.date.toString()).year ==
-                      DateTime.now().year;
+                      DateTime.now().year &&
+                  TodoModel.isdone == false;
             }).toList()[index];
-            //final data = todolist[index];
+
+            todolist.sort((a, b) => a.date.compareTo(b.date));
+            upcomingtask = todolist
+                .where((element) => element.date.isAfter(DateTime.now()))
+                .toList();
+
+            // notifytime = upcomingtask[0].date;
+            // notifydata = upcomingtask[0];
+
+            // print('objec{$notifytime}');
             return Padding(
-              padding: const EdgeInsets.all(13.0),
+              padding: const EdgeInsets.only(
+                  top: 6.0, left: 10.0, right: 10.0, bottom: 0),
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -61,14 +71,15 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                   ),
                 ),
                 child: Slidable(
-                  // closeOnScroll: false,
                   startActionPane: ActionPane(
-                    motion: StretchMotion(),
+                    motion: const StretchMotion(),
                     children: [
                       SlidableAction(
                         //borderRadius: BorderRadius.circular(10.0),
-                        onPressed: ((context) {}),
-                        backgroundColor: Color.fromARGB(255, 24, 207, 164),
+                        onPressed: ((context) {
+                          markDone(data, context);
+                        }),
+                        backgroundColor: Color.fromARGB(255, 285, 207, 144),
                         foregroundColor: Colors.white,
                         icon: Icons.done_all,
                         label: 'Done ',
@@ -121,9 +132,9 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                               decoration: BoxDecoration(
                                   color: Colors.red[100],
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: const Icon(
+                              child: const Padding(
+                                padding: EdgeInsets.all(3.0),
+                                child: Icon(
                                   Icons.hourglass_full_outlined,
                                   size: 35,
                                   color: Colors.red,
@@ -134,9 +145,9 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                               decoration: BoxDecoration(
                                   color: Colors.yellow[100],
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: const Icon(
+                              child: const Padding(
+                                padding: EdgeInsets.all(3.0),
+                                child: Icon(
                                   Icons.hourglass_bottom,
                                   size: 35,
                                   color: Colors.yellow,
@@ -172,4 +183,17 @@ class _Home_tasksectionState extends State<Home_tasksection> {
       },
     );
   }
+}
+
+void markDone(TodoModel data, BuildContext context) {
+  final updateData = TodoModel(
+      id: data.id,
+      description: data.description,
+      date: data.date,
+      priority: data.priority,
+      isdone: true,
+      complete: true,
+      title: data.title);
+
+  editTask(data.id, context, updateData);
 }

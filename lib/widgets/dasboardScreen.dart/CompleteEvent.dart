@@ -3,37 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/models/data_model.dart';
+import 'package:todo_app/screens/screen_event_dtls.dart';
 
 import '../../functions/db_functions.dart';
-import '../../models/data_model.dart';
-import '../../screens/screen_details.dart';
 import '../common_widgets/common_text.dart';
-import '../home_widgets/home_tasklist_section.dart';
 
-class TasakPending extends StatelessWidget {
-  const TasakPending({super.key});
+class CompletedEvents extends StatelessWidget {
+  const CompletedEvents({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: todolistnotifier,
-      builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
-        return todolist.where((element) => element.isdone == false).isNotEmpty
+      valueListenable: todolisteventnotifier,
+      builder:
+          (BuildContext ctx, List<TodoEvent> todoeventlist, Widget? child) {
+        return todoeventlist
+                .where((element) => element.isdone == true)
+                .isNotEmpty
             ? (ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: todolist
-                    .where((element) =>
-                        element.date.isBefore(DateTime.now()) &&
-                        element.isdone == false)
+                itemCount: todoeventlist
+                    .where((element) => element.isdone == true)
                     .length,
                 itemBuilder: (context, index) {
-                  final data = todolist
-                      .where((element) =>
-                          element.date.isBefore(DateTime.now()) &&
-                          element.isdone == false)
+                  final data = todoeventlist
+                      .where((element) => element.isdone == true)
                       .toList()[index];
+
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(13.0),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -42,31 +41,14 @@ class TasakPending extends StatelessWidget {
                         ),
                       ),
                       child: Slidable(
-                        // closeOnScroll: false,
-                        startActionPane: ActionPane(
-                          motion: StretchMotion(),
-                          children: [
-                            SlidableAction(
-                              //borderRadius: BorderRadius.circular(10.0),
-                              onPressed: ((context) {
-                                markDone(data, context);
-                              }),
-                              backgroundColor:
-                                  Color.fromARGB(255, 24, 207, 164),
-                              foregroundColor: Colors.white,
-                              icon: Icons.done_all,
-                              label: 'Done ',
-                            ),
-                          ],
-                        ),
                         endActionPane: ActionPane(
                           motion: StretchMotion(),
                           children: [
                             SlidableAction(
                               onPressed: ((context) {
-                                deleteAllTodotask(data.id);
+                                deleteAllTodoevent(data.id);
                                 Fluttertoast.showToast(
-                                  msg: 'deleted !!',
+                                  msg: 'Removed !!',
                                   toastLength: Toast.LENGTH_SHORT,
                                   backgroundColor: Colors.red,
                                   fontSize: 17,
@@ -76,7 +58,7 @@ class TasakPending extends StatelessWidget {
                               backgroundColor: Colors.red,
                               foregroundColor: Colors.white,
                               icon: Icons.delete,
-                              label: 'delete',
+                              label: 'Remove',
                             ),
                           ],
                         ),
@@ -85,7 +67,7 @@ class TasakPending extends StatelessWidget {
                           child: ListTile(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Screen_details(
+                                  builder: (context) => Screen_eventsdtls(
                                         passvalue: data,
                                         passindex: index,
                                       )));
@@ -107,9 +89,9 @@ class TasakPending extends StatelessWidget {
                                         color: Colors.red[100],
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: const Icon(
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(3.0),
+                                      child: Icon(
                                         Icons.hourglass_full_outlined,
                                         size: 35,
                                         color: Colors.red,
@@ -121,9 +103,9 @@ class TasakPending extends StatelessWidget {
                                         color: Colors.yellow[100],
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: const Icon(
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(3.0),
+                                      child: Icon(
                                         Icons.hourglass_bottom,
                                         size: 35,
                                         color: Colors.yellow,
@@ -158,7 +140,7 @@ class TasakPending extends StatelessWidget {
               ))
             : const Center(
                 child: texts(
-                    mystring: 'No Tasks Found',
+                    mystring: 'No Events Found',
                     myfontsize: 20,
                     mycolor: Colors.black45,
                     fontweight: FontWeight.w500),

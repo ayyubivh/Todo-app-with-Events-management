@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/util/app_color.dart';
+import 'package:todo_app/widgets/common_widgets/common_text.dart';
+import 'package:todo_app/widgets/dasboardScreen.dart/completedTask.dart';
 import 'package:todo_app/widgets/dasboardScreen.dart/taskPendin.dart';
-import 'package:todo_app/widgets/home_widgets/home_eventlist.dart';
-import 'package:todo_app/widgets/home_widgets/home_tasklist_section.dart';
 
 class DashboardLists extends StatefulWidget {
   const DashboardLists({super.key});
@@ -16,68 +17,101 @@ class _DashboardListsState extends State<DashboardLists>
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 2, vsync: this);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Dashboard',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 29),
-            child: Icon(
-              Icons.filter_alt_outlined,
-              size: 25.0,
+      body: Container(
+        color: Colors.grey[200],
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: maincolor,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(40.0),
+                        bottomRight: Radius.circular(40.0),
+                      )),
+                ),
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 28.0),
+                    child: texts(
+                        mystring: 'Dasboard',
+                        myfontsize: 22,
+                        mycolor: Colors.white,
+                        fontweight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-          ),
-          Center(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-              child: Container(
-                //  width: 300,
-                decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(12)),
-                child: TabBar(
-                  isScrollable: true,
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.amber),
-                  tabs: const [
-                    Tab(
-                      child: Text(
-                        '   Completed   ',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  color: Colors.grey[200],
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            // width: 300,
+                            decoration: BoxDecoration(
+                                color: maincolor,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: TabBar(
+                                indicatorColor: Colors.white,
+                                indicatorWeight: 2,
+                                // isScrollable: true,
+                                controller: tabController,
+                                indicator: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white70,
+                                ),
+                                labelColor: Colors.black,
+                                unselectedLabelColor: Colors.white,
+                                tabs: const [
+                                  Tab(
+                                    child: Text(
+                                      '   Completed   ',
+                                      style: TextStyle(
+                                          // color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Tab(
+                                    child: Text(
+                                      '  Pending      ',
+                                      style: TextStyle(
+                                          // color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    Tab(
-                      child: Text(
-                        '  Pending      ',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
+                      Expanded(
+                        child: Container(
+                          color: Colors.grey.shade200,
+                          child: TabBarView(
+                            controller: tabController,
+                            children: [CompleteTask(), TasakPending()],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [Home_tasksection(), TasakPending()],
-            ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/util/app_color.dart';
 
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
@@ -33,7 +34,7 @@ class details_screen extends StatelessWidget {
             child: Text(
               '${passvalue.title}',
               style: GoogleFonts.montserrat(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                     color: Colors.black,
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold),
@@ -42,21 +43,21 @@ class details_screen extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 38,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 30,
             ),
-            Icon(
+            const Icon(
               Icons.calendar_today_outlined,
               size: 22.0,
               color: Colors.black,
             ),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Text(
@@ -64,20 +65,20 @@ class details_screen extends StatelessWidget {
               //  data.date.toString(),
               style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 16.0,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              width: 60,
+            const SizedBox(
+              width: 80,
             ),
             passvalue.priority ?? false
                 ? Container(
                     decoration: BoxDecoration(
                         color: Colors.red[100],
                         borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: const Icon(
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Icon(
                         Icons.hourglass_full_outlined,
                         size: 35,
                         color: Colors.red,
@@ -88,9 +89,9 @@ class details_screen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.yellow[100],
                         borderRadius: BorderRadius.circular(10)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: const Icon(
+                    child: const Padding(
+                      padding: EdgeInsets.all(3.0),
+                      child: Icon(
                         Icons.hourglass_bottom,
                         size: 35,
                         color: Colors.yellow,
@@ -99,7 +100,7 @@ class details_screen extends StatelessWidget {
                   ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Container(
@@ -114,10 +115,10 @@ class details_screen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                  padding: EdgeInsets.all(23),
+                  padding: const EdgeInsets.all(23),
                   child: Text(
                     '${passvalue.description}',
-                    style: TextStyle(color: Colors.black, fontSize: 22.0),
+                    style: const TextStyle(color: Colors.black, fontSize: 22.0),
                   )),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -135,17 +136,17 @@ class details_screen extends StatelessWidget {
                             _showeditaddtaskForm(context,
                                 passvalue: passvalue, passindex: passindex);
                           },
-                          child: Text(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Fcolor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          child: const Text(
                             'Edit',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[600],
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)))),
+                          )),
                     ),
                   ],
                 ),
@@ -173,7 +174,7 @@ void _showeditaddtaskForm(BuildContext context,
           topRight: Radius.circular(35.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.70,
+      height: MediaQuery.of(context).size.height * 0.65,
       child: edit_taskform(
         passvalue: passvalue,
         passindex: passindex,

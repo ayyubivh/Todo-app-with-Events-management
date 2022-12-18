@@ -5,8 +5,10 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
+import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/util/event_textform.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
+import 'package:todo_app/widgets/home_widgets/home_eventlist.dart';
 
 import '../../screens/screen_home.dart';
 
@@ -79,10 +81,10 @@ class _edit_eventformState extends State<edit_eventform> {
       padding: const EdgeInsets.all(15.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.grey[200],
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.all(25)),
+                  borderRadius: BorderRadius.circular(12)),
+              padding: EdgeInsets.all(17)),
           onPressed: () async {
             final date = await pickDate();
             if (date == null) return;
@@ -94,8 +96,9 @@ class _edit_eventformState extends State<edit_eventform> {
             });
           },
           child: Text(
-            '${dateTime.year}/${dateTime.month}/${dateTime.day}',
-            style: TextStyle(color: Colors.black),
+            '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           )),
     );
   }
@@ -105,7 +108,6 @@ class _edit_eventformState extends State<edit_eventform> {
       initialDate: dateTime,
       firstDate: DateTime(1900),
       lastDate: DateTime(2500));
-
 //*********************Time*********************** */
   Widget times() {
     final hours = dateTime.hour.toString().padLeft(2, '0');
@@ -115,10 +117,10 @@ class _edit_eventformState extends State<edit_eventform> {
       padding: const EdgeInsets.all(15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.grey[200],
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.all(25)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: EdgeInsets.all(17)),
         onPressed: () async {
           final time = await pickTime();
           if (time == null) return;
@@ -130,8 +132,9 @@ class _edit_eventformState extends State<edit_eventform> {
           });
         },
         child: Text(
-          '$hours:$minutes',
-          style: TextStyle(color: Colors.black),
+          '       $hours:$minutes        ',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
     );
@@ -147,19 +150,19 @@ class _edit_eventformState extends State<edit_eventform> {
       required String mystring,
       required void Function() onpressaction}) {
     return Container(
-      width: 330,
+      width: 325,
       height: 60.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              elevation: 0, backgroundColor: Colors.transparent),
+              backgroundColor: Fcolor,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12))),
           onPressed: onpressaction,
           child: texts(
             mystring: mystring,
             myfontsize: 22,
-            fontweight: FontWeight.w500,
+            fontweight: FontWeight.bold,
             mycolor: mycolor,
           )),
     );
@@ -168,15 +171,15 @@ class _edit_eventformState extends State<edit_eventform> {
 //position
   Widget position() {
     return Positioned(
-      bottom: 20,
-      right: 20,
+      bottom: 1,
+      right: 50,
       child: InkWell(
         onTap: () {
           takePhoto();
         },
         child: const Icon(
-          Icons.photo_camera_back_outlined,
-          color: Colors.white,
+          Icons.camera_alt_outlined,
+          color: Colors.grey,
           size: 30,
         ),
       ),
@@ -185,16 +188,27 @@ class _edit_eventformState extends State<edit_eventform> {
 
 //**************************priority button********************************************** */
   Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
-    return Center(
-      child: Switch(
-        value: isSwitched,
-        onChanged: (newvalue) {
-          onChangeMethod(newvalue);
-        },
-        inactiveThumbColor: Colors.amber,
-        activeTrackColor: Colors.red,
-        activeColor: Colors.red,
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const texts(
+            mystring: 'Prioirity ?',
+            myfontsize: 16,
+            mycolor: Colors.black,
+            fontweight: FontWeight.w600),
+        SizedBox(
+          width: 5,
+        ),
+        Switch(
+          value: isSwitched,
+          onChanged: (newvalue) {
+            onChangeMethod(newvalue);
+          },
+          inactiveThumbColor: Colors.amber,
+          activeTrackColor: Colors.red,
+          activeColor: Colors.red,
+        ),
+      ],
     );
   }
 
@@ -202,11 +216,11 @@ class _edit_eventformState extends State<edit_eventform> {
     return Stack(
       children: [
         CircleAvatar(
-          backgroundColor: Colors.blueGrey,
+          //    backgroundColor: Colors.blueGrey,
           backgroundImage: imagepath == null
               ? FileImage(File(widget.passvalue.image))
               : FileImage(File(imagepath!)),
-          radius: 80.0,
+          radius: 70.0,
         ),
         position()
       ],
@@ -223,8 +237,8 @@ class _edit_eventformState extends State<edit_eventform> {
         ),
         const texts(
             mystring: 'Edit event',
-            myfontsize: 32.0,
-            mycolor: Color.fromARGB(233, 15, 103, 127),
+            myfontsize: 32,
+            mycolor: Colors.black87,
             fontweight: FontWeight.w500),
         const SizedBox(
           height: 10,
@@ -240,74 +254,69 @@ class _edit_eventformState extends State<edit_eventform> {
               hintname: '',
             ),
             const SizedBox(
-              height: 10,
+              height: 7,
             ),
             eventTextform(
               mycontroller: _discriptionController!,
               hintname: '',
             ),
             const SizedBox(
-              height: 10,
+              height: 7,
             ),
             eventTextform(
               mycontroller: _locationcontroller!,
               hintname: '',
             ),
             const SizedBox(
-              height: 5,
+              height: 4,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
             const SizedBox(
-              height: 5,
+              height: 4,
             ),
             prioritybutton(myPriority, onchangeFunction),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: const Color.fromARGB(233, 35, 160, 195),
-              ),
-              child: flatbtn(
-                  onpressaction: () {
-                    _onEdittodoeventClicked(widget.passindex);
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (ctx) => Screen_home()),
-                        (route) => false);
-                    //Navigator.pop(context);
-                  },
-                  mycolor: Colors.white,
-                  mystring: 'Save '),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            flatbtn(
+                onpressaction: () {
+                  _onEdittodoeventClicked(widget.passindex);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (ctx) => Screen_home()),
+                      (route) => false);
+                  //Navigator.pop(context);
+                },
+                mycolor: Colors.white,
+                mystring: 'Save '),
           ],
         ),
       ],
     );
   }
 
-  Future<void> _onEdittodoeventClicked(int index) async {
+  Future<void> _onEdittodoeventClicked(index) async {
     final _title = _titleController!.text.trim();
     final _discription = _discriptionController!.text.trim();
     final _date = dateTime;
     final _location = _locationcontroller!.text.trim();
+    final _id = DateTime.now().toString();
     if (_title.isEmpty || _discription.isEmpty || _location.isEmpty) {
       return;
     }
     final _todoevent = TodoEvent(
-        title: _title,
-        description: _discription,
-        date: _date,
-        image: imagepath!,
-        location: _location,
-        priority: myPriority,
-        id: DateTime.now().toString());
+      title: _title,
+      description: _discription,
+      date: _date,
+      image: imagepath!,
+      location: _location,
+      priority: myPriority,
+      id: _id,
+      isdone: false,
+    );
     //  addevent(_todoevent);
-    final todoeventdb = await Hive.openBox<TodoEvent>('todo_event_db');
-    todoeventdb.putAt(index, _todoevent);
+    // final todoeventdb = await Hive.openBox<TodoEvent>('todo_event_db');
+    // todoeventdb.putAt(index, _todoevent);
+    editevent(widget.passvalue.id, context, _todoevent);
     getAllTodoEvent();
   }
 

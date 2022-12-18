@@ -3,34 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/models/data_model.dart';
+import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../../functions/db_functions.dart';
-import '../../models/data_model.dart';
 import '../../screens/screen_details.dart';
-import '../common_widgets/common_text.dart';
-import '../home_widgets/home_tasklist_section.dart';
 
-class TasakPending extends StatelessWidget {
-  const TasakPending({super.key});
+class CompleteTask extends StatelessWidget {
+  const CompleteTask({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: todolistnotifier,
       builder: (BuildContext ctx, List<TodoModel> todolist, Widget? child) {
-        return todolist.where((element) => element.isdone == false).isNotEmpty
+        return todolist.where((element) => element.isdone == true).isNotEmpty
             ? (ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: todolist
-                    .where((element) =>
-                        element.date.isBefore(DateTime.now()) &&
-                        element.isdone == false)
-                    .length,
+                itemCount:
+                    todolist.where((element) => element.isdone == true).length,
                 itemBuilder: (context, index) {
                   final data = todolist
-                      .where((element) =>
-                          element.date.isBefore(DateTime.now()) &&
-                          element.isdone == false)
+                      .where((element) => element.isdone == true)
                       .toList()[index];
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -42,23 +36,6 @@ class TasakPending extends StatelessWidget {
                         ),
                       ),
                       child: Slidable(
-                        // closeOnScroll: false,
-                        startActionPane: ActionPane(
-                          motion: StretchMotion(),
-                          children: [
-                            SlidableAction(
-                              //borderRadius: BorderRadius.circular(10.0),
-                              onPressed: ((context) {
-                                markDone(data, context);
-                              }),
-                              backgroundColor:
-                                  Color.fromARGB(255, 24, 207, 164),
-                              foregroundColor: Colors.white,
-                              icon: Icons.done_all,
-                              label: 'Done ',
-                            ),
-                          ],
-                        ),
                         endActionPane: ActionPane(
                           motion: StretchMotion(),
                           children: [
@@ -66,7 +43,7 @@ class TasakPending extends StatelessWidget {
                               onPressed: ((context) {
                                 deleteAllTodotask(data.id);
                                 Fluttertoast.showToast(
-                                  msg: 'deleted !!',
+                                  msg: 'Remove !!',
                                   toastLength: Toast.LENGTH_SHORT,
                                   backgroundColor: Colors.red,
                                   fontSize: 17,
@@ -76,7 +53,7 @@ class TasakPending extends StatelessWidget {
                               backgroundColor: Colors.red,
                               foregroundColor: Colors.white,
                               icon: Icons.delete,
-                              label: 'delete',
+                              label: 'Remove',
                             ),
                           ],
                         ),

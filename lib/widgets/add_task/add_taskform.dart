@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
+import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../../util/tasktextform.dart';
@@ -30,8 +31,8 @@ class _add_taskformState extends State<add_taskform> {
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey[200],
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.all(19)),
+                  borderRadius: BorderRadius.circular(12)),
+              padding: EdgeInsets.all(17)),
           onPressed: () async {
             final date = await pickDate();
             if (date == null) return;
@@ -45,9 +46,7 @@ class _add_taskformState extends State<add_taskform> {
           child: Text(
             '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
             style: TextStyle(
-                color: Colors.blue[700],
-                fontWeight: FontWeight.bold,
-                fontSize: 18),
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           )),
     );
   }
@@ -69,8 +68,8 @@ class _add_taskformState extends State<add_taskform> {
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey[200],
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.all(19)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: EdgeInsets.all(17)),
         onPressed: () async {
           final time = await pickTime();
           if (time == null) return;
@@ -84,9 +83,7 @@ class _add_taskformState extends State<add_taskform> {
         child: Text(
           '       $hours:$minutes        ',
           style: TextStyle(
-              color: Colors.blue[700],
-              fontWeight: FontWeight.bold,
-              fontSize: 18),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
     );
@@ -102,14 +99,14 @@ class _add_taskformState extends State<add_taskform> {
       required String mystring,
       required void Function() onpressaction}) {
     return Container(
-      width: 330,
+      width: 325,
       height: 60.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              elevation: 0, backgroundColor: Colors.transparent),
+              backgroundColor: Fcolor,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12))),
           onPressed: onpressaction,
           child: texts(
             mystring: mystring,
@@ -195,14 +192,14 @@ class _add_taskformState extends State<add_taskform> {
                 mycontroller: _disciptionController, hintname: 'Discription'),
           ),
           const SizedBox(
-            height: 10,
+            height: 7,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [dates(), times()],
           ),
           const SizedBox(
-            height: 7,
+            height: 5,
           ),
           prioritybutton(myPriority, onchangeFunction),
           const SizedBox(
@@ -210,8 +207,7 @@ class _add_taskformState extends State<add_taskform> {
           ),
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Color(0xff4a90fa)),
+                borderRadius: BorderRadius.circular(12), color: maincolor),
             child: flatbtn(
                 onpressaction: () {
                   _onAddtodoButtonClicked();
@@ -258,7 +254,8 @@ class _add_taskformState extends State<add_taskform> {
         date: _date,
         priority: myPriority,
         id: _id,
-        complete: false);
+        complete: false,
+        isdone: false);
     addtask(_todo);
   }
 }

@@ -19,7 +19,7 @@ class Screen_eventsdtls extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         children: [
           Container(
-            color: Colors.grey[200],
+            color: Colors.white,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Eventdtls(passvalue: passvalue, passindex: passindex),

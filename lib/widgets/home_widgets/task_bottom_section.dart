@@ -3,21 +3,22 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:todo_app/screens/screen_calender.dart';
 import 'package:todo_app/screens/screen_dashboard.dart';
+import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
 
 import '../add_task/add_taskform.dart';
 
 class task_bottomsection extends StatelessWidget {
   Widget floatbtn(BuildContext context) {
-    return Container(
-      height: 55,
-      width: 55,
+    return SizedBox(
+      height: 52,
+      width: 52,
       child: Material(
         type: MaterialType.transparency,
         child: Ink(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white54, width: 2.0),
-            color: Colors.blue[600],
+            border: Border.all(color: Colors.white, width: 2.0),
+            color: Colors.white,
             shape: BoxShape.circle,
           ),
           child: InkWell(
@@ -26,8 +27,9 @@ class task_bottomsection extends StatelessWidget {
               _showaddtaskForm(context, null, null);
             },
             child: Icon(
-              Icons.add, color: Colors.white,
-              //size: 50,
+              Icons.add,
+              color: maincolor,
+              size: 35,
             ),
           ),
         ),
@@ -45,37 +47,16 @@ class task_bottomsection extends StatelessWidget {
         Positioned(
             bottom: 0,
             top: 0,
-            child: Container(
+            child: SizedBox(
               // color: Colors.black,
               width: size.width,
               height: 80,
               child: Stack(
-                children: [
-                  CustomPaint(
-                    size: Size(size.width, 80),
-                    painter: BNBCustomPainter(),
-                  ),
-                ],
+                children: [navcontainer()],
               ),
             )),
-        // Container(
-        //   height: 70.0,
-        //   decoration: const BoxDecoration(
-        //     borderRadius: BorderRadius.all(
-        //       Radius.circular(50),
-        //     ),
-        //     gradient: LinearGradient(
-        //       colors: [
-        //         Color.fromARGB(255, 87, 53, 143),
-        //         Color.fromARGB(255, 87, 53, 143),
-        //       ],
-        //       begin: Alignment.topCenter,
-        //       end: Alignment.bottomCenter,
-        //     ),
-        //   ),
-        // ),
         Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -90,11 +71,8 @@ class task_bottomsection extends StatelessWidget {
                     color: Colors.white,
                   )),
               Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 34.0),
-                  child: floatbtn(context),
-                ),
-                heightFactor: 0.6,
+                heightFactor: 0.3,
+                child: floatbtn(context),
               ),
               IconButton(
                 icon: const Icon(
@@ -115,6 +93,16 @@ class task_bottomsection extends StatelessWidget {
   }
 }
 
+Widget navcontainer() {
+  return Padding(
+    padding: const EdgeInsets.only(right: 11.0, left: 2),
+    child: Container(
+      decoration: BoxDecoration(
+          color: maincolor, borderRadius: BorderRadius.circular(50)),
+    ),
+  );
+}
+
 void _showaddtaskForm(BuildContext context, var itemkey, var index) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
@@ -122,63 +110,15 @@ void _showaddtaskForm(BuildContext context, var itemkey, var index) {
     isScrollControlled: true,
     context: context,
     builder: (_) => Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(35.0),
           topRight: Radius.circular(35.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.70,
+      height: MediaQuery.of(context).size.height * 0.64,
       child: add_taskform(),
     ),
   );
-}
-
-void _showeventForm(BuildContext context, var itemkey, var index) {
-  showModalBottomSheet(
-    backgroundColor: Colors.transparent,
-    isDismissible: false,
-    isScrollControlled: true,
-    context: context,
-    builder: (_) => Container(
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(35.0),
-          topRight: Radius.circular(35.0),
-        ),
-      ),
-      height: MediaQuery.of(context).size.height * 0.95,
-      child: add_eventform(),
-    ),
-  );
-}
-
-class BNBCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = new Paint()
-      ..color = Colors.blue.shade600
-      ..style = PaintingStyle.fill;
-
-    Path path = Path();
-    path.moveTo(0, 20); // Start
-    path.quadraticBezierTo(size.width * 0.20, 0, size.width * 0.35, 0);
-    path.quadraticBezierTo(size.width * 0.40, 0, size.width * 0.40, 20);
-    path.arcToPoint(Offset(size.width * 0.60, 20),
-        radius: Radius.circular(20.0), clockwise: false);
-    path.quadraticBezierTo(size.width * 0.60, 0, size.width * 0.65, 0);
-    path.quadraticBezierTo(size.width * 0.80, 0, size.width, 20);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(0, 20);
-    canvas.drawShadow(path, Colors.black, 5, true);
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
 }

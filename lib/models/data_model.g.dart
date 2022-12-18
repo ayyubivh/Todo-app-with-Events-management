@@ -18,6 +18,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
     };
     return TodoModel(
       id: fields[0] as String,
+      isdone: fields[6] as bool,
       title: fields[1] as String,
       priority: fields[4] as bool?,
       description: fields[2] as String,
@@ -29,7 +30,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
   @override
   void write(BinaryWriter writer, TodoModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       ..writeByte(4)
       ..write(obj.priority)
       ..writeByte(5)
-      ..write(obj.complete);
+      ..write(obj.complete)
+      ..writeByte(6)
+      ..write(obj.isdone);
   }
 
   @override
@@ -67,6 +70,7 @@ class TodoEventAdapter extends TypeAdapter<TodoEvent> {
     };
     return TodoEvent(
       title: fields[1] as String,
+      isdone: fields[7] as bool,
       priority: fields[5] as bool?,
       location: fields[6] as String,
       description: fields[2] as String,
@@ -79,7 +83,7 @@ class TodoEventAdapter extends TypeAdapter<TodoEvent> {
   @override
   void write(BinaryWriter writer, TodoEvent obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -93,7 +97,9 @@ class TodoEventAdapter extends TypeAdapter<TodoEvent> {
       ..writeByte(5)
       ..write(obj.priority)
       ..writeByte(6)
-      ..write(obj.location);
+      ..write(obj.location)
+      ..writeByte(7)
+      ..write(obj.isdone);
   }
 
   @override

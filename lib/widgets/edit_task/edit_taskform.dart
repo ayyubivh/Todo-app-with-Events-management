@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_home.dart';
+import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/add_task/add_taskform.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
@@ -45,8 +46,8 @@ class _edit_taskformState extends State<edit_taskform> {
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey[200],
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.all(19)),
+                  borderRadius: BorderRadius.circular(12)),
+              padding: EdgeInsets.all(17)),
           onPressed: () async {
             final date = await pickDate();
             if (date == null) return;
@@ -60,9 +61,7 @@ class _edit_taskformState extends State<edit_taskform> {
           child: Text(
             '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
             style: TextStyle(
-                color: Colors.blue[700],
-                fontWeight: FontWeight.bold,
-                fontSize: 18),
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           )),
     );
   }
@@ -84,8 +83,8 @@ class _edit_taskformState extends State<edit_taskform> {
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.grey[200],
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.all(19)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: EdgeInsets.all(17)),
         onPressed: () async {
           final time = await pickTime();
           if (time == null) return;
@@ -99,9 +98,7 @@ class _edit_taskformState extends State<edit_taskform> {
         child: Text(
           '       $hours:$minutes        ',
           style: TextStyle(
-              color: Colors.blue[700],
-              fontWeight: FontWeight.bold,
-              fontSize: 18),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
     );
@@ -117,14 +114,14 @@ class _edit_taskformState extends State<edit_taskform> {
       required String mystring,
       required void Function() onpressaction}) {
     return Container(
-      width: 330,
+      width: 325,
       height: 60.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              elevation: 0, backgroundColor: Colors.transparent),
+              backgroundColor: Fcolor,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12))),
           onPressed: onpressaction,
           child: texts(
             mystring: mystring,
@@ -140,12 +137,12 @@ class _edit_taskformState extends State<edit_taskform> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        texts(
+        const texts(
             mystring: 'Prioirity ?',
             myfontsize: 18,
             mycolor: Colors.black,
             fontweight: FontWeight.bold),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Switch(
@@ -167,7 +164,7 @@ class _edit_taskformState extends State<edit_taskform> {
     return Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 18,
         ),
         const texts(
             mystring: 'Edit Task',
@@ -175,51 +172,43 @@ class _edit_taskformState extends State<edit_taskform> {
             mycolor: Colors.black,
             fontweight: FontWeight.bold),
         const SizedBox(
-          height: 10,
+          height: 7,
         ),
-        Column(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(12.0),
-                child:
-                    tasktextform(mycontroller: _titleController, hintname: '')),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-                padding: const EdgeInsets.all(11),
-                child: tasktextform(
-                    mycontroller: _disciptionController, hintname: '')),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [dates(), times()],
-            ),
-            prioritybutton(myPriority, onchangeFunction),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Color(0xff4a90fa),
-              ),
-              child: flatbtn(
-                  onpressaction: () {
-                    editOnButtonclicked(widget.passindex);
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (ctx) => Screen_home()),
-                        (route) => false);
-                  },
-                  mycolor: Colors.white,
-                  mystring: 'Save'),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+        Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: tasktextform(mycontroller: _titleController, hintname: '')),
+        Padding(
+            padding: const EdgeInsets.all(11),
+            child: tasktextform(
+                mycontroller: _disciptionController, hintname: '')),
+        const SizedBox(
+          height: 7,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [dates(), times()],
+        ),
+        prioritybutton(myPriority, onchangeFunction),
+        const SizedBox(
+          height: 15,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Color(0xff4a90fa),
+          ),
+          child: flatbtn(
+              onpressaction: () {
+                editOnButtonclicked(widget.passindex);
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (ctx) => Screen_home()),
+                    (route) => false);
+              },
+              mycolor: Colors.white,
+              mystring: 'Save'),
+        ),
+        const SizedBox(
+          height: 20,
         ),
       ],
     );
@@ -239,7 +228,8 @@ class _edit_taskformState extends State<edit_taskform> {
         date: _date,
         priority: myPriority,
         complete: false,
-        id: DateTime.now().toString());
+        id: DateTime.now().toString(),
+        isdone: false);
     editTask(widget.passvalue.id, context, _todo);
     // final todotaskdb = await Hive.openBox<TodoModel>('todo_task_db');
     // todotaskdb.putAt(index, _todo);

@@ -6,6 +6,7 @@ import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
+import '../../util/app_color.dart';
 import '../../util/event_textform.dart';
 
 class add_eventform extends StatefulWidget {
@@ -34,10 +35,10 @@ class _add_eventformState extends State<add_eventform> {
       padding: const EdgeInsets.all(15.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.grey[200],
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.all(25)),
+                  borderRadius: BorderRadius.circular(12)),
+              padding: EdgeInsets.all(17)),
           onPressed: () async {
             final date = await pickDate();
             if (date == null) return;
@@ -49,8 +50,9 @@ class _add_eventformState extends State<add_eventform> {
             });
           },
           child: Text(
-            '${dateTime.year}/${dateTime.month}/${dateTime.day}',
-            style: TextStyle(color: Colors.black),
+            '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           )),
     );
   }
@@ -69,10 +71,10 @@ class _add_eventformState extends State<add_eventform> {
       padding: const EdgeInsets.all(15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.grey[200],
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.all(25)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: EdgeInsets.all(17)),
         onPressed: () async {
           final time = await pickTime();
           if (time == null) return;
@@ -84,8 +86,9 @@ class _add_eventformState extends State<add_eventform> {
           });
         },
         child: Text(
-          '$hours:$minutes',
-          style: TextStyle(color: Colors.black),
+          '       $hours:$minutes        ',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
     );
@@ -96,28 +99,6 @@ class _add_eventformState extends State<add_eventform> {
       initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
 
 //************************flatbutton************************* */
-  Widget flatbtn(
-      {required Color mycolor,
-      required String mystring,
-      required void Function() onpressaction}) {
-    return Container(
-      width: 330,
-      height: 60.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              elevation: 0, backgroundColor: Colors.transparent),
-          onPressed: onpressaction,
-          child: texts(
-            mystring: mystring,
-            myfontsize: 22,
-            fontweight: FontWeight.w500,
-            mycolor: mycolor,
-          )),
-    );
-  }
 
 //position
   Widget position() {
@@ -212,14 +193,14 @@ class _add_eventformState extends State<add_eventform> {
             eventTextform(
                 mycontroller: _locationController, hintname: 'Location'),
             const SizedBox(
-              height: 10,
+              height: 8,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [dates(), times()],
             ),
             const SizedBox(
-              height: 10,
+              height: 6,
             ),
             prioritybutton(myPriority, onchangeFunction),
             Container(
@@ -236,7 +217,7 @@ class _add_eventformState extends State<add_eventform> {
                   mystring: 'Add Event'),
             ),
             const SizedBox(
-              height: 10,
+              height: 13,
             ),
           ],
         ),
@@ -253,13 +234,15 @@ class _add_eventformState extends State<add_eventform> {
       return;
     }
     final _todoevent = TodoEvent(
-        title: _title,
-        description: _discription,
-        date: _date,
-        image: imagepath!,
-        location: _location,
-        priority: myPriority,
-        id: DateTime.now().toString());
+      title: _title,
+      description: _discription,
+      date: _date,
+      image: imagepath!,
+      location: _location,
+      priority: myPriority,
+      id: DateTime.now().toString(),
+      isdone: false,
+    );
     addevent(_todoevent);
   }
 
@@ -280,4 +263,27 @@ class _add_eventformState extends State<add_eventform> {
       myPriority = newvalue;
     });
   }
+}
+
+Widget flatbtn(
+    {required Color mycolor,
+    required String mystring,
+    required void Function() onpressaction}) {
+  return Container(
+    width: 325,
+    height: 60.0,
+    child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Fcolor,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12))),
+        onPressed: onpressaction,
+        child: texts(
+          mystring: mystring,
+          myfontsize: 22,
+          fontweight: FontWeight.bold,
+          mycolor: mycolor,
+        )),
+  );
 }
