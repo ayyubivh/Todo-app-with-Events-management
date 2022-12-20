@@ -27,7 +27,7 @@ class CompleteTask extends StatelessWidget {
                       .where((element) => element.isdone == true)
                       .toList()[index];
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -37,7 +37,7 @@ class CompleteTask extends StatelessWidget {
                       ),
                       child: Slidable(
                         endActionPane: ActionPane(
-                          motion: StretchMotion(),
+                          motion: const StretchMotion(),
                           children: [
                             SlidableAction(
                               onPressed: ((context) {
@@ -83,12 +83,12 @@ class CompleteTask extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Colors.red[100],
                                         borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: const Icon(
-                                        Icons.hourglass_full_outlined,
-                                        size: 35,
+                                            BorderRadius.circular(50)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(3.0),
+                                      child: Icon(
+                                        Icons.trip_origin,
+                                        size: 25,
                                         color: Colors.red,
                                       ),
                                     ),
@@ -97,13 +97,13 @@ class CompleteTask extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Colors.yellow[100],
                                         borderRadius:
-                                            BorderRadius.circular(10)),
+                                            BorderRadius.circular(50)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(3.0),
-                                      child: const Icon(
-                                        Icons.hourglass_bottom,
-                                        size: 35,
-                                        color: Colors.yellow,
+                                      child: Icon(
+                                        Icons.trip_origin,
+                                        size: 25,
+                                        color: Colors.yellow.shade500,
                                       ),
                                     ),
                                   ),

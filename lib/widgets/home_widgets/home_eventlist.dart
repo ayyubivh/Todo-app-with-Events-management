@@ -59,7 +59,6 @@ class _Home_eventsection extends State<Home_eventsection> {
 
             // notifytime = upcomingEvent[0].date;
             // notifydataEvnt = upcomingEvent[0];
-
             return Stack(
               children: [
                 InkWell(
@@ -71,7 +70,7 @@ class _Home_eventsection extends State<Home_eventsection> {
                             )));
                   },
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(10.0, 2.0, 5.0, 3.0),
+                    margin: const EdgeInsets.fromLTRB(10.0, 2.0, 5.0, 3.0),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
@@ -91,7 +90,7 @@ class _Home_eventsection extends State<Home_eventsection> {
                                 markDoneEvent(dataevent, context);
                               }),
                               backgroundColor:
-                                  Color.fromARGB(255, 24, 207, 164),
+                                  const Color.fromARGB(255, 24, 207, 164),
                               foregroundColor: Colors.white,
                               icon: Icons.done_all,
                               label: 'Done ',
@@ -136,12 +135,12 @@ class _Home_eventsection extends State<Home_eventsection> {
                                           decoration: BoxDecoration(
                                               color: Colors.red[100],
                                               borderRadius:
-                                                  BorderRadius.circular(10)),
+                                                  BorderRadius.circular(50)),
                                           child: const Padding(
                                             padding: EdgeInsets.all(3.0),
                                             child: Icon(
-                                              Icons.hourglass_full_outlined,
-                                              size: 30,
+                                              Icons.trip_origin,
+                                              size: 25,
                                               color: Colors.red,
                                             ),
                                           ),
@@ -150,13 +149,13 @@ class _Home_eventsection extends State<Home_eventsection> {
                                           decoration: BoxDecoration(
                                               color: Colors.yellow[100],
                                               borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
+                                                  BorderRadius.circular(50)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(3.0),
                                             child: Icon(
-                                              Icons.hourglass_bottom,
-                                              size: 30,
-                                              color: Colors.yellow,
+                                              Icons.trip_origin,
+                                              size: 25,
+                                              color: Colors.yellow.shade500,
                                             ),
                                           ),
                                         ),
@@ -170,7 +169,7 @@ class _Home_eventsection extends State<Home_eventsection> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    DateFormat("MMM, dd yyy hh:mm a")
+                                    DateFormat(" hh:mm a")
                                         .format(dataevent.date),
                                     style: const TextStyle(
                                         color: Colors.black54,
@@ -185,9 +184,9 @@ class _Home_eventsection extends State<Home_eventsection> {
                   ),
                 ),
                 Positioned(
-                  left: 15.0,
-                  top: 5.0,
-                  bottom: 8.0,
+                  left: 11.0,
+                  top: 2.0,
+                  bottom: 5.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image(

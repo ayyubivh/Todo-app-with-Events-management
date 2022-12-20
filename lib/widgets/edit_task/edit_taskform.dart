@@ -113,7 +113,7 @@ class _edit_taskformState extends State<edit_taskform> {
       {required Color mycolor,
       required String mystring,
       required void Function() onpressaction}) {
-    return Container(
+    return SizedBox(
       width: 325,
       height: 60.0,
       child: ElevatedButton(
@@ -195,7 +195,7 @@ class _edit_taskformState extends State<edit_taskform> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Color(0xff4a90fa),
+            color: const Color(0xff4a90fa),
           ),
           child: flatbtn(
               onpressaction: () {

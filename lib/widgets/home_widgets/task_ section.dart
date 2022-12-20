@@ -66,7 +66,7 @@ class Task_section extends StatelessWidget {
                           )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

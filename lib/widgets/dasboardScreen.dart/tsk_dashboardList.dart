@@ -23,6 +23,13 @@ class _DashboardListsState extends State<DashboardLists>
           children: [
             Stack(
               children: [
+                IconButton(
+                  icon:const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
                 Container(
                   height: 100,
                   decoration: BoxDecoration(
@@ -101,7 +108,8 @@ class _DashboardListsState extends State<DashboardLists>
                           color: Colors.grey.shade200,
                           child: TabBarView(
                             controller: tabController,
-                            children: [CompleteTask(), TasakPending()],
+                            children: const
+                             [CompleteTask(), TasakPending()],
                           ),
                         ),
                       )

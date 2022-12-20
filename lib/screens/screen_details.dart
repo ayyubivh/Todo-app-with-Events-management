@@ -14,8 +14,15 @@ class Screen_details extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(centerTitle: true,
           backgroundColor: Colors.black,
+          title: const Text(
+            'Details',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         body: SafeArea(
             child: Container(

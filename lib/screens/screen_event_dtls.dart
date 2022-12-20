@@ -16,7 +16,7 @@ class Screen_eventsdtls extends StatelessWidget {
     return Scaffold(
       body: ListView(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           Container(
             color: Colors.white,

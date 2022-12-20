@@ -17,7 +17,7 @@ class texts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(mystring,
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.ubuntu(
           fontSize: myfontsize,
           color: mycolor,
           fontWeight: fontweight,

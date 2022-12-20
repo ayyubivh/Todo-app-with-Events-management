@@ -55,14 +55,13 @@ class _Home_tasksectionState extends State<Home_tasksection> {
             upcomingtask = todolist
                 .where((element) => element.date.isAfter(DateTime.now()))
                 .toList();
-
             // notifytime = upcomingtask[0].date;
             // notifydata = upcomingtask[0];
 
             // print('objec{$notifytime}');
             return Padding(
               padding: const EdgeInsets.only(
-                  top: 6.0, left: 10.0, right: 10.0, bottom: 0),
+                  top: 6.0, left: 12.0, right: 12.0, bottom: 0),
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -79,7 +78,8 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                         onPressed: ((context) {
                           markDone(data, context);
                         }),
-                        backgroundColor: Color.fromARGB(255, 285, 207, 144),
+                        backgroundColor:
+                            const Color.fromARGB(255, 285, 207, 144),
                         foregroundColor: Colors.white,
                         icon: Icons.done_all,
                         label: 'Done ',
@@ -87,7 +87,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                     ],
                   ),
                   endActionPane: ActionPane(
-                    motion: StretchMotion(),
+                    motion: const StretchMotion(),
                     children: [
                       SlidableAction(
                         onPressed: ((context) {
@@ -131,12 +131,12 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                           ? Container(
                               decoration: BoxDecoration(
                                   color: Colors.red[100],
-                                  borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(50)),
                               child: const Padding(
                                 padding: EdgeInsets.all(3.0),
                                 child: Icon(
-                                  Icons.hourglass_full_outlined,
-                                  size: 35,
+                                  Icons.trip_origin,
+                                  size: 25,
                                   color: Colors.red,
                                 ),
                               ),
@@ -144,13 +144,13 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                           : Container(
                               decoration: BoxDecoration(
                                   color: Colors.yellow[100],
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: const Padding(
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Padding(
                                 padding: EdgeInsets.all(3.0),
                                 child: Icon(
-                                  Icons.hourglass_bottom,
-                                  size: 35,
-                                  color: Colors.yellow,
+                                  Icons.trip_origin,
+                                  size: 25,
+                                  color: Colors.yellow.shade500,
                                 ),
                               ),
                             ),
@@ -162,11 +162,10 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 15.0),
                               child: Text(
-                                DateFormat("MMM, dd yyy hh:mm a")
-                                    .format(data.date),
+                                DateFormat("  hh:mm a").format(data.date),
                                 //  data.date.toString(),
                                 style: const TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.w800),
                               ),
                             ),

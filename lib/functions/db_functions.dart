@@ -51,7 +51,6 @@ editTask(index, context, TodoModel value) async {
   getAllTodotask();
   // Navigator.of(context).pop();
 }
-//*********************************compeleted Taskd************************************************************/
 
 //********************************AddEvent Functions***********************************************************/
 ValueNotifier<List<TodoEvent>> todolisteventnotifier = ValueNotifier([]);

@@ -38,7 +38,7 @@ class _add_eventformState extends State<add_eventform> {
               backgroundColor: Colors.grey[200],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
-              padding: EdgeInsets.all(17)),
+              padding: const EdgeInsets.all(17)),
           onPressed: () async {
             final date = await pickDate();
             if (date == null) return;
@@ -51,7 +51,7 @@ class _add_eventformState extends State<add_eventform> {
           },
           child: Text(
             '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           )),
     );
@@ -74,7 +74,7 @@ class _add_eventformState extends State<add_eventform> {
             backgroundColor: Colors.grey[200],
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            padding: EdgeInsets.all(17)),
+            padding: const EdgeInsets.all(17)),
         onPressed: () async {
           final time = await pickTime();
           if (time == null) return;
@@ -87,7 +87,7 @@ class _add_eventformState extends State<add_eventform> {
         },
         child: Text(
           '       $hours:$minutes        ',
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
@@ -104,14 +104,14 @@ class _add_eventformState extends State<add_eventform> {
   Widget position() {
     return Positioned(
       bottom: 1,
-      right: 50,
+      right: 140,
       child: InkWell(
         onTap: () {
           takePhoto();
         },
         child: const Icon(
           Icons.camera_alt_outlined,
-          color: Colors.black54,
+          color: Colors.white,
           size: 30,
         ),
       ),
@@ -123,7 +123,7 @@ class _add_eventformState extends State<add_eventform> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        texts(
+        const texts(
             mystring: 'Prioirity ?',
             myfontsize: 16,
             mycolor: Colors.black,
@@ -145,14 +145,24 @@ class _add_eventformState extends State<add_eventform> {
   }
 
 //*********************add photo************* */
-  Widget circleavtar() {
+
+  Widget imagebox() {
     return Stack(
       children: [
-        CircleAvatar(
-          backgroundColor: Colors.grey[400],
-          backgroundImage:
-              imagepath == null ? null : FileImage(File(imagepath!)),
-          radius: 70.0,
+        Container(
+          height: 130,
+          width: 330,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              //   radius: BorderRadius.circular(20),
+              image: DecorationImage(
+                fit: BoxFit.fitWidth,
+                image: imagepath == null
+                    ? AssetImage('Asset/images/event.jpg') as ImageProvider
+                    : FileImage(
+                        File(imagepath!),
+                      ),
+              )),
         ),
         position()
       ],
@@ -173,13 +183,14 @@ class _add_eventformState extends State<add_eventform> {
             mycolor: Colors.black,
             fontweight: FontWeight.bold),
         const SizedBox(
-          height: 10,
+          height: 13,
         ),
         Column(
           children: [
-            circleavtar(),
+            imagebox(),
+            // circleavtar(),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             eventTextform(mycontroller: _titleController, hintname: 'Title'),
             const SizedBox(
@@ -269,7 +280,7 @@ Widget flatbtn(
     {required Color mycolor,
     required String mystring,
     required void Function() onpressaction}) {
-  return Container(
+  return SizedBox(
     width: 325,
     height: 60.0,
     child: ElevatedButton(

@@ -33,7 +33,7 @@ class TasakPending extends StatelessWidget {
                           element.isdone == false)
                       .toList()[index];
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -44,7 +44,7 @@ class TasakPending extends StatelessWidget {
                       child: Slidable(
                         // closeOnScroll: false,
                         startActionPane: ActionPane(
-                          motion: StretchMotion(),
+                          motion: const StretchMotion(),
                           children: [
                             SlidableAction(
                               //borderRadius: BorderRadius.circular(10.0),
@@ -52,7 +52,7 @@ class TasakPending extends StatelessWidget {
                                 markDone(data, context);
                               }),
                               backgroundColor:
-                                  Color.fromARGB(255, 24, 207, 164),
+                                  const Color.fromARGB(255, 24, 207, 164),
                               foregroundColor: Colors.white,
                               icon: Icons.done_all,
                               label: 'Done ',
@@ -60,7 +60,8 @@ class TasakPending extends StatelessWidget {
                           ],
                         ),
                         endActionPane: ActionPane(
-                          motion: StretchMotion(),
+                          motion: const
+                          StretchMotion(),
                           children: [
                             SlidableAction(
                               onPressed: ((context) {
@@ -106,12 +107,12 @@ class TasakPending extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Colors.red[100],
                                         borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: const Icon(
-                                        Icons.hourglass_full_outlined,
-                                        size: 35,
+                                            BorderRadius.circular(50)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(3.0),
+                                      child: Icon(
+                                        Icons.trip_origin,
+                                        size: 25,
                                         color: Colors.red,
                                       ),
                                     ),
@@ -120,13 +121,13 @@ class TasakPending extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Colors.yellow[100],
                                         borderRadius:
-                                            BorderRadius.circular(10)),
+                                            BorderRadius.circular(50)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(3.0),
-                                      child: const Icon(
-                                        Icons.hourglass_bottom,
-                                        size: 35,
-                                        color: Colors.yellow,
+                                      child: Icon(
+                                        Icons.trip_origin,
+                                        size: 25,
+                                        color: Colors.yellow.shade500,
                                       ),
                                     ),
                                   ),

@@ -96,164 +96,149 @@ class _Screen_calenderState extends State<Screen_calender> {
 //task
   Widget expandedTask() {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-        child: ValueListenableBuilder(
-            valueListenable: todolistnotifier,
-            builder: (BuildContext ctx, List<TodoModel> todomodelist,
-                Widget? child) {
-              return ListView.builder(
-                itemCount: todomodelist.length,
-                itemBuilder: (context, index) {
-                  return DateTime.parse(todomodelist[index].date.toString())
-                                  .day ==
-                              _selectedDay?.day &&
-                          DateTime.parse(todomodelist[index].date.toString())
-                                  .month ==
-                              _selectedDay?.month &&
-                          DateTime.parse(todomodelist[index].date.toString())
-                                  .year ==
-                              _selectedDay?.year
-                      ? (Padding(
-                          padding: const EdgeInsets.all(13.0),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(25),
-                              ),
+      child: ValueListenableBuilder(
+          valueListenable: todolistnotifier,
+          builder:
+              (BuildContext ctx, List<TodoModel> todomodelist, Widget? child) {
+            return ListView.builder(
+              itemCount: todomodelist.length,
+              itemBuilder: (context, index) {
+                return DateTime.parse(todomodelist[index].date.toString())
+                                .day ==
+                            _selectedDay?.day &&
+                        DateTime.parse(todomodelist[index].date.toString())
+                                .month ==
+                            _selectedDay?.month &&
+                        DateTime.parse(todomodelist[index].date.toString())
+                                .year ==
+                            _selectedDay?.year
+                    ? (Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(25),
                             ),
-                            child: Slidable(
-                              startActionPane: ActionPane(
-                                motion: const StretchMotion(),
-                                children: [
-                                  SlidableAction(
-                                    //borderRadius: BorderRadius.circular(10.0),
-                                    onPressed: ((context) {
-                                      //    markDone(data, context);
-                                    }),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 24, 207, 164),
-                                    foregroundColor: Colors.white,
-                                    icon: Icons.done_all,
-                                    label: 'Done ',
-                                  ),
-                                ],
-                              ),
-                              endActionPane: ActionPane(
-                                motion: StretchMotion(),
-                                children: [
-                                  SlidableAction(
-                                    onPressed: ((context) {
-                                      deleteAllTodotask(todomodelist[index].id);
-                                      Fluttertoast.showToast(
-                                        msg: 'deleted !!',
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        backgroundColor: Colors.red,
-                                        fontSize: 17,
-                                        gravity: ToastGravity.BOTTOM,
-                                      );
-                                    }),
-                                    backgroundColor: Colors.red,
-                                    foregroundColor: Colors.white,
-                                    icon: Icons.delete,
-                                    label: 'delete',
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ListTile(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Screen_details(
-                                                  passvalue:
-                                                      todomodelist[index],
-                                                  passindex: index,
-                                                )));
-                                  },
-                                  title: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        todomodelist[index].title,
-                                        style: const TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  leading: todomodelist[index].priority ?? false
-                                      ? Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red[100],
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
-                                            child: Icon(
-                                              Icons.hourglass_full_outlined,
-                                              size: 35,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        )
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.yellow[100],
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
-                                            child: Icon(
-                                              Icons.hourglass_bottom,
-                                              size: 35,
-                                              color: Colors.yellow,
-                                            ),
+                          ),
+                          child: Slidable(
+                            startActionPane: ActionPane(
+                              motion: const StretchMotion(),
+                              children: [
+                                SlidableAction(
+                                  //borderRadius: BorderRadius.circular(10.0),
+                                  onPressed: ((context) {
+                                    //  7markDone(data, context);
+                                  }),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 24, 207, 164),
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.done_all,
+                                  label: 'Done ',
+                                ),
+                              ],
+                            ),
+                            endActionPane: ActionPane(
+                              motion: const StretchMotion(),
+                              children: [
+                                SlidableAction(
+                                  onPressed: ((context) {
+                                    deleteAllTodotask(todomodelist[index].id);
+                                    Fluttertoast.showToast(
+                                      msg: 'deleted !!',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      backgroundColor: Colors.red,
+                                      fontSize: 17,
+                                      gravity: ToastGravity.BOTTOM,
+                                    );
+                                  }),
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.delete,
+                                  label: 'delete',
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => Screen_details(
+                                            passvalue: todomodelist[index],
+                                            passindex: index,
+                                          )));
+                                },
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      todomodelist[index].title,
+                                      style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                leading: todomodelist[index].priority ?? false
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.red[100],
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Icon(
+                                            Icons.hourglass_full_outlined,
+                                            size: 35,
+                                            color: Colors.red,
                                           ),
                                         ),
-                                  subtitle: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 15.0),
-                                          child: Text(
-                                            DateFormat("MMM, dd yyy hh:mm a")
-                                                .format(
-                                                    todomodelist[index].date),
-                                            //  data.date.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w800),
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.yellow[100],
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                          child: Icon(
+                                            Icons.hourglass_bottom,
+                                            size: 35,
+                                            color: Colors.yellow,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                subtitle: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Text(
+                                          DateFormat("MMM, dd yyy hh:mm a")
+                                              .format(todomodelist[index].date),
+                                          //  data.date.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w800),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ))
-                      : const Center(
-                          child: Text(
-                            '  ',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        );
-                },
-              );
-            }),
-      ),
+                        ),
+                      ))
+                    : const SizedBox();
+              },
+            );
+          }),
     );
   }
 }

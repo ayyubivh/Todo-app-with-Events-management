@@ -168,7 +168,7 @@ class _edit_eventformState extends State<edit_eventform> {
     );
   }
 
-//position
+//==============position==========================
   Widget position() {
     return Positioned(
       bottom: 1,
@@ -186,7 +186,7 @@ class _edit_eventformState extends State<edit_eventform> {
     );
   }
 
-//**************************priority button********************************************** */
+//==========================priority button==========================/
   Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -196,7 +196,7 @@ class _edit_eventformState extends State<edit_eventform> {
             myfontsize: 16,
             mycolor: Colors.black,
             fontweight: FontWeight.w600),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Switch(
@@ -212,6 +212,7 @@ class _edit_eventformState extends State<edit_eventform> {
     );
   }
 
+//=====================Circle avatar===============================
   Widget circleavtar() {
     return Stack(
       children: [
@@ -227,7 +228,8 @@ class _edit_eventformState extends State<edit_eventform> {
     );
   }
 
-//********************************************************* */
+//=======================================================================/
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -282,7 +284,8 @@ class _edit_eventformState extends State<edit_eventform> {
                 onpressaction: () {
                   _onEdittodoeventClicked(widget.passindex);
                   Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (ctx) => Screen_home()),
+                      MaterialPageRoute(builder: (ctx) => const
+                      Screen_home()),
                       (route) => false);
                   //Navigator.pop(context);
                 },

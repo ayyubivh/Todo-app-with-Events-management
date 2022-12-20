@@ -43,17 +43,7 @@ class _Screen_searchState extends State<Screen_search> {
             backgroundColor: maincolor,
             elevation: 0,
             centerTitle: true,
-            title: Column(
-              children: [
-                SizedBox(
-                  height: 19.0,
-                ),
-                textform(),
-                SizedBox(
-                  height: 15,
-                )
-              ],
-            ),
+            title: textform(),
             bottom: const TabBar(
               tabs: [
                 Tab(
@@ -152,7 +142,8 @@ class _Screen_searchState extends State<Screen_search> {
     });
   }
 
-//************************************* */
+//==============================Textform===============================\\
+
   Widget textform() {
     return SizedBox(
       height: 49,
@@ -183,7 +174,7 @@ class _Screen_searchState extends State<Screen_search> {
         ),
         onChanged: (value) {
           _searchtodotask(value, newDate);
-          //     _searchtodoevent(value);
+          // _searchtodoevent(value);
         },
       ),
     );
@@ -229,8 +220,8 @@ class _Screen_searchState extends State<Screen_search> {
                                         onPressed: ((context) {
                                           //     markDone(data, context);
                                         }),
-                                        backgroundColor:
-                                            Color.fromARGB(255, 24, 207, 164),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 24, 207, 164),
                                         foregroundColor: Colors.white,
                                         icon: Icons.done_all,
                                         label: 'Done ',
@@ -238,7 +229,7 @@ class _Screen_searchState extends State<Screen_search> {
                                     ],
                                   ),
                                   endActionPane: ActionPane(
-                                    motion: StretchMotion(),
+                                    motion: const StretchMotion(),
                                     children: [
                                       SlidableAction(
                                         onPressed: ((context) {
@@ -293,12 +284,12 @@ class _Screen_searchState extends State<Screen_search> {
                                                   color: Colors.red[100],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          10)),
+                                                          50)),
                                               child: const Padding(
                                                 padding: EdgeInsets.all(3.0),
                                                 child: Icon(
-                                                  Icons.hourglass_full_outlined,
-                                                  size: 35,
+                                                  Icons.trip_origin,
+                                                  size: 25,
                                                   color: Colors.red,
                                                 ),
                                               ),
@@ -308,13 +299,14 @@ class _Screen_searchState extends State<Screen_search> {
                                                   color: Colors.yellow[100],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          10)),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(3.0),
+                                                          50)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
                                                 child: Icon(
-                                                  Icons.hourglass_bottom,
-                                                  size: 35,
-                                                  color: Colors.yellow,
+                                                  Icons.trip_origin,
+                                                  size: 25,
+                                                  color: Colors.yellow.shade500,
                                                 ),
                                               ),
                                             ),
@@ -376,13 +368,14 @@ class _Screen_searchState extends State<Screen_search> {
       ),
       child: todoEventlistdisplay.isNotEmpty
           ? ListView(
-              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
               children: [
                 ValueListenableBuilder(
                     valueListenable: todolisteventnotifier,
                     builder: (BuildContext ctx,
                         List<TodoEvent> todoEventlistdisplays, Widget? child) {
                       return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: todoEventlistdisplay.length,
@@ -396,12 +389,13 @@ class _Screen_searchState extends State<Screen_search> {
                                             builder: (context) =>
                                                 Screen_eventsdtls(
                                                   passvalue:
-                                                      todoEventlistdisplay,
+                                                      todoEventlistdisplay[
+                                                          index],
                                                   passindex: index,
                                                 )));
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.fromLTRB(
+                                    margin: const EdgeInsets.fromLTRB(
                                         10.0, 2.0, 5.0, 3.0),
                                     decoration: const BoxDecoration(
                                       color: Colors.white,
@@ -414,13 +408,14 @@ class _Screen_searchState extends State<Screen_search> {
                                     child: Slidable(
                                         // closeOnScroll: false,
                                         startActionPane: ActionPane(
-                                          motion: StretchMotion(),
+                                          motion: const StretchMotion(),
                                           children: [
                                             SlidableAction(
                                               //borderRadius: BorderRadius.circular(10.0),
                                               onPressed: ((context) {}),
-                                              backgroundColor: Color.fromARGB(
-                                                  255, 24, 207, 164),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 24, 207, 164),
                                               foregroundColor: Colors.white,
                                               icon: Icons.done_all,
                                               label: 'Done ',
@@ -428,7 +423,7 @@ class _Screen_searchState extends State<Screen_search> {
                                           ],
                                         ),
                                         endActionPane: ActionPane(
-                                          motion: StretchMotion(),
+                                          motion: const StretchMotion(),
                                           children: [
                                             SlidableAction(
                                               onPressed: ((context) {
@@ -483,15 +478,14 @@ class _Screen_searchState extends State<Screen_search> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          10)),
+                                                                          50)),
                                                           child: const Padding(
                                                             padding:
                                                                 EdgeInsets.all(
                                                                     3.0),
                                                             child: Icon(
-                                                              Icons
-                                                                  .hourglass_full_outlined,
-                                                              size: 30,
+                                                              Icons.trip_origin,
+                                                              size: 25,
                                                               color: Colors.red,
                                                             ),
                                                           ),
@@ -503,17 +497,17 @@ class _Screen_searchState extends State<Screen_search> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          10)),
-                                                          child: const Padding(
+                                                                          50)),
+                                                          child: Padding(
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    3.0),
+                                                                const EdgeInsets
+                                                                    .all(3.0),
                                                             child: Icon(
-                                                              Icons
-                                                                  .hourglass_bottom,
-                                                              size: 30,
-                                                              color:
-                                                                  Colors.yellow,
+                                                              Icons.trip_origin,
+                                                              size: 25,
+                                                              color: Colors
+                                                                  .yellow
+                                                                  .shade500,
                                                             ),
                                                           ),
                                                         ),
@@ -548,9 +542,9 @@ class _Screen_searchState extends State<Screen_search> {
                                   ),
                                 ),
                                 Positioned(
-                                  left: 15.0,
-                                  top: 5.0,
-                                  bottom: 8.0,
+                                  left: 11.0,
+                                  top: 2.0,
+                                  bottom: 5.0,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20.0),
                                     child: Image(
@@ -621,8 +615,8 @@ class _Screen_searchState extends State<Screen_search> {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 5),
       child: FilterChip(
-        backgroundColor: Color.fromARGB(255, 215, 196, 19),
-        labelStyle: TextStyle(color: Colors.white),
+        backgroundColor: const Color.fromARGB(255, 215, 196, 19),
+        labelStyle: const TextStyle(color: Colors.white),
         elevation: 5,
         label: Text(' low '),
         selected: (filter == 'low') ? true : false,
@@ -648,9 +642,9 @@ class _Screen_searchState extends State<Screen_search> {
       padding: const EdgeInsets.only(left: 10, right: 5),
       child: FilterChip(
         backgroundColor: const Color.fromARGB(243, 129, 99, 239),
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.white),
         elevation: 5,
-        label: Text(' Date picker '),
+        label: const Text(' Date picker '),
         selected: (filter == 'date') ? true : false,
         onSelected: (bool value) {
           setState(() {

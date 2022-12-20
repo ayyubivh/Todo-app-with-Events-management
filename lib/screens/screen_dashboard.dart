@@ -10,7 +10,7 @@ class Screen_dashboard extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          children: [const Expanded(child: DashboardLists())],
+          children: const [Expanded(child: DashboardLists())],
         ),
       ),
     );

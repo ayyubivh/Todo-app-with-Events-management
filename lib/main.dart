@@ -24,7 +24,7 @@ Future<void> main() async {
         channelDescription: "Notification example",
         defaultColor: Colors.blue,
         ledColor: Colors.white,
-        // playSound: true,
+        playSound: true,
         // soundSource: '')
         enableLights: true,
         enableVibration: true),
@@ -46,10 +46,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.black,
-        fontFamily: GoogleFonts.openSans().fontFamily,
+        fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
       debugShowCheckedModeBanner: false,
-      home: Screen_splash(),
+      home: const Screen_splash(),
     );
   }
 }

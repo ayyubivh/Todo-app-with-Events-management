@@ -103,7 +103,10 @@ class _EventDashboardListsState extends State<EventDashboardLists>
                             color: Colors.grey.shade200,
                             child: TabBarView(
                               controller: tabController,
-                              children: [CompletedEvents(), EventPending()],
+                              children: const [
+                                CompletedEvents(),
+                                EventPending()
+                              ],
                             ),
                           ),
                         )

@@ -16,7 +16,7 @@ class eventTextform extends StatelessWidget {
       height: 60.0,
       width: 342,
       child: TextFormField(
-        style: TextStyle(color: Colors.black, fontSize: 20),
+        style: const TextStyle(color: Colors.black, fontSize: 20),
         textAlignVertical: TextAlignVertical.bottom,
         controller: mycontroller,
         decoration: InputDecoration(
@@ -24,7 +24,7 @@ class eventTextform extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none),
           filled: true,
-          contentPadding: EdgeInsets.all(15),
+          contentPadding: const EdgeInsets.all(15),
           fillColor: Colors.grey[200],
           hintText: hintname,
           hintStyle: const TextStyle(

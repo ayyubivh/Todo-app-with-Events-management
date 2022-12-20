@@ -21,9 +21,7 @@ class _add_taskformState extends State<add_taskform> {
 
   DateTime dateTime = DateTime.now();
 
-  //******************widgets******************** */
-
-//***********************Date***************************/
+//=============Date=============
   Widget dates() {
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -151,15 +149,6 @@ class _add_taskformState extends State<add_taskform> {
     });
   }
 
-//text
-  // Widget textAddTask() {
-  //   return texts(
-  //       mystring: 'Add Your Task',
-  //       myfontsize: 14,
-  //       mycolor: Colors.black,
-  //       fontweight: null);
-  // }
-
 //********************************************************* */
   @override
   Widget build(BuildContext context) {
@@ -167,7 +156,7 @@ class _add_taskformState extends State<add_taskform> {
     return Column(
       children: [
         const SizedBox(
-          height: 20,
+          height: 17,
         ),
         const texts(
             mystring: 'New Task',
@@ -223,19 +212,6 @@ class _add_taskformState extends State<add_taskform> {
         const SizedBox(
           height: 10,
         ),
-        // Container(
-        //   decoration: BoxDecoration(
-        //     border:
-        //         Border.all(color: Color.fromARGB(233, 35, 160, 195), width: 2),
-        //     borderRadius: BorderRadius.circular(11),
-        //   ),
-        //   // child: flatbtn(
-        //   //     onpressaction: () {
-        //   //       Navigator.pop(context);
-        //   //     },
-        //   //     mycolor: const Color.fromARGB(233, 35, 160, 195),
-        //   //     mystring: 'Cancel'),
-        // ),
       ],
     );
   }

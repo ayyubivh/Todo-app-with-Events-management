@@ -8,9 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
-import 'package:todo_app/screens/screen_details.dart';
 import 'package:todo_app/screens/screen_event_dtls.dart';
-import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 class EventScreen_calender extends StatefulWidget {
   const EventScreen_calender({super.key});
@@ -42,29 +40,25 @@ class _EventScreen_calenderState extends State<EventScreen_calender> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        //,   physics: BouncingScrollPhysics(),
-        //  shrinkWrap: true,
         children: [
-          Container(
-            child: TableCalendar(
-              focusedDay: today,
-              firstDay: DateTime.utc(2010, 10, 11),
-              lastDay: DateTime.utc(2030, 3, 14),
-              headerStyle: const HeaderStyle(
-                  formatButtonVisible: false, titleCentered: true),
-              availableGestures: AvailableGestures.all,
-              calendarStyle: const CalendarStyle(
-                todayDecoration:
-                    BoxDecoration(color: Colors.amber, shape: BoxShape.circle),
-              ),
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay; // update `_focusedDay` here as well
-                });
-              },
-              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+          TableCalendar(
+            focusedDay: today,
+            firstDay: DateTime.utc(2010, 10, 11),
+            lastDay: DateTime.utc(2030, 3, 14),
+            headerStyle: const HeaderStyle(
+                formatButtonVisible: false, titleCentered: true),
+            availableGestures: AvailableGestures.all,
+            calendarStyle: const CalendarStyle(
+              todayDecoration:
+                  BoxDecoration(color: Colors.amber, shape: BoxShape.circle),
             ),
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay; // update `_focusedDay` here as well
+              });
+            },
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
           ),
           expandedEvent(),
         ],
@@ -82,11 +76,8 @@ class _EventScreen_calenderState extends State<EventScreen_calender> {
                   Widget? child) =>
               ListView.builder(
             shrinkWrap: true,
-            // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
             itemCount: todoEventlist.length,
             itemBuilder: (context, index) {
-              // ignore: non_constant_identifier_names, avoid_types_as_parameter_names
-
               return DateTime.parse(todoEventlist[index].date.toString()).day ==
                           DateTime.now().day &&
                       DateTime.parse(todoEventlist[index].date.toString())
@@ -106,7 +97,8 @@ class _EventScreen_calenderState extends State<EventScreen_calender> {
                                     )));
                           },
                           child: Container(
-                            margin: EdgeInsets.fromLTRB(10.0, 2.0, 5.0, 3.0),
+                            margin:
+                                const EdgeInsets.fromLTRB(10.0, 2.0, 5.0, 3.0),
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(
@@ -118,13 +110,13 @@ class _EventScreen_calenderState extends State<EventScreen_calender> {
                             child: Slidable(
                                 // closeOnScroll: false,
                                 startActionPane: ActionPane(
-                                  motion: StretchMotion(),
+                                  motion: const StretchMotion(),
                                   children: [
                                     SlidableAction(
                                       //borderRadius: BorderRadius.circular(10.0),
                                       onPressed: ((context) {}),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 24, 207, 164),
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 24, 207, 164),
                                       foregroundColor: Colors.white,
                                       icon: Icons.done_all,
                                       label: 'Done ',
@@ -132,7 +124,7 @@ class _EventScreen_calenderState extends State<EventScreen_calender> {
                                   ],
                                 ),
                                 endActionPane: ActionPane(
-                                  motion: StretchMotion(),
+                                  motion: const StretchMotion(),
                                   children: [
                                     SlidableAction(
                                       onPressed: ((context) {
@@ -247,11 +239,7 @@ class _EventScreen_calenderState extends State<EventScreen_calender> {
                         )
                       ],
                     )
-                  : texts(
-                      mystring: "no events found ",
-                      myfontsize: 16,
-                      mycolor: Colors.black,
-                      fontweight: FontWeight.bold);
+                  : const SizedBox();
             },
           ),
         ),

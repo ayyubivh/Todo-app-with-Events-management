@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:todo_app/screens/screen_home.dart';
 
 class Screen_splash extends StatefulWidget {
@@ -13,22 +14,19 @@ class Screen_splash extends StatefulWidget {
 class _Screen_splashState extends State<Screen_splash> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(
-        Duration(seconds: 4),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Screen_home())));
+        const Duration(seconds: 3),
+        () => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const Screen_home())));
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          child: Center(
-        child: Image.asset(
-          'Asset/images/splash.png',
-        ),
-      )),
+      body: Center(
+        child: Lottie.network(
+            'https://assets2.lottiefiles.com/packages/lf20_jy1bgnpp.json'),
+      ),
     );
   }
 }
