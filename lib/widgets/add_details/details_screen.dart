@@ -119,11 +119,11 @@ class details_screen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(50.0))),
                               onPressed: (() {}),
-                              child: texts(
+                              child: const texts(
                                 mystring: 'Low',
                                 myfontsize: 18,
                                 fontweight: FontWeight.bold,
-                                mycolor: Colors.grey.shade800,
+                                mycolor: Colors.white,
                               ),
                             ),
                     ],

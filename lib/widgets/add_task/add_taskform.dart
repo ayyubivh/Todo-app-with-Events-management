@@ -80,7 +80,7 @@ class _add_taskformState extends State<add_taskform> {
         },
         child: Text(
           '       $hours:$minutes        ',
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
@@ -121,12 +121,12 @@ class _add_taskformState extends State<add_taskform> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        texts(
+        const texts(
             mystring: 'Prioirity ?',
             myfontsize: 16,
             mycolor: Colors.black,
             fontweight: FontWeight.w600),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Switch(

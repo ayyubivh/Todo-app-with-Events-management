@@ -4,6 +4,7 @@ import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/screens/screen_search.dart';
 import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
+import 'package:todo_app/widgets/home_widgets/screenTerms.dart';
 import 'package:todo_app/widgets/home_widgets/task_bottom_section.dart';
 import 'package:todo_app/widgets/home_widgets/home_eventlist.dart';
 import 'package:todo_app/widgets/home_widgets/task_%20section.dart';
@@ -26,37 +27,39 @@ class Screen_home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Padding(
-                padding: EdgeInsets.only(left: 12.5),
+                padding: EdgeInsets.only(left: 20.5),
                 child: texts(
-                    mystring: " Today tasks",
-                    myfontsize: 19,
+                    mystring: "Today's tasks",
+                    myfontsize: 18.0,
                     mycolor: Colors.black,
                     fontweight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 18.0, bottom: 5),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Icon(
-                      Icons.date_range_outlined,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
+                    // const Icon(
+                    //   Icons.date_range_outlined,
+                    //   color: Colors.black,
+                    // ),
+
                     Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 8.0, left: 120),
                       child: Text(
                         DateFormat("MMM, dd yyy").format(DateTime.now()),
                         style: const TextStyle(
-                            color: Colors.black54,
+                            color: Colors.black87,
                             fontSize: 15.0,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w900),
                       ),
                     ),
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 14,
+              )
             ],
           ),
           const Expanded(
@@ -72,7 +75,7 @@ class Screen_home extends StatelessWidget {
   }
 
 //================icon button=======================
-  Widget iconbtn(context) {
+  Widget iconbtnsearch(context) {
     return IconButton(
       icon: const Icon(
         Icons.search_outlined,
@@ -101,24 +104,24 @@ class Screen_home extends StatelessWidget {
               children: [
                 const texts(
                     mystring: " Today events",
-                    myfontsize: 20,
+                    myfontsize: 19.5,
                     mycolor: Colors.black,
                     fontweight: FontWeight.bold),
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.date_range_outlined,
-                        color: Colors.black,
-                      ),
+                      // const Icon(
+                      //   Icons.date_range_outlined,
+                      //   color: Colors.black,
+                      // ),
                       const SizedBox(
-                        width: 8,
+                        width: 5,
                       ),
                       Text(
                         DateFormat("MMM, dd yyy").format(DateTime.now()),
                         style: const TextStyle(
-                            color: Colors.black54,
+                            color: Colors.black,
                             fontSize: 15.5,
                             fontWeight: FontWeight.bold),
                       ),
@@ -128,7 +131,7 @@ class Screen_home extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 9),
           const Expanded(
             child: Home_eventsection(),
           ),
@@ -145,7 +148,7 @@ class Screen_home extends StatelessWidget {
   Widget tabevent() {
     return const Tab(
       child: Text('Event',
-          style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
     );
   }
 
@@ -154,7 +157,7 @@ class Screen_home extends StatelessWidget {
   Widget tabtask() {
     return const Tab(
       child: Text('Task',
-          style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
     );
   }
 
@@ -166,12 +169,22 @@ class Screen_home extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        // key: ,
+        drawer: const ScreenTerms(),
         appBar: AppBar(
+          centerTitle: true,
+          title: const texts(
+              mystring: "Lets do",
+              myfontsize: 22,
+              mycolor: Colors.white,
+              fontweight: FontWeight.bold),
           bottom: TabBar(
             indicatorColor: Colors.white60,
             tabs: [tabtask(), tabevent()],
           ),
-          actions: [iconbtn(context)],
+          actions: [
+            iconbtnsearch(context),
+          ],
           backgroundColor: maincolor,
         ),
         body: TabBarView(

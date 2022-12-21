@@ -59,144 +59,148 @@ class _Home_eventsection extends State<Home_eventsection> {
 
             // notifytime = upcomingEvent[0].date;
             // notifydataEvnt = upcomingEvent[0];
-            return Stack(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Screen_eventsdtls(
-                              passvalue: dataevent,
-                              passindex: index,
-                            )));
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(10.0, 2.0, 5.0, 3.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    width: double.infinity,
-                    height: 120,
-                    child: Slidable(
-                        // closeOnScroll: false,
-                        endActionPane: ActionPane(
-                          motion: const StretchMotion(),
-                          children: [
-                            SlidableAction(
-                              //borderRadius: BorderRadius.circular(10.0),
-                              onPressed: ((context) {
-                                markDoneEvent(dataevent, context);
-                              }),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 24, 207, 164),
-                              foregroundColor: Colors.white,
-                              icon: Icons.done_all,
-                              label: 'Done ',
-                            ),
-                            SlidableAction(
-                              onPressed: ((context) {
-                                deleteAllTodoevent(dataevent.id);
-                                Fluttertoast.showToast(
-                                  msg: "deleted !!",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  backgroundColor: Colors.red,
-                                  fontSize: 17,
-                                  gravity: ToastGravity.BOTTOM,
-                                );
-                              }),
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: 'delete',
-                            ),
-                          ],
+            return Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Stack(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Screen_eventsdtls(
+                                passvalue: dataevent,
+                                passindex: index,
+                              )));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(10.0, 2.0, 5.0, 3.0),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
                         ),
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(130.0, 10.0, 20.0, 0.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      width: double.infinity,
+                      height: 120,
+                      child: Slidable(
+                          // closeOnScroll: false,
+                          endActionPane: ActionPane(
+                            motion: const StretchMotion(),
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    dataevent.title,
-                                    style: const TextStyle(
-                                        fontSize: 19.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  dataevent.priority ?? false
-                                      ? Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.red[100],
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
-                                            child: Icon(
-                                              Icons.trip_origin,
-                                              size: 25,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        )
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.yellow[100],
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(3.0),
-                                            child: Icon(
-                                              Icons.trip_origin,
-                                              size: 25,
-                                              color: Colors.yellow.shade500,
-                                            ),
-                                          ),
-                                        ),
-                                ],
+                              SlidableAction(
+                                //borderRadius: BorderRadius.circular(10.0),
+                                onPressed: ((context) {
+                                  markDoneEvent(dataevent, context);
+                                }),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 24, 207, 164),
+                                foregroundColor: Colors.white,
+                                icon: Icons.done_all,
+                                label: 'Done ',
                               ),
-                              const SizedBox(
-                                height: 35,
+                              SlidableAction(
+                                onPressed: ((context) {
+                                  deleteAllTodoevent(dataevent.id);
+                                  Fluttertoast.showToast(
+                                    msg: "deleted !!",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    backgroundColor: Colors.red,
+                                    fontSize: 17,
+                                    gravity: ToastGravity.BOTTOM,
+                                  );
+                                }),
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete,
+                                label: 'delete',
                               ),
-                              Row(
-                                //     crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    DateFormat(" hh:mm a")
-                                        .format(dataevent.date),
-                                    style: const TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
                             ],
                           ),
-                        )),
-                  ),
-                ),
-                Positioned(
-                  left: 11.0,
-                  top: 2.0,
-                  bottom: 5.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image(
-                      width: 110.0,
-                      image: FileImage(File(dataevent.image)),
-                      fit: BoxFit.cover,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                                130.0, 10.0, 20.0, 0.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      dataevent.title,
+                                      style: const TextStyle(
+                                          fontSize: 19.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    dataevent.priority ?? false
+                                        ? Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.red[100],
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(3.0),
+                                              child: Icon(
+                                                Icons.trip_origin,
+                                                size: 25,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          )
+                                        : Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.yellow[100],
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(3.0),
+                                              child: Icon(
+                                                Icons.trip_origin,
+                                                size: 25,
+                                                color: Colors.yellow.shade500,
+                                              ),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 35,
+                                ),
+                                Row(
+                                  //     crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      DateFormat(" hh:mm a")
+                                          .format(dataevent.date),
+                                      style: const TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )),
                     ),
                   ),
-                )
-              ],
+                  Positioned(
+                    left: 11.0,
+                    top: 2.0,
+                    bottom: 5.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image(
+                        width: 110.0,
+                        image: FileImage(File(dataevent.image)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             );
           },
         );

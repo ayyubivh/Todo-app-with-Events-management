@@ -104,7 +104,7 @@ class _add_eventformState extends State<add_eventform> {
   Widget position() {
     return Positioned(
       bottom: 1,
-      right: 140,
+      right: 145,
       child: InkWell(
         onTap: () {
           takePhoto();

@@ -61,7 +61,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
             // print('objec{$notifytime}');
             return Padding(
               padding: const EdgeInsets.only(
-                  top: 6.0, left: 12.0, right: 12.0, bottom: 0),
+                  top: 8.0, left: 12.0, right: 12.0, bottom: 0),
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -108,7 +108,7 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: ListTile(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(

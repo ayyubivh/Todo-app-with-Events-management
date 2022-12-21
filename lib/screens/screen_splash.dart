@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/screens/screen_home.dart';
 
 class Screen_splash extends StatefulWidget {
@@ -23,9 +23,16 @@ class _Screen_splashState extends State<Screen_splash> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
-        child: Lottie.network(
-            'https://assets2.lottiefiles.com/packages/lf20_jy1bgnpp.json'),
+        child: Text(
+          'Lets do',
+          style: GoogleFonts.arvo(
+              fontSize: 55.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2),
+        ),
       ),
     );
   }
