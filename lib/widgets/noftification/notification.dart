@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/widgets/home_widgets/home_eventlist.dart';
 import 'package:todo_app/widgets/home_widgets/home_tasklist_section.dart';
+
+import '../home_widgets/home_eventlist.dart';
 
 void notify({required String title, required DateTime body}) async {
   await AwesomeNotifications().createNotification(
@@ -21,7 +22,7 @@ checkTimeNotification() {
             notifytime.hour, notifytime.minute) ==
         (DateTime(datetimeNow.year, datetimeNow.month, datetimeNow.day,
             datetimeNow.hour, datetimeNow.minute))) {
-      // notify(title: notifydata!.title, body: notifydata!.date);
+      notify(title: notifydata!.title, body: notifydata!.date);
       getAllTodotask();
     }
   });
@@ -34,8 +35,7 @@ checkTimeNotificationEvent() {
             notifytime.hour, notifytime.minute) ==
         (DateTime(datetimeNow.year, datetimeNow.month, datetimeNow.day,
             datetimeNow.hour, datetimeNow.minute))) {
-      //   print("click");
-      // notify(title: notifydataEvnt!.title, body: notifydataEvnt!.date);
+      notify(title: notifydataEvnt!.title, body: notifydataEvnt!.date);
       getAllTodoEvent();
     }
   });

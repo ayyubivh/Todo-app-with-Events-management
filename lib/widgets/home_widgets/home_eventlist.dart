@@ -59,6 +59,10 @@ class _Home_eventsection extends State<Home_eventsection> {
 
             // notifytime = upcomingEvent[0].date;
             // notifydataEvnt = upcomingEvent[0];
+            for (int i = 0; i < upcomingEvent.length; i++) {
+              notifytime = upcomingEvent[i].date;
+              notifydataEvnt = upcomingEvent[i];
+            }
             return Padding(
               padding: const EdgeInsets.all(3.0),
               child: Stack(

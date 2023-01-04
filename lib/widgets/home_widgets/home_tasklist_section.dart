@@ -57,6 +57,10 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                 .toList();
             // notifytime = upcomingtask[0].date;
             // notifydata = upcomingtask[0];
+            for (int i = 0; i < upcomingtask.length; i++) {
+              notifytime = upcomingtask[i].date;
+              notifydata = upcomingtask[i];
+            }
 
             // print('objec{$notifytime}');
             return Padding(
