@@ -10,7 +10,7 @@ import 'package:todo_app/widgets/noftification/notification.dart';
 
 import '../../models/data_model.dart';
 
-DateTime notifytime = DateTime.now();
+DateTime notifytime = DateTime(2020, 2, 1);
 
 List<TodoModel> upcomingtask = [];
 TodoModel? notifydata;
