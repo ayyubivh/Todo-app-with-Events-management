@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import 'package:todo_app/screens/screen_calender.dart';
-import 'package:todo_app/screens/screen_dashboard.dart';
+import 'package:todo_app/presentation/screen_calender.dart';
+import 'package:todo_app/presentation/screen_dashboard.dart';
 import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
 

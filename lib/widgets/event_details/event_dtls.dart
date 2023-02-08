@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
+import 'package:todo_app/util/app_color.dart';
+import 'package:todo_app/widgets/add_task/flatbutton.dart';
 
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 import 'package:todo_app/widgets/events_edit/events_edit.dart';
@@ -153,14 +154,13 @@ class Eventdtls extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 148),
           child: Center(
-            child: flatbtn(
-                mycolor: Colors.white,
-                mystring: 'Edit',
-                onpressaction: () {
-                  _showedieventtaskForm(context,
-                      passvalue: passvalue, passindex: passindex);
-                }),
-          ),
+              child: FlatButton(
+                  mycolor: Kwhite,
+                  mystring: ' Edit Event',
+                  onpressaction: () {
+                    _showedieventtaskForm(context,
+                        passvalue: passvalue, passindex: passindex);
+                  })),
         )
       ],
     );

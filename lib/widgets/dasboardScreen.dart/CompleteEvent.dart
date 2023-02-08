@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/models/data_model.dart';
-import 'package:todo_app/screens/screen_event_dtls.dart';
+import 'package:todo_app/presentation/screen_event_dtls.dart';
 
 import '../../functions/db_functions.dart';
 import '../common_widgets/common_text.dart';
@@ -42,7 +42,7 @@ class CompletedEvents extends StatelessWidget {
                       ),
                       child: Slidable(
                         endActionPane: ActionPane(
-                          motion:const StretchMotion(),
+                          motion: const StretchMotion(),
                           children: [
                             SlidableAction(
                               onPressed: ((context) {

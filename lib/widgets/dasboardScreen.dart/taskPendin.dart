@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../functions/db_functions.dart';
 import '../../models/data_model.dart';
-import '../../screens/screen_details.dart';
+import '../../presentation/screen_details.dart';
 import '../common_widgets/common_text.dart';
 import '../home_widgets/home_tasklist_section.dart';
 
@@ -60,8 +60,7 @@ class TasakPending extends StatelessWidget {
                           ],
                         ),
                         endActionPane: ActionPane(
-                          motion: const
-                          StretchMotion(),
+                          motion: const StretchMotion(),
                           children: [
                             SlidableAction(
                               onPressed: ((context) {

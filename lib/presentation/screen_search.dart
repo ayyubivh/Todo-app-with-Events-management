@@ -6,14 +6,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/models/data_model.dart';
-import 'package:todo_app/screens/screen_details.dart';
-import 'package:todo_app/screens/screen_event_dtls.dart';
+import 'package:todo_app/presentation/screen_details.dart';
+import 'package:todo_app/presentation/screen_event_dtls.dart';
 import 'package:todo_app/util/app_color.dart';
 
 import '../functions/db_functions.dart';
 
 class Screen_search extends StatefulWidget {
-  Screen_search({super.key});
+  const Screen_search({super.key});
 
   @override
   State<Screen_search> createState() => _Screen_searchState();

@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
-import 'package:todo_app/screens/screen_event_dtls.dart';
+import 'package:todo_app/presentation/screen_event_dtls.dart';
 
 class EventScreen_calender extends StatefulWidget {
   const EventScreen_calender({super.key});

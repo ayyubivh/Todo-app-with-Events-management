@@ -7,7 +7,7 @@ import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../../functions/db_functions.dart';
-import '../../screens/screen_details.dart';
+import '../../presentation/screen_details.dart';
 
 class CompleteTask extends StatelessWidget {
   const CompleteTask({super.key});

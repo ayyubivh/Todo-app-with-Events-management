@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/eventCalender_screen.dart';
+import 'package:todo_app/presentation/eventCalender_screen.dart';
 import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
 import 'package:todo_app/widgets/dasboardScreen.dart/evntDashboard.dart';

@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_app/models/data_model.dart';
-import 'package:todo_app/screens/screen_details.dart';
+import 'package:todo_app/presentation/screen_details.dart';
 
 import '../functions/db_functions.dart';
 import '../widgets/home_widgets/home_tasklist_section.dart';

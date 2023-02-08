@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_app/screens/screen_home.dart';
+import 'package:todo_app/presentation/screen_home.dart';
 
 class Screen_splash extends StatefulWidget {
   const Screen_splash({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/screens/screen_search.dart';
+import 'package:todo_app/presentation/screen_search.dart';
 import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 import 'package:todo_app/widgets/home_widgets/screenTerms.dart';

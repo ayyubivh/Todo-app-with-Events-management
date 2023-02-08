@@ -5,7 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/screens/screen_details.dart';
+import 'package:todo_app/presentation/screen_details.dart';
+import 'package:todo_app/widgets/add_events/date.dart';
 import 'package:todo_app/widgets/noftification/notification.dart';
 
 import '../../models/data_model.dart';
@@ -25,6 +26,12 @@ class Home_tasksection extends StatefulWidget {
 class _Home_tasksectionState extends State<Home_tasksection> {
   @override
   Widget build(BuildContext context) {
+    TodoModel? data;
+    if (data == null) {
+      print('nodate');
+    } else {
+      print(data.date);
+    }
     checkTimeNotification();
     return ValueListenableBuilder(
       valueListenable: todolistnotifier,
@@ -166,10 +173,11 @@ class _Home_tasksectionState extends State<Home_tasksection> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 15.0),
                               child: Text(
-                                DateFormat("  hh:mm a").format(data.date),
+                                DateFormat("hh:mm a").format(data.date),
+
                                 //  data.date.toString(),
                                 style: const TextStyle(
-                                    fontSize: 15.0,
+                                    fontSize: 17.0,
                                     fontWeight: FontWeight.w800),
                               ),
                             ),

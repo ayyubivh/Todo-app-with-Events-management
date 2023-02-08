@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/screens/screen_home.dart';
+import 'package:todo_app/presentation/screen_home.dart';
 import 'package:todo_app/util/app_color.dart';
+import 'package:todo_app/util/sizedbox.dart';
+import 'package:todo_app/widgets/add_events/timefield.dart';
 import 'package:todo_app/widgets/add_task/add_taskform.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
@@ -171,9 +173,7 @@ class _edit_taskformState extends State<edit_taskform> {
             myfontsize: 27,
             mycolor: Colors.black,
             fontweight: FontWeight.bold),
-        const SizedBox(
-          height: 7,
-        ),
+        kHeight7,
         Padding(
             padding: const EdgeInsets.all(12.0),
             child: tasktextform(mycontroller: _titleController, hintname: '')),
@@ -181,17 +181,13 @@ class _edit_taskformState extends State<edit_taskform> {
             padding: const EdgeInsets.all(11),
             child: tasktextform(
                 mycontroller: _disciptionController, hintname: '')),
-        const SizedBox(
-          height: 7,
-        ),
+        kHeight7,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [dates(), times()],
         ),
         prioritybutton(myPriority, onchangeFunction),
-        const SizedBox(
-          height: 15,
-        ),
+        kHeight15,
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -207,9 +203,7 @@ class _edit_taskformState extends State<edit_taskform> {
               mycolor: Colors.white,
               mystring: 'Save'),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        kHeight15
       ],
     );
   }

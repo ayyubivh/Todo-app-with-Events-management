@@ -1,217 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/util/app_color.dart';
+import 'package:todo_app/widgets/add_events/date.dart';
+import 'package:todo_app/widgets/add_events/timefield.dart';
+import 'package:todo_app/widgets/add_task/priority_button.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
-
+import '../../util/sizedbox.dart';
 import '../../util/tasktextform.dart';
+import '../add_events/add_event_scrn.dart';
+import 'flatbutton.dart';
 
-class add_taskform extends StatefulWidget {
+final _titleController = TextEditingController();
+final _disciptionController = TextEditingController();
+
+class add_taskform extends StatelessWidget {
   add_taskform({super.key});
 
   @override
-  State<add_taskform> createState() => _add_taskformState();
-}
-
-class _add_taskformState extends State<add_taskform> {
-  final _titleController = TextEditingController();
-  final _disciptionController = TextEditingController();
-  var _togglecontroller;
-
-  DateTime dateTime = DateTime.now();
-
-//=============Date=============
-  Widget dates() {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.grey[200],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-              padding: EdgeInsets.all(17)),
-          onPressed: () async {
-            final date = await pickDate();
-            if (date == null) return;
-
-            final newDateTime = DateTime(date.year, date.month, date.day,
-                dateTime.hour, dateTime.minute);
-            setState(() {
-              dateTime = newDateTime;
-            });
-          },
-          child: Text(
-            '  ${dateTime.year}/${dateTime.month}/${dateTime.day} ',
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-          )),
-    );
-  }
-
-  Future<DateTime?> pickDate() => showDatePicker(
-      context: context,
-      initialDate: dateTime,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2500));
-
-//*********************Time*********************** */
-  Widget times() {
-    final hours = dateTime.hour.toString().padLeft(2, '0');
-    final minutes = dateTime.minute.toString().padLeft(2, '0');
-
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[200],
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            padding: EdgeInsets.all(17)),
-        onPressed: () async {
-          final time = await pickTime();
-          if (time == null) return;
-
-          final newDateTime = DateTime(dateTime.year, dateTime.month,
-              dateTime.day, time.hour, time.minute);
-          setState(() {
-            dateTime = newDateTime;
-          });
-        },
-        child: Text(
-          '       $hours:$minutes        ',
-          style: const TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-      ),
-    );
-  }
-
-  Future<TimeOfDay?> pickTime() => showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
-
-//************************flatbutton************************* */
-  Widget flatbtn(
-      {required Color mycolor,
-      required String mystring,
-      required void Function() onpressaction}) {
-    return Container(
-      width: 325,
-      height: 60.0,
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Fcolor,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12))),
-          onPressed: onpressaction,
-          child: texts(
-            mystring: mystring,
-            myfontsize: 22,
-            fontweight: FontWeight.bold,
-            mycolor: mycolor,
-          )),
-    );
-  }
-
-//**************************priority********************************************** */
-
-  Widget prioritybutton(bool isSwitched, Function onChangeMethod) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const texts(
-            mystring: 'Prioirity ?',
-            myfontsize: 16,
-            mycolor: Colors.black,
-            fontweight: FontWeight.w600),
-        const SizedBox(
-          width: 5,
-        ),
-        Switch(
-          value: isSwitched,
-          onChanged: (newvalue) {
-            onChangeMethod(newvalue);
-          },
-          inactiveThumbColor: Colors.amber,
-          activeTrackColor: Colors.red,
-          activeColor: Colors.red,
-        ),
-      ],
-    );
-  }
-
-  bool myPriority = false;
-  onchangeFunction(bool newvalue) {
-    setState(() {
-      myPriority = newvalue;
-    });
-  }
-
-//********************************************************* */
-  @override
   Widget build(BuildContext context) {
-    //   final String _formatdate = DateFormat.yMMMd().format(date);
     return Column(
       children: [
-        const SizedBox(
-          height: 17,
-        ),
+        kHeight15,
         const texts(
             mystring: 'New Task',
             myfontsize: 27,
             mycolor: Colors.black,
             fontweight: FontWeight.bold),
-        const SizedBox(
-          height: 10,
-        ),
+        kHeight30,
         Column(children: [
+          tasktextform(mycontroller: _titleController, hintname: 'Title'),
+          kHeight7,
+          tasktextform(
+              mycontroller: _disciptionController, hintname: 'Discription'),
+          kHeight5,
           Padding(
-            padding: const EdgeInsets.all(12.0),
-            child:
-                tasktextform(mycontroller: _titleController, hintname: 'Title'),
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 7),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(child: DateField()),
+                const SizedBox(width: 5),
+                Expanded(child: TimeField())
+              ],
+            ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(11),
-            child: tasktextform(
-                mycontroller: _disciptionController, hintname: 'Discription'),
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [dates(), times()],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          prioritybutton(myPriority, onchangeFunction),
-          const SizedBox(
-            height: 7,
-          ),
+          kHeight5,
+          const PriorityButton(),
+          kHeight7,
           Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12), color: maincolor),
-            child: flatbtn(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12), color: maincolor),
+              child: FlatButton(
+                mycolor: Kwhite,
+                mystring: 'Add Event',
                 onpressaction: () {
                   _onAddtodoButtonClicked();
                   Navigator.pop(context);
                 },
-                mycolor: Colors.white,
-                mystring: 'Add todo'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
+              )),
+          kHeight10
         ]),
-        const SizedBox(
-          height: 10,
-        ),
+        kHeight10
       ],
     );
   }
@@ -220,7 +70,9 @@ class _add_taskformState extends State<add_taskform> {
     final _title = _titleController.text.trim();
     final _discription = _disciptionController.text.trim();
     final _date = dateTime;
+    print(dateTime);
     final _id = DateTime.now().toString();
+
     if (_title.isEmpty || _discription.isEmpty) {
       return;
     }
@@ -228,7 +80,7 @@ class _add_taskformState extends State<add_taskform> {
         title: _title,
         description: _discription,
         date: _date,
-        priority: myPriority,
+        priority: priority,
         id: _id,
         complete: false,
         isdone: false);
