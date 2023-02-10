@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
       debugShowCheckedModeBanner: false,
-      home: const Screen_splash(),
+      home: Screen_splash(),
     );
   }
 }

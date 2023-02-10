@@ -14,7 +14,8 @@ class Screen_details extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(centerTitle: true,
+        appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.black,
           title: const Text(
             'Details',
@@ -29,7 +30,7 @@ class Screen_details extends StatelessWidget {
           color: Colors.grey[200],
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: details_screen(passvalue: passvalue, passindex: passindex),
+          child: DetailScreen(passvalue: passvalue, passindex: passindex),
         )),
       ),
     );

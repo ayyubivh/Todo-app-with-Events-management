@@ -33,7 +33,8 @@ class TasakPending extends StatelessWidget {
                           element.isdone == false)
                       .toList()[index];
                   return Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 6, horizontal: 12.0),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,

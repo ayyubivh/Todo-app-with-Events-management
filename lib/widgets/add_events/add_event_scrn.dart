@@ -6,7 +6,6 @@ import 'package:todo_app/models/data_model.dart';
 import 'package:todo_app/widgets/add_events/eventimage.dart';
 import 'package:todo_app/widgets/add_task/flatbutton.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
-
 import '../../util/app_color.dart';
 import '../../util/event_textform.dart';
 import 'date.dart';
@@ -16,6 +15,8 @@ bool priority = false;
 final _titleController = TextEditingController();
 final _locationController = TextEditingController();
 final _disciptionController = TextEditingController();
+final _dateController = TextEditingController();
+final _timeController = TextEditingController();
 
 class add_eventform extends StatelessWidget {
   add_eventform({super.key});
@@ -53,8 +54,8 @@ class add_eventform extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.red),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
                       child: Text(
                         'high',
                         textAlign: TextAlign.center,
@@ -76,8 +77,8 @@ class add_eventform extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.yellow),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
+                    child: const Padding(
+                      padding: EdgeInsets.all(4),
                       child: Text(
                         'low',
                         textAlign: TextAlign.center,
@@ -114,7 +115,7 @@ class add_eventform extends StatelessWidget {
         ),
         Column(
           children: [
-            EventImage(flag: true),
+            EventImage(flag: false),
             const SizedBox(
               height: 18,
             ),
@@ -132,9 +133,19 @@ class add_eventform extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [DateField(), TimeField()],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(child: DateField(dateController: _dateController)),
+                  const SizedBox(width: 5),
+                  Expanded(
+                      child: TimeField(
+                    timeController: _timeController,
+                  ))
+                ],
+              ),
             ),
             const SizedBox(
               height: 6,
@@ -147,7 +158,7 @@ class add_eventform extends StatelessWidget {
                 ),
                 child: FlatButton(
                   mycolor: Kwhite,
-                  mystring: 'Add Event',
+                  mystring: 'Add Events',
                   onpressaction: () {
                     _onAddtodoeventClicked();
                     Navigator.pop(context);

@@ -29,7 +29,7 @@ checkTimeNotification() {
 }
 
 checkTimeNotificationEvent() {
-  Timer.periodic(Duration(seconds: 5), (timer) {
+  Timer.periodic(const Duration(seconds: 5), (timer) {
     DateTime datetimeNow = DateTime.now();
     if (DateTime(notifytime.year, notifytime.month, notifytime.day,
             notifytime.hour, notifytime.minute) ==

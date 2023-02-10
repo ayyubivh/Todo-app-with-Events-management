@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/presentation/screen_details.dart';
-import 'package:todo_app/widgets/add_events/date.dart';
 import 'package:todo_app/widgets/noftification/notification.dart';
 
 import '../../models/data_model.dart';
@@ -16,14 +15,9 @@ DateTime notifytime = DateTime(2020, 2, 1);
 List<TodoModel> upcomingtask = [];
 TodoModel? notifydata;
 
-class Home_tasksection extends StatefulWidget {
+class Home_tasksection extends StatelessWidget {
   const Home_tasksection({super.key});
 
-  @override
-  State<Home_tasksection> createState() => _Home_tasksectionState();
-}
-
-class _Home_tasksectionState extends State<Home_tasksection> {
   @override
   Widget build(BuildContext context) {
     TodoModel? data;

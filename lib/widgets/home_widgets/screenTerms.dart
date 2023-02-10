@@ -1,6 +1,5 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 import 'package:todo_app/widgets/home_widgets/privacypolicy.dart';
 

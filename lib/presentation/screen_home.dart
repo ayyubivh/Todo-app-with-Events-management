@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
-import 'package:todo_app/presentation/screen_search.dart';
+import 'package:todo_app/presentation/screen_search&filter.dart';
 import 'package:todo_app/util/app_color.dart';
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
 import 'package:todo_app/widgets/home_widgets/screenTerms.dart';
@@ -39,11 +39,6 @@ class Screen_home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // const Icon(
-                    //   Icons.date_range_outlined,
-                    //   color: Colors.black,
-                    // ),
-
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0, left: 120),
                       child: Text(
@@ -76,14 +71,18 @@ class Screen_home extends StatelessWidget {
 
 //================icon button=======================
   Widget iconbtnsearch(context) {
+    // ignore: no_leading_underscores_for_local_identifiers
+    ValueNotifier<String> _searchNotifier = ValueNotifier('');
     return IconButton(
       icon: const Icon(
         Icons.search_outlined,
         size: 30,
       ),
       onPressed: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Screen_search()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ScreenSearch(
+                  searchNotifier: _searchNotifier,
+                )));
       },
     );
   }
@@ -111,10 +110,6 @@ class Screen_home extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Row(
                     children: [
-                      // const Icon(
-                      //   Icons.date_range_outlined,
-                      //   color: Colors.black,
-                      // ),
                       const SizedBox(
                         width: 5,
                       ),

@@ -158,8 +158,9 @@ class Eventdtls extends StatelessWidget {
                   mycolor: Kwhite,
                   mystring: ' Edit Event',
                   onpressaction: () {
-                    _showedieventtaskForm(context,
-                        passvalue: passvalue, passindex: passindex);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => edit_eventform(
+                            passvalue: passvalue, passindex: passindex)));
                   })),
         )
       ],

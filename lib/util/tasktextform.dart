@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class tasktextform extends StatelessWidget {
-  const tasktextform({
-    Key? key,
-    required this.mycontroller,
-    required this.hintname,
-  }) : super(key: key);
+  const tasktextform(
+      {Key? key,
+      required this.mycontroller,
+      required this.hintname,
+      this.initial})
+      : super(key: key);
 
   final TextEditingController? mycontroller;
   final String hintname;
-
+  final String? initial;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

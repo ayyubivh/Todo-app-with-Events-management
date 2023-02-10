@@ -7,14 +7,17 @@ import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 import '../edit_task/edit_taskform.dart';
 
-class details_screen extends StatelessWidget {
-  details_screen({
+// ignore: must_be_immutable
+class DetailScreen extends StatelessWidget {
+  DetailScreen({
     super.key,
     required this.passvalue,
     required this.passindex,
   });
   var passvalue;
+  // ignore: prefer_typing_uninitialized_variables
   var passindex;
+// prefer_typing_uninitialized_variables
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -177,9 +180,13 @@ class details_screen extends StatelessWidget {
                             ),
                             child: ElevatedButton(
                                 onPressed: () {
-                                  _showeditaddtaskForm(context,
-                                      passvalue: passvalue,
-                                      passindex: passindex);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => EditTaskForm(
+                                          passvalue: passvalue,
+                                          passindex: passindex)));
+                                  // _showeditaddtaskForm(context,
+                                  //     passvalue: passvalue,
+                                  //     passindex: passindex);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Fcolor,
@@ -224,7 +231,7 @@ void _showeditaddtaskForm(BuildContext context,
         ),
       ),
       height: MediaQuery.of(context).size.height * 0.65,
-      child: edit_taskform(
+      child: EditTaskForm(
         passvalue: passvalue,
         passindex: passindex,
       ),

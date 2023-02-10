@@ -13,6 +13,8 @@ import 'flatbutton.dart';
 
 final _titleController = TextEditingController();
 final _disciptionController = TextEditingController();
+final _dateController = TextEditingController();
+final _timeController = TextEditingController();
 
 class add_taskform extends StatelessWidget {
   add_taskform({super.key});
@@ -39,9 +41,15 @@ class add_taskform extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(child: DateField()),
+                Expanded(
+                    child: DateField(
+                  dateController: _dateController,
+                )),
                 const SizedBox(width: 5),
-                Expanded(child: TimeField())
+                Expanded(
+                    child: TimeField(
+                  timeController: _timeController,
+                ))
               ],
             ),
           ),

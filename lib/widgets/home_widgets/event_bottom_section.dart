@@ -5,10 +5,8 @@ import 'package:todo_app/widgets/add_events/add_event_scrn.dart';
 import 'package:todo_app/widgets/dasboardScreen.dart/evntDashboard.dart';
 import 'package:todo_app/widgets/home_widgets/task_bottom_section.dart';
 
-import '../add_task/add_taskform.dart';
-
 class event_bottomsection extends StatelessWidget {
-  Widget floatbtn(BuildContext context) {
+  Widget floatbtnevent(BuildContext context) {
     return SizedBox(
       height: 52,
       width: 52,
@@ -62,7 +60,7 @@ class event_bottomsection extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx1) => const EventScreen_calender()));
+                        builder: (ctx1) => EventScreen_calender()));
                   },
                   icon: const Icon(
                     Icons.calendar_month,
@@ -71,7 +69,7 @@ class event_bottomsection extends StatelessWidget {
                   )),
               Center(
                 heightFactor: 0.3,
-                child: floatbtn(context),
+                child: floatbtnevent(context),
               ),
               IconButton(
                 icon: const Icon(
@@ -81,7 +79,7 @@ class event_bottomsection extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx1) => const EventDashboardLists()));
+                      builder: (ctx1) => EventDashboardLists()));
                 },
               )
             ],

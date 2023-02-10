@@ -10,8 +10,8 @@ import 'date.dart';
 DateTime? dbTime;
 
 class TimeField extends StatelessWidget {
-  TimeField({super.key});
-  final timeController = TextEditingController();
+  const TimeField({super.key, required this.timeController});
+  final TextEditingController timeController;
 
   @override
   Widget build(BuildContext context) {

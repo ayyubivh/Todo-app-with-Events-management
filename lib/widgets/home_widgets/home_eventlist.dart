@@ -1,30 +1,20 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/functions/db_functions.dart';
 import 'package:todo_app/presentation/screen_event_dtls.dart';
-import 'package:todo_app/widgets/add_events/timefield.dart';
 import 'package:todo_app/widgets/noftification/notification.dart';
-
 import '../../models/data_model.dart';
 import 'home_tasklist_section.dart';
 
 List<TodoEvent> upcomingEvent = [];
 TodoEvent? notifydataEvnt;
 
-class Home_eventsection extends StatefulWidget {
+class Home_eventsection extends StatelessWidget {
   const Home_eventsection({super.key});
 
-  @override
-  State<Home_eventsection> createState() => _Home_eventsection();
-}
-
-class _Home_eventsection extends State<Home_eventsection> {
   @override
   Widget build(BuildContext context) {
     checkTimeNotificationEvent();

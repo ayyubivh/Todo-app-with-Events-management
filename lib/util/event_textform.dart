@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class eventTextform extends StatelessWidget {
-  const eventTextform({
-    Key? key,
-    required this.mycontroller,
-    required this.hintname,
-  }) : super(key: key);
+  var initial;
+
+  eventTextform(
+      {Key? key,
+      required this.mycontroller,
+      required this.hintname,
+      this.initial})
+      : super(key: key);
 
   final TextEditingController mycontroller;
   final String hintname;
@@ -20,6 +23,10 @@ class eventTextform extends StatelessWidget {
         textAlignVertical: TextAlignVertical.bottom,
         controller: mycontroller,
         decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(width: 2.0, color: Colors.blueGrey),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none),
@@ -28,8 +35,9 @@ class eventTextform extends StatelessWidget {
           fillColor: Colors.grey[200],
           hintText: hintname,
           hintStyle: const TextStyle(
-              color: Colors.black54,
-              fontSize: 17.0,
+              letterSpacing: 1,
+              color: Colors.grey,
+              fontSize: 15.0,
               fontWeight: FontWeight.w700),
         ),
         // textAlign: TextAlign.center,

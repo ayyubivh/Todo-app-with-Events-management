@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 part 'data_model.g.dart';
 
@@ -67,7 +66,7 @@ class TodoEvent {
   // @HiveField(8)
   // final String time;
   TodoEvent({
-     required this.title,
+    required this.title,
     required this.isdone,
     this.priority,
     required this.location,

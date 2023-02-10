@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/models/data_model.dart';
 
 import 'package:todo_app/widgets/event_details/event_dtls.dart';
 

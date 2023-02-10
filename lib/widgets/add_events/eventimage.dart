@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/provider/providers.dart';
-import 'package:todo_app/widgets/common_widgets/common_text.dart';
 
 String? imagepath;
 
 class EventImage extends StatelessWidget {
-  EventImage({super.key, required this.flag});
+  EventImage({
+    super.key,
+    required this.flag,
+    this.imagepaths,
+  });
 
   var flag;
+  var imagepaths;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +29,7 @@ class EventImage extends StatelessWidget {
           final imagewatch = ref.watch(imagaProvider);
           return GestureDetector(
             child: imagewatch == ''
-                ? chooseImage(flag, imagepath)
+                ? chooseImage(flag, imagepaths)
                 : Image.file(File(imagewatch)),
             onTap: () async {
               final imagewatch = await takePhoto();
@@ -53,6 +57,6 @@ Image chooseImage(flag, path) {
   if (flag == false) {
     return Image.asset('Asset/images/event.jpg');
   } else {
-    return Image.asset('Asset/images/event.jpg');
+    return Image.file(File(path));
   }
 }

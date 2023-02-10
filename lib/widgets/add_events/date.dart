@@ -8,8 +8,8 @@ import '../../provider/providers.dart';
 DateTime dateTime = DateTime.now();
 
 class DateField extends StatelessWidget {
-  DateField({super.key});
-  final dateController = TextEditingController();
+  const DateField({super.key, required this.dateController});
+  final TextEditingController dateController;
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (BuildContext context, WidgetRef ref, child) {
