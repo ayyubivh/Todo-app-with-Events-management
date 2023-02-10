@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/util/app_color.dart';
+import 'package:todo_app/util/sizedbox.dart';
 import 'package:todo_app/widgets/add_task/flatbutton.dart';
 
 import 'package:todo_app/widgets/common_widgets/common_text.dart';
@@ -134,7 +135,7 @@ class Eventdtls extends StatelessWidget {
                       fontweight: FontWeight.w500),
                 ],
               ),
-              const SizedBox(height: 18),
+              kHeight15,
               const texts(
                   mystring: 'About  ',
                   myfontsize: 18,
@@ -158,9 +159,8 @@ class Eventdtls extends StatelessWidget {
                   mycolor: Kwhite,
                   mystring: ' Edit Event',
                   onpressaction: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => edit_eventform(
-                            passvalue: passvalue, passindex: passindex)));
+                    _showedieventtaskForm(context,
+                        passvalue: passvalue, passindex: passindex);
                   })),
         )
       ],
@@ -172,10 +172,10 @@ void _showedieventtaskForm(BuildContext context,
     {required passvalue, required passindex}) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
-    isDismissible: false,
+    // isDismissible: true,
     isScrollControlled: true,
     context: context,
-    builder: (_) => Container(
+    builder: (BuildContext context) => Container(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -183,7 +183,7 @@ void _showedieventtaskForm(BuildContext context,
           topRight: Radius.circular(25.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.86,
+      // height: MediaQuery.of(context).size.height * 0.86,
       child: edit_eventform(passvalue: passvalue, passindex: passindex),
     ),
   );

@@ -21,56 +21,73 @@ class add_taskform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        kHeight15,
-        const texts(
-            mystring: 'New Task',
-            myfontsize: 27,
-            mycolor: Colors.black,
-            fontweight: FontWeight.bold),
-        kHeight30,
-        Column(children: [
-          tasktextform(mycontroller: _titleController, hintname: 'Title'),
-          kHeight7,
-          tasktextform(
-              mycontroller: _disciptionController, hintname: 'Discription'),
-          kHeight5,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 7),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                    child: DateField(
-                  dateController: _dateController,
-                )),
-                const SizedBox(width: 5),
-                Expanded(
-                    child: TimeField(
-                  timeController: _timeController,
-                ))
-              ],
-            ),
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        decoration: const BoxDecoration(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            color: Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              kHeight15,
+              const texts(
+                  mystring: 'New Task',
+                  myfontsize: 27,
+                  mycolor: Colors.black,
+                  fontweight: FontWeight.bold),
+              kHeight30,
+              Column(children: [
+                tasktextform(mycontroller: _titleController, hintname: 'Title'),
+                kHeight7,
+                tasktextform(
+                    mycontroller: _disciptionController,
+                    hintname: 'Discription'),
+                kHeight5,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 22, vertical: 7),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                          child: DateField(
+                        dateController: _dateController,
+                      )),
+                      const SizedBox(width: 5),
+                      Expanded(
+                          child: TimeField(
+                        timeController: _timeController,
+                      ))
+                    ],
+                  ),
+                ),
+                kHeight5,
+                const PriorityButton(),
+                kHeight7,
+                Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: maincolor),
+                    child: FlatButton(
+                      mycolor: Kwhite,
+                      mystring: 'Add Event',
+                      onpressaction: () {
+                        _onAddtodoButtonClicked();
+                        Navigator.pop(context);
+                      },
+                    )),
+                kHeight10
+              ]),
+              kHeight10
+            ],
           ),
-          kHeight5,
-          const PriorityButton(),
-          kHeight7,
-          Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12), color: maincolor),
-              child: FlatButton(
-                mycolor: Kwhite,
-                mystring: 'Add Event',
-                onpressaction: () {
-                  _onAddtodoButtonClicked();
-                  Navigator.pop(context);
-                },
-              )),
-          kHeight10
-        ]),
-        kHeight10
-      ],
+        ),
+      ),
     );
   }
 

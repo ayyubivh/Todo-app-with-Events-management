@@ -20,8 +20,10 @@ class DetailScreen extends StatelessWidget {
 // prefer_typing_uninitialized_variables
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Container(
+        height: screenHeight,
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

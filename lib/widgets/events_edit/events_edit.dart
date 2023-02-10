@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/functions/db_functions.dart';
@@ -25,7 +23,6 @@ class edit_eventform extends StatelessWidget {
   final _locationcontroller = TextEditingController();
   final _dateController = TextEditingController();
   final _timeController = TextEditingController();
-//=======================================================================/
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -103,17 +100,14 @@ class edit_eventform extends StatelessWidget {
       });
     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Fcolor,
-          title: const Text('Lets do '),
-        ),
-        body: ListView(
+    return ListView(
+      children: [
+        kHeight30,
+        kHeight30,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 10,
-            ),
+            Spacer(),
             const Center(
               child: texts(
                   mystring: 'Edit event',
@@ -121,73 +115,88 @@ class edit_eventform extends StatelessWidget {
                   mycolor: Colors.black87,
                   fontweight: FontWeight.w500),
             ),
+            const Spacer(),
+            TextButton.icon(
+                label: const Text(
+                  'save',
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
+                onPressed: () {
+                  _onEdittodoeventClicked(passindex);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (ctx) => const Screen_home()),
+                      (route) => false);
+                },
+                icon: const Icon(
+                  Icons.done,
+                  size: 30,
+                ))
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Column(
+          children: [
+            EventImage(flag: true, imagepaths: passvalue.image),
             const SizedBox(
               height: 10,
             ),
-            Column(
-              children: [
-                EventImage(flag: true, imagepaths: passvalue.image),
-                const SizedBox(
-                  height: 10,
-                ),
-                eventTextform(
-                    initial: passvalue.title,
-                    mycontroller: _titleController,
-                    hintname: ''),
-                const SizedBox(
-                  height: 7,
-                ),
-                eventTextform(
-                  mycontroller: _discriptionController,
-                  hintname: '',
-                  initial: passvalue.description,
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                eventTextform(mycontroller: _locationcontroller, hintname: ''),
-                const SizedBox(
-                  height: 4,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                          child: DateField(
-                        dateController: _dateController,
-                      )),
-                      const SizedBox(width: 5),
-                      Expanded(
-                          child: TimeField(
-                        timeController: _timeController,
-                      ))
-                    ],
-                  ),
-                ),
-                kHeight15,
-                prioritybutton(priority),
-                kHeight5,
-                SizedBox(
-                  height: height / 12,
-                ),
-                FlatButton(
-                  mycolor: Kwhite,
-                  mystring: 'Update',
-                  onpressaction: () {
-                    _onEdittodoeventClicked(passindex);
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (ctx) => const Screen_home()),
-                        (route) => false);
-                  },
-                )
-              ],
+            eventTextform(
+                initial: passvalue.title,
+                mycontroller: _titleController,
+                hintname: ''),
+            const SizedBox(
+              height: 7,
             ),
+            eventTextform(
+              mycontroller: _discriptionController,
+              hintname: '',
+              initial: passvalue.description,
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            eventTextform(mycontroller: _locationcontroller, hintname: ''),
+            const SizedBox(
+              height: 4,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                      child: DateField(
+                    dateController: _dateController,
+                  )),
+                  const SizedBox(width: 5),
+                  Expanded(
+                      child: TimeField(
+                    timeController: _timeController,
+                  ))
+                ],
+              ),
+            ),
+            kHeight10,
+            prioritybutton(priority),
+            kHeight5,
+            // SizedBox(
+            //   height: height / 10,
+            // ),
+            // FlatButton(
+            //   mycolor: Kwhite,
+            //   mystring: 'Update',
+            //   onpressaction: () {
+            //     _onEdittodoeventClicked(passindex);
+            //     Navigator.of(context).pushAndRemoveUntil(
+            //         MaterialPageRoute(builder: (ctx) => const Screen_home()),
+            //         (route) => false);
+            //   },
+            // )
           ],
         ),
-      ),
+      ],
     );
   }
 
@@ -200,7 +209,7 @@ class edit_eventform extends StatelessWidget {
     if (_title.isEmpty || _discription.isEmpty || _location.isEmpty) {
       return;
     }
-    final _todoevent = TodoEvent(
+    final todoevent = TodoEvent(
       title: _title,
       description: _discription,
       date: _date,
@@ -211,7 +220,7 @@ class edit_eventform extends StatelessWidget {
       isdone: false,
     );
 
-    editevent(passvalue.id, BuildContext, _todoevent);
+    editevent(passvalue.id, BuildContext, todoevent);
     getAllTodoEvent();
   }
 }

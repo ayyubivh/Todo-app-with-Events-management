@@ -17,6 +17,7 @@ class Home_eventsection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getAllTodoEvent();
     checkTimeNotificationEvent();
     return ValueListenableBuilder(
       valueListenable: todolisteventnotifier,

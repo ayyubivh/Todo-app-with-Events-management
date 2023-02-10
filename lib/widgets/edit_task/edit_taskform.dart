@@ -27,7 +27,7 @@ class EditTaskForm extends StatelessWidget {
     _titleControllers.text = passvalue.title;
     _disciptionControllers.text = passvalue.description;
     _dateControllers.text = passvalue.date.toString();
-    _dateControllers.text = passvalue.date.toString();
+    _timeControllers.text = passvalue.date.toString();
 
     return SafeArea(
       child: Scaffold(
@@ -37,65 +37,67 @@ class EditTaskForm extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 48.0),
-          child: Column(
-            children: [
-              kHeight15,
-              const texts(
-                  mystring: ' Edit Task',
-                  myfontsize: 27,
-                  mycolor: Colors.black,
-                  fontweight: FontWeight.bold),
-              kHeight30,
-              Column(children: [
-                tasktextform(
-                    hintname: 'Title',
-                    mycontroller: _titleControllers,
-                    initial: passvalue.title),
-                kHeight7,
-                tasktextform(
-                    mycontroller: _disciptionControllers,
-                    hintname: 'Discription'),
-                kHeight5,
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 22, vertical: 7),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                          child: DateField(
-                        dateController: _dateControllers,
-                      )),
-                      const SizedBox(width: 5),
-                      Expanded(
-                          child: TimeField(
-                        timeController: _timeControllers,
-                      ))
-                    ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                kHeight15,
+                const texts(
+                    mystring: ' Edit Task',
+                    myfontsize: 27,
+                    mycolor: Colors.black,
+                    fontweight: FontWeight.bold),
+                kHeight30,
+                Column(children: [
+                  tasktextform(
+                      hintname: 'Title',
+                      mycontroller: _titleControllers,
+                      initial: passvalue.title),
+                  kHeight7,
+                  tasktextform(
+                      mycontroller: _disciptionControllers,
+                      hintname: 'Discription'),
+                  kHeight5,
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 22, vertical: 7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                            child: DateField(
+                          dateController: _dateControllers,
+                        )),
+                        const SizedBox(width: 5),
+                        Expanded(
+                            child: TimeField(
+                          timeController: _timeControllers,
+                        ))
+                      ],
+                    ),
                   ),
-                ),
-                kHeight5,
-                const PriorityButton(),
-                kHeight7,
-                SizedBox(
-                  height: height / 4.3,
-                ),
-                Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: maincolor),
-                    child: FlatButton(
-                      mycolor: Kwhite,
-                      mystring: 'update',
-                      onpressaction: () {
-                        editOnButtonclicked(passindex);
-                        Navigator.pop(context);
-                      },
-                    )),
+                  kHeight5,
+                  const PriorityButton(),
+                  kHeight7,
+                  SizedBox(
+                    height: height / 4.3,
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: maincolor),
+                      child: FlatButton(
+                        mycolor: Kwhite,
+                        mystring: 'update',
+                        onpressaction: () {
+                          editOnButtonclicked(passindex);
+                          Navigator.pop(context);
+                        },
+                      )),
+                  kHeight10
+                ]),
                 kHeight10
-              ]),
-              kHeight10
-            ],
+              ],
+            ),
           ),
         ),
       ),

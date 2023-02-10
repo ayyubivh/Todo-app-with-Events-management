@@ -102,10 +102,12 @@ Widget navcontainer() {
 void _showaddtaskForm(BuildContext context, var itemkey, var index) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
-    isDismissible: false,
+
+    // isDismissible: false,
     isScrollControlled: true,
+
     context: context,
-    builder: (_) => Container(
+    builder: (BuildContext context) => Container(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -113,7 +115,7 @@ void _showaddtaskForm(BuildContext context, var itemkey, var index) {
           topRight: Radius.circular(35.0),
         ),
       ),
-      height: MediaQuery.of(context).size.height * 0.64,
+      // height: MediaQuery.of(context).size.height * 0.64,
       child: add_taskform(),
     ),
   );
